@@ -33,11 +33,16 @@ Homies is a web application that simplifies all planning and coordination betwee
 
 ## Design Docs
 * [View Wireframes][]
-* [React Components][components.md]
-* [Flux Cycles][flux-cycles.md]
-* [API endpoints][api-endpoints.md]
-* [DB schema][schema.md]
+* [React Components][components]
+* [Flux Cycles][flux-cycles]
+* [API endpoints][api-endpoints]
+* [DB schema][schema]
 
+
+[components]: components.md
+[flux-cycles]: flux-cycles.md
+[api-endpoints]: api-endpoints.md
+[schema]: schema.md
 
 ## Implementation Timeline
 

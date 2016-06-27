@@ -1,0 +1,34 @@
+{
+  "name": "Homies",
+  "version": "1.0.0",
+  "description": "[Heroku link][https://agile-caverns-1179.herokuapp.com/]",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paulokuda/Homies.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paulokuda/Homies/issues"
+  },
+  "homepage": "https://github.com/paulokuda/Homies#readme",
+  "dependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "flux": "^2.1.1",
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0",
+    "react-router": "2.0.1",
+    "webpack": "^1.13.1"
+  }
+}

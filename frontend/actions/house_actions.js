@@ -4,13 +4,14 @@ const HouseConstants = require('../constants/house_constants.js');
 
 const HouseActions = {
   createHouse: function (house) {
-    HouseApiUtil.createHouse(house, HouseActions.receiveHouse);
+    HouseApiUtil.createHouse(house, HouseActions.addHouse);
   },
-  receiveHouse: function (house) {
+  addHouse: function (house) {
+    console.log('before dispatch');
     AppDispatcher.dispatch({
-      actionType: HouseConstants.HOUSE_RECEIVED,
+      actionType: HouseConstants.ADD_HOUSE,
       house: house
-    });
+    })
   }
 };
 

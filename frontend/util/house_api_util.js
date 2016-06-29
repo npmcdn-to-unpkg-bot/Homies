@@ -5,9 +5,9 @@ const HouseApiUtil = {
       type: "POST",
       data: { house: house },
       success: function (response) {
-        callback(response)
+        // console.log(callback);
+        callback(response);
         console.log('successfully created a house!');
-        console.log(response);
       },
       error: function (err) {
         console.log('error!');

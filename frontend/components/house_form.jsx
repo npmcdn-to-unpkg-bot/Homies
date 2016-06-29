@@ -1,5 +1,6 @@
 const React = require('react');
 const HouseActions = require('../actions/house_actions.js');
+const HouseStore = require('../stores/house_store.js');
 
 const HouseForm = React.createClass({
   getInitialState: function () {

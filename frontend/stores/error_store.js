@@ -10,13 +10,13 @@ function setErrors (payload) {
   _errors = payload.errors;
   _form = payload.form;
   ErrorStore.__emitChange();
-}
+};
 
 function clearErrors () {
   _errors = {};
   _form = "";
   ErrorStore.__emitChange();
-}
+};
 
 ErrorStore.__onDispatch = function (payload) {
   switch (payload.actionType) {

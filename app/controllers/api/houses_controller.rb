@@ -2,6 +2,8 @@ class Api::HousesController < ApplicationController
   def create
     @house = House.new(house_params)
     if @house.save
+      current_user.house = @house
+      current_user.save
       render "api/houses/show"
     else
     end

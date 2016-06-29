@@ -1,6 +1,8 @@
 const React = require('react');
+const Link = require('react-router').Link;
 const HouseActions = require('../actions/house_actions.js');
 const HouseStore = require('../stores/house_store.js');
+const hashHistory = require('react-router').hashHistory;
 
 const HouseForm = React.createClass({
   getInitialState: function () {
@@ -11,10 +13,17 @@ const HouseForm = React.createClass({
       city: "",
       state: "",
       zip: ""
-    }
+    };
   },
   update: function (property) {
     return (e) => this.setState({[property]: e.target.value});
+  },
+  componentDidMount: function () {
+    this.houseListener = HouseStore.addListener(this.redirectIfHouseCreated);
+  },
+  redirectIfHouseCreated: function () {
+    console.log('router push!');
+    hashHistory.push("/dashboard");
   },
   handleSubmit: function (e) {
     e.preventDefault();
@@ -69,7 +78,7 @@ const HouseForm = React.createClass({
         <br />
         <input type="submit" value="Submit" />
       </form>
-    )
+    );
   }
 });
 

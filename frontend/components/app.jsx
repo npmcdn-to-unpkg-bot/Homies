@@ -17,24 +17,29 @@ const App = React.createClass({
     	);
     } else if ( !["/login", "/signup"].includes(this.props.location.pathname) ) {
       return (
-        <nav className="login-signup">
-          <Link to="/login" activeClassName="current">Login</Link>
+        <div className="login-signup">
+          <Link to="/login" activeClassName="current" className="waves-effect waves-light btn">Login</Link>
           &nbsp;or&nbsp;
-          <Link to="/signup" activeClassName="current">Sign up!</Link>
-        </nav>
+          <Link to="/signup" activeClassName="current" className="waves-effect waves-light btn">Sign Up!!</Link>
+        </div>
       );
     }
   },
   render: function () {
     return (
-      <div>
+      <div className="container">
         <header>
           <Link to="/" className="header-link"><h1>Homies</h1></Link>
-          { this.greeting() }
+          <div className="row center">
+            { this.greeting() }
+          </div>
+          <div className="row center">
+            Homies is a web application that centralizes bill payments, messaging, lists, and calendar events between housemates.
+          </div>
         </header>
         {this.props.children}
       </div>
-    )
+    );
   }
 });
 

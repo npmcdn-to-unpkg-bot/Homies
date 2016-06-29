@@ -3,6 +3,7 @@ const Link = require('react-router').Link;
 const SessionActions = require('../actions/session_actions.js');
 const SessionStore = require('../stores/session_store.js');
 const ErrorStore = require('../stores/error_store.js');
+const hashHistory = require('react-router').hashHistory;
 
 const LoginForm = React.createClass({
   contextTypes: {
@@ -20,7 +21,7 @@ const LoginForm = React.createClass({
   },
   redirectIfLoggedIn() {
     if (SessionStore.isUserLoggedIn()) {
-      this.context.router.push("/");
+      hashHistory.push("/movein");
     }
   },
   componentWillUnmount() {
@@ -61,9 +62,11 @@ const LoginForm = React.createClass({
       navLink = <Link to="/login">log in instead</Link>;
     }
 		return (
-			<div className="login-form-container">
-				<form onSubmit={this.handleSubmit} className="login-form-box">
-					Please { this.formType() } or { navLink }
+			<div className="row">
+        <div className="center">
+          Please { this.formType() } or { navLink }
+        </div>
+        <form onSubmit={this.handleSubmit}>
           { this.fieldErrors("base") }
 					<div className="login-form">
 		        <br />
@@ -85,7 +88,7 @@ const LoginForm = React.createClass({
 						</label>
 
 		        <br />
-						<input type="submit" value="Submit" />
+            <button className="btn waves-effect waves-light" type="submit" name="action">Submit</button>
 					</div>
 				</form>
 			</div>

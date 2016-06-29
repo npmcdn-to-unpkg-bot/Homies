@@ -12,19 +12,12 @@ const App = require('./components/app.jsx');
 const LoginForm = require('./components/login_form.jsx');
 const SignupForm = require('./components/signup_form.jsx');
 const HouseForm = require('./components/house_form.jsx');
+const MoveIn = require('./components/movein.jsx');
 //Testing
 const SessionActions = require('./actions/session_actions.js');
 const SessionStore = require('./stores/session_store.js');
 window.actions = SessionActions;
 window.store = SessionStore;
-
-const Dashboard = React.createClass({
-  render: function () {
-    return (
-      <div>dashboard</div>
-    )
-  }
-});
 
 function _ensureLoggedIn(nextState, replace) {
   // We don't want users to be able to visit our 'new' or 'review' routes
@@ -40,17 +33,25 @@ function _ensureLoggedIn(nextState, replace) {
     }
 }
 
+const Dashboard = React.createClass({
+  render: function () {
+    return (
+      <div>meow dashboard</div>
+    );
+  }
+});
+
 
 const appRouter = (
   <Router history={hashHistory}>
     <Route path="/" component={App}>
-      <IndexRoute component={Dashboard} />
       <Route path="login" component={LoginForm} />
       <Route path="signup" component={SignupForm} />
-      <Route path="house/new" component={HouseForm} />
+      <Route path="movein" component={MoveIn} />
+      <Route path="dashboard" component={Dashboard} />
     </Route>
   </Router>
-)
+);
 
 document.addEventListener('DOMContentLoaded', function () {
   if (window.currentUser) {

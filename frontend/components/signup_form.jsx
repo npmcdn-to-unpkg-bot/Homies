@@ -3,6 +3,7 @@ const Link = require('react-router').Link;
 const SessionActions = require('../actions/session_actions');
 const SessionStore = require('../stores/session_store');
 const ErrorStore = require('../stores/error_store');
+const hashHistory = require('react-router').hashHistory;
 
 const SignupForm = React.createClass({
   contextTypes: {
@@ -13,8 +14,7 @@ const SignupForm = React.createClass({
       username: "",
       password: "",
       f_name: "",
-      l_name: "",
-      house_id: ""
+      l_name: ""
     };
   },
   componentDidMount: function () {
@@ -23,7 +23,7 @@ const SignupForm = React.createClass({
   },
   redirectIfLoggedIn: function () {
     if (SessionStore.isUserLoggedIn()) {
-      this.context.router.push("/");
+      hashHistory.push("/movein");
     }
   },
   componentWillUnmount: function () {
@@ -36,8 +36,7 @@ const SignupForm = React.createClass({
 			username: this.state.username,
 			password: this.state.password,
       f_name: this.state.f_name,
-      l_name: this.state.l_name,
-      house_id: this.state.house_id
+      l_name: this.state.l_name
 		};
     SessionActions.signup(formData);
 	},
@@ -96,15 +95,6 @@ const SignupForm = React.createClass({
 							<input type="text"
 		            value={this.state.l_name}
 		            onChange={this.update("l_name")}
-								className="login-input" />
-						</label>
-
-            <br />
-            <label> House ID:
-              { this.fieldErrors("house_id") }
-							<input type="text"
-		            value={this.state.house_id}
-		            onChange={this.update("house_id")}
 								className="login-input" />
 						</label>
 

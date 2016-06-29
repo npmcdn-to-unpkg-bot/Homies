@@ -11,6 +11,7 @@ const hashHistory = ReactRouter.hashHistory;
 const App = require('./components/app.jsx');
 const LoginForm = require('./components/login_form.jsx');
 const SignupForm = require('./components/signup_form.jsx');
+const HouseForm = require('./components/house_form.jsx');
 //Testing
 const SessionActions = require('./actions/session_actions.js');
 const SessionStore = require('./stores/session_store.js');
@@ -34,6 +35,8 @@ function _ensureLoggedIn(nextState, replace) {
     if (!SessionStore.isUserLoggedIn()) {
       console.log('here!');
       replace('/login');
+    } else {
+      console.log('wow');
     }
 }
 
@@ -44,6 +47,7 @@ const appRouter = (
       <IndexRoute component={Dashboard} />
       <Route path="login" component={LoginForm} />
       <Route path="signup" component={SignupForm} />
+      <Route path="house/new" component={HouseForm} />
     </Route>
   </Router>
 )

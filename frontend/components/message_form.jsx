@@ -10,9 +10,9 @@ const MessageForm = React.createClass({
   },
   handleSubmit: function (e) {
     e.preventDefault();
-    e.target.value = "";
-    console.log('updated target value');
     MessageActions.createMessage(this.state);
+    document.getElementById('content').value = "";
+    console.log('updated target value');
   },
   render: function () {
     return (

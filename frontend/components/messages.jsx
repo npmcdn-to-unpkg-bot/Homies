@@ -1,3 +1,4 @@
+/* globals Pusher */
 const React = require('react');
 const MessageStore = require('../stores/message_store.js');
 const MessageActions = require('../actions/message_actions.js');
@@ -13,6 +14,18 @@ const Messages = React.createClass({
   componentDidMount: function () {
     this.listener = MessageStore.addListener(this.updateMessage);
     MessageActions.fetchMessages();
+    const pusher = new Pusher('2a359a50111bf7bde24b', {
+      encrypted: true
+    });
+
+    var channel = pusher.subscribe('house_1');
+    channel.bind('message_created', function(data) {
+      MessageActions.fetchMessages();
+    });
+
+  },
+  componentWillUnmount: function () {
+    this.listener.remove();
   },
   updateMessage: function () {
     this.setState({ messages: MessageStore.all() }, function () {
@@ -20,6 +33,7 @@ const Messages = React.createClass({
     });
   },
   render: function () {
+    console.log('rendering');
     const messages = this.state.messages;
     const messageKeys = Object.keys(messages);
     let messageJsx = messageKeys.map(key => {

@@ -15,9 +15,12 @@ const Messages = React.createClass({
     MessageActions.fetchMessages();
   },
   updateMessage: function () {
-    this.setState({ messages: MessageStore.all() });
+    this.setState({ messages: MessageStore.all() }, function () {
+      console.log('updated state');
+    });
   },
   render: function () {
+    console.log('re-render');
     const messages = this.state.messages;
     const messageKeys = Object.keys(messages);
     let messageJsx = messageKeys.map(key => {

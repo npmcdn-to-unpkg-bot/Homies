@@ -15,21 +15,21 @@ function allMessages (messages) {
   for (let i = 0; i < messageKeys.length; i++) {
     _messages[messages[messageKeys[i]].id] = messages[messageKeys[i]];
   }
+  MessageStore.__emitChange();
 }
 
 function addMessage (message) {
   _messages[message.id] = message;
+  MessageStore.__emitChange();
 }
 
 MessageStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
     case MessageConstants.RECEIVE_MESSAGES:
       allMessages(payload.messages);
-      MessageStore.__emitChange();
       break;
     case MessageConstants.MESSAGE_CREATED:
       addMessage(payload.message);
-      MessageStore.__emitChange();
       break;
   }
 };

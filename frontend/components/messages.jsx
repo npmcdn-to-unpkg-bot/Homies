@@ -31,8 +31,6 @@ const Messages = React.createClass({
         </div>
       );
     });
-    const messageDiv = document.getElementsByClassName("message-view-dashboard");
-    console.log(messageDiv.scrollHeight);
     return (
       <div className="row message-view-dashboard">
         <div className="message-content">

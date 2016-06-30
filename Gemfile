@@ -35,7 +35,6 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-rails'
   gem 'byebug'
-  gem 'web-console', '~> 2.0'
   gem 'spring'
 end
 

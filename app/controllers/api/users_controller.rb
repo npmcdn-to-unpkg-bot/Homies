@@ -17,6 +17,16 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def update
+    @user = User.find(params[:id])
+    puts "PARAMS: #{params}"
+    if @user.update(house_id: params[:house_id])
+      render "api/users/show"
+    else
+      render json: { base: ["Unable to edit"] }, status: 500
+    end
+  end
+
   private
   def user_params
     params.require(:user).permit(:f_name, :l_name, :username, :password, :house_id)

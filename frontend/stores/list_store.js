@@ -1,11 +1,12 @@
 const Store = require('flux/utils').Store;
 const AppDispatcher = require('../dispatcher/dispatcher.js');
 const ListStore = new Store(AppDispatcher);
+const ListConstants = require('../constants/list_constants.js');
 
 let _lists = {};
 
-ListStore.fetchLists = function () {
-
+ListStore.all = function () {
+  return _lists;
 };
 
 function allLists (lists) {
@@ -13,7 +14,12 @@ function allLists (lists) {
 };
 
 ListStore.__onDispatch = function (payload) {
-
+  switch (payload.actionType) {
+    case ListConstants.RECEIVE_HOUSES_LISTS:
+      allLists(payload.lists);
+      ListStore.__emitChange();
+      break;
+  }
 };
 
 module.exports = ListStore;

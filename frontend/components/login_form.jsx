@@ -70,22 +70,30 @@ const LoginForm = React.createClass({
           { this.fieldErrors("base") }
 					<div className="login-form">
 		        <br />
-						<label> Username:
-              { this.fieldErrors("username") }
-							<input type="text"
-		            value={this.state.username}
-		            onChange={this.update("username")}
-								className="login-input" />
-						</label>
 
-		        <br />
-						<label> Password:
-              { this.fieldErrors("password") }
-		          <input type="password"
+
+            <div className="input-field col s4">
+              <input id="username" type="username" className="validate" type="text"
+		            value={this.state.username}
+		            onChange={this.update("username")}/>
+              <label for="username">Username</label>
+            </div>
+
+
+
+            <div className="input-field col s4">
+              <input id="password" type="password"
 		            value={this.state.password}
 		            onChange={this.update("password")}
-								className="login-input" />
-						</label>
+								className="login-input"/>
+              <label for="password">Passworrd</label>
+            </div>
+
+
+    
+
+
+
 
 		        <br />
             <button className="btn waves-effect waves-light" type="submit" name="action">Submit</button>

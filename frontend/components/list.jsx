@@ -5,20 +5,39 @@ const SessionStore = require('../stores/session_store.js');
 
 const List = React.createClass({
   getInitialState: function () {
-    console.log('current user!');
-    console.log(SessionStore.currentUser());
     return {
-      lists: ListStore.fetchLists(SessionStore.currentUser().house_id)
+      lists: ListStore.all()
     };
+  },
+  componentDidMount: function () {
+    this.listener = ListStore.addListener(this.handleUpdates);
+  },
+  handleUpdates: function (lists) {
+    this.setState({ lists: ListStore.all() })
   },
   fetch: function () {
     console.log('fetch!');
     ListActions.fetchHousesLists();
   },
+  listObjectToArray: function () {
+    const lists = [];
+    const listKeys = Object.keys(this.state.lists);
+    listKeys.forEach(key => {
+      lists.push(this.state.lists[key]);
+    });
+    return lists;
+  },
   render: function () {
+    let listJsx = this.listObjectToArray().map(list => {
+      return <li key={list}>{list}</li>
+    });
+
+    if (listJsx.length === 0) {
+      listJsx = "omg";
+    }
     return (
       <div onClick={this.fetch}>
-        hello from the list component
+        {listJsx}
       </div>
     );
   }

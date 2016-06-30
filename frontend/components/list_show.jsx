@@ -10,17 +10,20 @@ const ListShow = React.createClass({
         </li>
       );
     });
-
     if (listItems.length === 0) {
       listItemsJsx = "You have no items on this list!";
     }
     return (
-      <div>
-        <blockquote>{this.props.list.title}</blockquote>
-        <ul>
-          {listItemsJsx}
-        </ul>
-      </div>
+      <ul className="collapsible" data-collapsible="accordion">
+        <li>
+          <div className="collapsible-header">{this.props.list.title}</div>
+          <div className="collapsible-body">
+            <ul>
+              {listItemsJsx}
+            </ul>
+          </div>
+        </li>
+      </ul>
     );
   }
 });

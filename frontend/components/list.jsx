@@ -14,7 +14,7 @@ const List = React.createClass({
     this.listener = ListStore.addListener(this.handleUpdates);
     ListActions.fetchHousesLists();
   },
-  handleUpdates: function (lists) {
+  handleUpdates: function () {
     this.setState({ lists: ListStore.all() });
   },
   render: function () {
@@ -28,7 +28,7 @@ const List = React.createClass({
     });
 
     return (
-      <div onClick={this.fetch}>
+      <div>
         Lists:
         {listJsx}
       </div>

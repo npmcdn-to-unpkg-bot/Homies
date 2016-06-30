@@ -20,13 +20,12 @@ const Messages = React.createClass({
     });
   },
   render: function () {
-    console.log('re-render');
     const messages = this.state.messages;
     const messageKeys = Object.keys(messages);
     let messageJsx = messageKeys.map(key => {
       const sender = messages[key].user.username;
       return (
-        <div key={messages[key].id} id="scroll-animation">
+        <div key={messages[key].id}>
           <li key={messages[key].id}>
             <strong>{sender}: </strong>
             {messages[key].content}
@@ -36,11 +35,9 @@ const Messages = React.createClass({
     });
     return (
       <div className="row message-view-dashboard">
-        <div className="message-content">
-          <ul className="">
-            {messageJsx}
-          </ul>
-        </div>
+        <ul className="">
+          {messageJsx}
+        </ul>
         <div className="message-action">
           <MessageForm />
         </div>

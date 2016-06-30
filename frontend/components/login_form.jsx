@@ -71,7 +71,6 @@ const LoginForm = React.createClass({
 					<div className="login-form">
 		        <br />
 
-
             <div className="input-field col s4">
               <input id="username" type="username" className="validate" type="text"
 		            value={this.state.username}
@@ -79,21 +78,13 @@ const LoginForm = React.createClass({
               <label for="username">Username</label>
             </div>
 
-
-
             <div className="input-field col s4">
               <input id="password" type="password"
 		            value={this.state.password}
 		            onChange={this.update("password")}
 								className="login-input"/>
-              <label for="password">Passworrd</label>
+              <label for="password">Password</label>
             </div>
-
-
-    
-
-
-
 
 		        <br />
             <button className="btn waves-effect waves-light" type="submit" name="action">Submit</button>

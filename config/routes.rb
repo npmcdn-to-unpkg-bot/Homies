@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :houses, only: [:edit, :create, :show, :update]
     resources :lists, only: [:index, :create, :show, :update]
     resources :users, only: [:create, :update]
+    resources :messages, only: [:create, :index]
     resource :session, only: [:create, :destroy, :show]
   end
 end

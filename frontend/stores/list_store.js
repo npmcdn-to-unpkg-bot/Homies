@@ -11,7 +11,7 @@ ListStore.all = function () {
 
 function allLists (lists) {
   const listKeys = Object.keys(lists);
-  for (let i = 0; i < Object.keys(lists).length; i++) {
+  for (let i = 0; i < listKeys.length; i++) {
     _lists[lists[listKeys[i]].id] = lists[listKeys[i]];
   }
 }

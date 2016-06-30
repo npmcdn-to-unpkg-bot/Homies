@@ -7,7 +7,6 @@ const HouseActions = {
     HouseApiUtil.createHouse(house, HouseActions.addHouse);
   },
   addHouse: function (house) {
-    console.log('house_actions::addHouse');
     AppDispatcher.dispatch({
       actionType: HouseConstants.ADD_HOUSE,
       house: house

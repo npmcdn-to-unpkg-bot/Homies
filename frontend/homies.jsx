@@ -14,6 +14,7 @@ const SignupForm = require('./components/signup_form.jsx');
 const HouseForm = require('./components/house_form.jsx');
 const MoveIn = require('./components/movein.jsx');
 const Dashboard = require('./components/dashboard.jsx');
+const Messages = require('./components/messages.jsx');
 //Testing
 const SessionActions = require('./actions/session_actions.js');
 const SessionStore = require('./stores/session_store.js');
@@ -42,6 +43,7 @@ const appRouter = (
       <Route path="signup" component={SignupForm} />
       <Route path="movein" component={MoveIn} />
       <Route path="dashboard" component={Dashboard} />
+      <Route path="messages" component={Messages} />
     </Route>
   </Router>
 );

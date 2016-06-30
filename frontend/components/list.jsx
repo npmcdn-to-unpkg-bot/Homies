@@ -26,7 +26,7 @@ const List = React.createClass({
 
     return (
       <div onClick={this.fetch}>
-        <h1>Lists:</h1>
+        Lists:
         {listJsx}
       </div>
     );

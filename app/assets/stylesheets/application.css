@@ -13,3 +13,16 @@
  *= require_tree .
  *= require_self
  */
+.message-view-dashboard {
+  max-height: 300px;
+  min-width: 100%;
+  overflow: scroll;
+  border: 1px solid black;
+}
+
+.message-view-dashboard.mousescroll {
+  overflow: hidden;
+}
+.message-view-dashboard.mousescroll:hover {
+  overflow-y: scroll;
+}

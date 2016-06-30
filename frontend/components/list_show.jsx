@@ -5,7 +5,7 @@ const ListShow = React.createClass({
     const listItems = this.props.listItems;
     let listItemsJsx = listItems.map(item => {
       return (
-        <li>
+        <li key={item.id}>
           {item.content}
         </li>
       );

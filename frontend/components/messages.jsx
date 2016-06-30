@@ -2,7 +2,6 @@ const React = require('react');
 const MessageStore = require('../stores/message_store.js');
 const MessageActions = require('../actions/message_actions.js');
 const MessageForm = require('./message_form.jsx');
-const MessageItem = require('./message_item.jsx');
 const SessionStore = require('../stores/session_store.js');
 
 const Messages = React.createClass({
@@ -21,16 +20,29 @@ const Messages = React.createClass({
   render: function () {
     const messages = this.state.messages;
     const messageKeys = Object.keys(messages);
-    const currentUser = SessionStore.currentUser().username;
     let messageJsx = messageKeys.map(key => {
-      return (<MessageItem sender={currentUser} messageItem={messages[key]} />);
+      const sender = messages[key].user.username;
+      return (
+        <div key={messages[key].id} id="scroll-animation">
+          <li key={messages[key].id}>
+            <strong>{sender}: </strong>
+            {messages[key].content}
+          </li>
+        </div>
+      );
     });
+    const messageDiv = document.getElementsByClassName("message-view-dashboard");
+    console.log(messageDiv.scrollHeight);
     return (
-      <div>
-        <ul>
-          {messageJsx}
-        </ul>
-        <MessageForm />
+      <div className="row message-view-dashboard">
+        <div className="message-content">
+          <ul className="">
+            {messageJsx}
+          </ul>
+        </div>
+        <div className="message-action">
+          <MessageForm />
+        </div>
       </div>
     );
   }

@@ -1,12 +1,13 @@
 class Api::MessagesController < ApplicationController
   def index
     @messages = current_user.house.messages
+    @user =
     render "api/messages/index"
   end
 
   def create
     @message = Message.new(message_params)
-    @message.user_id = current_user.id
+    @message.user = current_user
     @message.house = current_user.house
     if @message.save
       render "api/messages/show"

@@ -3,26 +3,29 @@ const MessageActions = require('../actions/message_actions.js');
 
 const MessageForm = React.createClass({
   getInitialState: function () {
-    return { content: "" }
+    return { content: "" };
   },
   update: function (e) {
     this.setState({ content: e.target.value });
   },
   handleSubmit: function (e) {
     e.preventDefault();
-    MessageActions.createMessage(this.state)
+    e.target.value = "";
+    console.log('updated target value');
+    MessageActions.createMessage(this.state);
   },
   render: function () {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="login-form">
           <br />
-
           <div className="input-field col s12">
-            <input id="content" type="message" className="validate" type="text"
-              value={this.state.message}
-              onChange={this.update}/>
-            <label for="username">Username</label>
+            <input id="content"
+                   placeholder="Type message here..."
+                   className="validate"
+                   type="text"
+                   value={this.state.message}
+                   onChange={this.update} />
           </div>
 
 

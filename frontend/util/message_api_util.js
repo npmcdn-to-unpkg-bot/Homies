@@ -20,7 +20,7 @@ const MessageApiUtil = {
       type: "POST",
       data: { message },
       success: function (response) {
-        callback(message);
+        callback(response);
         console.log('successfully created message!');
       },
       error: function (err) {

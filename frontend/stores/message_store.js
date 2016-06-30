@@ -8,8 +8,6 @@ let _messages = {};
 
 MessageStore.all = function () {
   return _messages;
-  console.log('MessageStore::all');
-  console.log(_messages);
 };
 
 function allMessages (messages) {
@@ -30,8 +28,8 @@ MessageStore.__onDispatch = function (payload) {
       MessageStore.__emitChange();
       break;
     case MessageConstants.MESSAGE_CREATED:
-      MessageStore.__emitChange();
       addMessage(payload.message);
+      MessageStore.__emitChange();
       break;
   }
 };

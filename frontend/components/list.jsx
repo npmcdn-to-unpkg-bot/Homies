@@ -21,7 +21,10 @@ const List = React.createClass({
     const lists = this.state.lists;
     const listKeys = Object.keys(lists);
     let listJsx = listKeys.map(key => {
-      return <ListShow list={lists[key]} listItems={lists[key].list_items}/>;
+      return <ListShow
+                key={lists[key].id}
+                list={lists[key]}
+                listItems={lists[key].list_items}/>;
     });
 
     return (

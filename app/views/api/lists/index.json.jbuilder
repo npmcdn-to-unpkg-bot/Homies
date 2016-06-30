@@ -1,5 +1,1 @@
-@lists.each do |list|
-  json.set! list.id do
-    json.partial! 'list', list: list
-  end
-end
+json.array! @lists, :id, :title, :description, :created_at, :updated_at

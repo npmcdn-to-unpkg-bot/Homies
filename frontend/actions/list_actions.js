@@ -4,6 +4,7 @@ const ListConstants = require('../constants/list_constants.js');
 
 const ListActions = {
   fetchHousesLists: function () {
+    console.log('gotta seee ya 1');
     ListApiUtil.fetchHousesLists(ListActions.receiveHousesLists);
   },
   receiveHousesLists: function (lists) {

@@ -11,7 +11,7 @@ const HouseActions = {
     AppDispatcher.dispatch({
       actionType: HouseConstants.ADD_HOUSE,
       house: house
-    })
+    });
   }
 };
 

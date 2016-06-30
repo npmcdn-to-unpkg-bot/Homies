@@ -2,6 +2,7 @@ const React = require('react');
 const ListStore = require('../stores/list_store.js');
 const ListActions = require('../actions/list_actions.js');
 const SessionStore = require('../stores/session_store.js');
+const ListShow = require('./list_show.jsx');
 
 const List = React.createClass({
   getInitialState: function () {
@@ -11,32 +12,27 @@ const List = React.createClass({
   },
   componentDidMount: function () {
     this.listener = ListStore.addListener(this.handleUpdates);
-  },
-  handleUpdates: function (lists) {
-    this.setState({ lists: ListStore.all() })
-  },
-  fetch: function () {
-    console.log('fetch!');
     ListActions.fetchHousesLists();
   },
-  listObjectToArray: function () {
-    const lists = [];
-    const listKeys = Object.keys(this.state.lists);
-    listKeys.forEach(key => {
-      lists.push(this.state.lists[key]);
+  handleUpdates: function (lists) {
+    console.log('before set state');
+    this.setState({
+      lists: ListStore.all()
+    }, function () {
+      console.log('finished updated state!');
     });
-    return lists;
   },
   render: function () {
-    let listJsx = this.listObjectToArray().map(list => {
-      return <li key={list}>{list}</li>
+    const lists = this.state.lists;
+    console.log('log me');
+    const listKeys = Object.keys(lists);
+    console.log(listKeys);
+    let listJsx = listKeys.map(key => {
+      return (<ListShow list={lists[key]}/>);
     });
-
-    if (listJsx.length === 0) {
-      listJsx = "omg";
-    }
     return (
       <div onClick={this.fetch}>
+        <h1>Lists:</h1>
         {listJsx}
       </div>
     );

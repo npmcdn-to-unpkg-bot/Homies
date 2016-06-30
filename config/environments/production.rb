@@ -76,4 +76,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  # Heroku
+  config.serve_static_files = true
+  # ...
+  config.log_level = :debug
 end

@@ -21,6 +21,7 @@ class Api::UsersController < ApplicationController
     @user = User.find(params[:id])
     puts "PARAMS: #{params}"
     if @user.update(house_id: params[:house_id])
+      # Since I don't have a UserStore, I need to re-render components through the HouseStore, so I need a house object
       render "api/users/show"
     else
       render json: { base: ["Unable to edit"] }, status: 500

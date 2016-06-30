@@ -26,8 +26,8 @@ HouseStore.__onDispatch = function (payload) {
       // Don't need to emitChange here
       HouseStore.__emitChange();
       break;
-    case HouseConstants.HOUSEMATE_RECEIVED:
-
+    case HouseConstants.JOINED_HOUSE:
+      HouseStore.__emitChange();
       break;
   }
 };

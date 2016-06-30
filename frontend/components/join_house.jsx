@@ -1,12 +1,20 @@
 const React = require('react');
 const SessionStore = require('../stores/session_store.js');
 const JoinHouseActions = require('../actions/join_house_actions.js');
+const HouseStore = require('../stores/house_store.js');
+const hashHistory = require('react-router').hashHistory;
 
 const JoinHouse = React.createClass({
   getInitialState: function () {
     return {
       house_id: ""
     }
+  },
+  componentDidMount: function () {
+    this.listener = HouseStore.addListener(this.handleUpdate);
+  },
+  handleUpdate: function () {
+    hashHistory.push("/dashboard");
   },
   handleSubmit: function (e) {
     e.preventDefault();

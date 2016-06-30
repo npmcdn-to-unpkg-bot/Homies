@@ -1,17 +1,15 @@
+const AppDispatcher = require('../dispatcher/dispatcher.js');
+const JoinHouseApiUtil = require('../util/join_house_api_util.js');
+const HouseConstants = require('../constants/house_constants.js');
+
 const JoinHouseActions = {
   joinHouse: function (userID, houseID) {
-    $.ajax({
-      url: `api/users/${userID}`,
-      type: "PATCH",
-      data: { house_id: houseID },
-      success: function (response) {
-        console.log(response);
-        console.log('success');
-      },
-      error: function (err) {
-        console.log('error');
-        console.log(err);
-      }
+    JoinHouseApiUtil.joinHouse(userID, houseID, JoinHouseActions.joinedHouse);
+  },
+  joinedHouse: function (house) {
+    AppDispatcher.dispatch({
+      actionType: HouseConstants.JOINED_HOUSE,
+      house: house
     });
   }
 };

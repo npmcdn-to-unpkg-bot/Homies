@@ -13,6 +13,7 @@ const LoginForm = require('./components/login_form.jsx');
 const SignupForm = require('./components/signup_form.jsx');
 const HouseForm = require('./components/house_form.jsx');
 const MoveIn = require('./components/movein.jsx');
+const Dashboard = require('./components/dashboard.jsx');
 //Testing
 const SessionActions = require('./actions/session_actions.js');
 const SessionStore = require('./stores/session_store.js');
@@ -32,14 +33,6 @@ function _ensureLoggedIn(nextState, replace) {
       console.log('wow');
     }
 }
-
-const Dashboard = React.createClass({
-  render: function () {
-    return (
-      <div>meow dashboard</div>
-    );
-  }
-});
 
 
 const appRouter = (

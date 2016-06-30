@@ -6,12 +6,12 @@ const SessionConstants = require('../constants/session_constants.js');
 let _currentUser = {};
 let _currentUserHasBeenFetched = false;
 
-const _login = function(currentUser) {
+const _login = function (currentUser) {
   _currentUser = currentUser;
   _currentUserHasBeenFetched = true;
 };
 
-const _logout = function() {
+const _logout = function () {
   _currentUser = {};
   _currentUserHasBeenFetched = true;
 };
@@ -25,7 +25,7 @@ SessionStore.currentUserHasBeenFetched = function () {
   return !!_currentUserHasBeenFetched;
 };
 
-SessionStore.isUserLoggedIn = function() {
+SessionStore.isUserLoggedIn = function () {
   return !!_currentUser.id;
 };
 

@@ -7,7 +7,6 @@ class User < ActiveRecord::Base
   has_many :messages
   # Validations
   after_initialize :ensure_session_token
-  before_validation :ensure_session_token_uniqueness
   # Methods
   def password=(password)
     self.password_digest = BCrypt::Password.create(password)
@@ -25,24 +24,15 @@ class User < ActiveRecord::Base
   end
 
   def reset_session_token!
-    self.session_token = new_session_token
-    ensure_session_token_uniqueness
-    self.save
+    puts "reset session token"
+    self.session_token = SecureRandom.base64
+    self.save!
     self.session_token
   end
 
+
   private
-  def new_session_token
-    SecureRandom.base64
-  end
-
   def ensure_session_token
-    self.session_token ||= new_session_token
-  end
-
-  def ensure_session_token_uniqueness
-    while User.find_by(:session_token => self.session_token)
-      self.session_token = new_session_token
-    end
+    self.session_token ||= SecureRandom.base64
   end
 end

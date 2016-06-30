@@ -10,7 +10,7 @@ class Api::MessagesController < ApplicationController
     @message.user = current_user
     @message.house = current_user.house
     if @message.save
-      Pusher.trigger('house_' + current_user.house.id.to_s, 'message_created', {})
+      Pusher.trigger('message', 'message_created', {})
       render "api/messages/show"
     else
       render json: "wasn't able to create message"

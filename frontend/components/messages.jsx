@@ -14,11 +14,11 @@ const Messages = React.createClass({
   componentDidMount: function () {
     this.listener = MessageStore.addListener(this.updateMessage);
     MessageActions.fetchMessages();
-    const pusher = new Pusher('2a359a50111bf7bde24b', {
+    this.pusher = new Pusher('2a359a50111bf7bde24b', {
       encrypted: true
     });
 
-    var channel = pusher.subscribe('house_1');
+    let channel = this.pusher.subscribe('message');
     channel.bind('message_created', function(data) {
       MessageActions.fetchMessages();
     });
@@ -26,6 +26,7 @@ const Messages = React.createClass({
   },
   componentWillUnmount: function () {
     this.listener.remove();
+    this.pusher.unsubscribe('house');
   },
   updateMessage: function () {
     this.setState({ messages: MessageStore.all() }, function () {

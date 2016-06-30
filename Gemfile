@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
 
+ruby '2.3.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
-gem 'ruby', '2.2.4'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
 # Use SCSS for stylesheets
@@ -36,7 +36,6 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-rails'
   gem 'byebug'
-  gem 'spring'
 end
 
 group :development do

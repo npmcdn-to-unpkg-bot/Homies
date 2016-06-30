@@ -21,18 +21,14 @@ const MessageForm = React.createClass({
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="login-form">
-          <br />
+          <hr />
           <div className="input-field col s12">
             <input id="content"
                    placeholder="Type message here..."
-                   className="validate"
                    type="text"
                    value={this.state.message}
                    onChange={this.update} />
           </div>
-
-
-          <button className="btn waves-effect waves-light" type="submit" name="action">Send</button>
         </div>
       </form>
     );

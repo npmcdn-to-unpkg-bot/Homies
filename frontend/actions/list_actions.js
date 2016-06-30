@@ -4,11 +4,9 @@ const ListConstants = require('../constants/list_constants.js');
 
 const ListActions = {
   fetchHousesLists: function () {
-    console.log('gotta seee ya 1');
     ListApiUtil.fetchHousesLists(ListActions.receiveHousesLists);
   },
   receiveHousesLists: function (lists) {
-    console.log('house_actions::addHouse');
     AppDispatcher.dispatch({
       actionType: ListConstants.RECEIVE_HOUSES_LISTS,
       lists: lists

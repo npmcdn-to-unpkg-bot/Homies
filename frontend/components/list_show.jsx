@@ -2,12 +2,33 @@ const React = require('react');
 
 const ListShow = React.createClass({
   render: function () {
-    return (
-      <ul>
+    console.log('list show render');
+    console.log(this.props.listItems);
+
+    const listItems = this.props.listItems;
+    const listItemsJsx = listItems.map(item => {
+      return (
         <li>
-          {this.props.list.title}
+          {item.content}
         </li>
-      </ul>
+      )
+    });
+
+
+
+    const listItemKeys = Object.keys(this.props.listItems);
+    let listItemJsx = listItemKeys.map(key => {
+      return (<li>{this.props.listItems[key]}</li>);
+    });
+    console.log('list item jsx');
+    console.log(listItemJsx);
+    return (
+      <div>
+        <h4>{this.props.list.title}</h4>
+        <ul>
+          {listItemsJsx}
+        </ul>
+      </div>
     );
   }
 });

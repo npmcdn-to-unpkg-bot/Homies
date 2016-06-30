@@ -10,15 +10,15 @@ ListStore.all = function () {
 };
 
 function allLists (lists) {
-  for (let i = 0; i < lists.length; i++) {
-    _lists[lists[i].id] = lists[i]
+  const listKeys = Object.keys(lists);
+  for (let i = 0; i < Object.keys(lists).length; i++) {
+    _lists[lists[listKeys[i]].id] = lists[listKeys[i]];
   }
-};
+}
 
 ListStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
     case ListConstants.RECEIVE_HOUSES_LISTS:
-      console.log('wooo');
       allLists(payload.lists);
       ListStore.__emitChange();
       break;

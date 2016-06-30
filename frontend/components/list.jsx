@@ -15,21 +15,15 @@ const List = React.createClass({
     ListActions.fetchHousesLists();
   },
   handleUpdates: function (lists) {
-    console.log('before set state');
-    this.setState({
-      lists: ListStore.all()
-    }, function () {
-      console.log('finished updated state!');
-    });
+    this.setState({ lists: ListStore.all() });
   },
   render: function () {
     const lists = this.state.lists;
-    console.log('log me');
     const listKeys = Object.keys(lists);
-    console.log(listKeys);
     let listJsx = listKeys.map(key => {
-      return (<ListShow list={lists[key]}/>);
+      return <ListShow list={lists[key]} listItems={lists[key].list_items}/>;
     });
+
     return (
       <div onClick={this.fetch}>
         <h1>Lists:</h1>

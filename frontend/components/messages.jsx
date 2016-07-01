@@ -22,7 +22,6 @@ const Messages = React.createClass({
     channel.bind('message_created', function(data) {
       MessageActions.fetchMessages();
     });
-
   },
   componentWillUnmount: function () {
     this.listener.remove();

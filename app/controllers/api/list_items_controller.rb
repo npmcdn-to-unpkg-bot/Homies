@@ -5,7 +5,7 @@ class Api::ListItemsController < ApplicationController
     @list.user = current_user
     @list.house = current_user.house
     if @list.save!
-      if params[:list][:list_items]
+      unless params[:list][:list_items].nil?
         params[:list][:list_items].each do |list_item|
           @list_item = ListItem.new(:content => list_item)
           @list_item.list = @list

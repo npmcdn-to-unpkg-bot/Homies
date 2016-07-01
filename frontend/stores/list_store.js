@@ -30,10 +30,6 @@ ListStore.__onDispatch = function (payload) {
       allLists(payload.lists);
       ListStore.__emitChange();
       break;
-    case ListConstants.CREATED_LIST:
-      addList(payload.list);
-      ListStore.__emitChange();
-      break;
   }
 };
 

@@ -12,6 +12,7 @@ const List = React.createClass({
     };
   },
   componentDidMount: function () {
+    console.log('mounting');
     this.listener = ListStore.addListener(this.handleUpdates);
     ListActions.fetchHousesLists();
   },
@@ -19,7 +20,7 @@ const List = React.createClass({
     this.listener.remove();
   },
   handleUpdates: function () {
-    console.log('added a list');
+    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     this.setState({ lists: ListStore.all() });
   },
   render: function () {

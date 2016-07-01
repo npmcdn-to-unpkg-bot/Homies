@@ -1,29 +1,32 @@
 const React = require('react');
 
 const ListShow = React.createClass({
+  getInitialState: function () {
+    return {
+      titleEditMode: false
+    }
+  },
   render: function () {
     const listItems = this.props.listItems;
-    let listItemsJsx = listItems.map(item => {
-      return (
-        <li key={item.id}>
-          {item.content}
-        </li>
-      );
-    });
-    if (listItems.length === 0) {
+    let listItemsJsx;
+    if (!listItems) {
       listItemsJsx = "You have no items on this list!";
+    } else {
+      listItemsJsx = listItems.map(item => {
+        return (
+          <li key={item.id}>
+            {item.content}
+          </li>
+        );
+      });
     }
     return (
-      <ul className="collapsible" data-collapsible="accordion">
-        <li>
-          <div className="collapsible-header">{this.props.list.title}</div>
-          <div className="collapsible-body">
-            <ul>
-              {listItemsJsx}
-            </ul>
-          </div>
-        </li>
-      </ul>
+      <div className="">
+        <h5 onDoubleClick={this.omg}>{this.props.list.title}</h5>
+        <ul>
+          {listItemsJsx}
+        </ul>
+      </div>
     );
   }
 });

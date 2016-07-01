@@ -12,7 +12,6 @@ const List = React.createClass({
     };
   },
   componentDidMount: function () {
-    console.log('mounting');
     this.listener = ListStore.addListener(this.handleUpdates);
     ListActions.fetchHousesLists();
   },
@@ -20,14 +19,12 @@ const List = React.createClass({
     this.listener.remove();
   },
   handleUpdates: function () {
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    console.log('!!!!!!!!!!!!!!!!!!!!!!!nn!!!!!!!!!!!!!!!!!!!!');
     this.setState({ lists: ListStore.all() });
   },
   render: function () {
     const lists = this.state.lists;
     const listKeys = Object.keys(lists);
-    console.log('list keys');
-    console.log(lists);
     let listJsx = listKeys.map(key => {
       return <ListShow
                 key={lists[key].id}
@@ -35,11 +32,12 @@ const List = React.createClass({
                 listItems={lists[key].list_items} />;
     });
 
+    console.log('renderrrr');
     return (
       <div>
         Lists:
         {listJsx}
-        <ListForm callback={this.handleUpdates} />
+        <ListForm />
       </div>
     );
   }

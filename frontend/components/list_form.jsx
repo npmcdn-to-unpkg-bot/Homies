@@ -11,9 +11,6 @@ const ListForm = React.createClass({
       items: []
     };
   },
-  componentDidMount: function () {
-    this.listener = ListStore.addListener(this.props.handleUpdates);
-  },
   handleListSubmit: function (e) {
     console.log('handle list submit');
     e.preventDefault();

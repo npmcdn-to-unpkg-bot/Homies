@@ -8,7 +8,7 @@ const JoinHouse = React.createClass({
   getInitialState: function () {
     return {
       house_id: ""
-    }
+    };
   },
   componentDidMount: function () {
     this.listener = HouseStore.addListener(this.handleUpdate);
@@ -18,8 +18,9 @@ const JoinHouse = React.createClass({
   },
   handleSubmit: function (e) {
     e.preventDefault();
-    console.log('handle submit');
-    JoinHouseActions.joinHouse(SessionStore.currentUser().id, this.state.house_id);
+    if (this.state.house_id !== "") {
+      JoinHouseActions.joinHouse(SessionStore.currentUser().id, this.state.house_id);
+    }
   },
   update: function (e) {
     this.setState({ house_id: e.target.value });
@@ -27,11 +28,14 @@ const JoinHouse = React.createClass({
   render: function () {
     return (
       <div className="row">
-        <div className="input-field col s4">
+        <div className="input-field col s4 center">
           <form onSubmit={this.handleSubmit}>
-            <input id="house-id" onChange={this.update} type="text" className="validate" />
+            <input id="house-id"
+                   onChange={this.update}
+                   type="text"
+                   className="validate" />
             <label for="house-id">Enter House ID</label>
-            <button className="btn waves-effect waves-light" type="submit" name="action">Join</button>
+            <button className="btn waves-effect waves-light"   type="submit" name="action">Join</button>
           </form>
         </div>
       </div>

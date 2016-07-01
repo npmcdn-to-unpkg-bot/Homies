@@ -18,3 +18,7 @@
   overflow: scroll;
   border: 1px solid black;
 }
+
+#house-id {
+  text-align: center;
+}

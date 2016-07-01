@@ -4,8 +4,11 @@ class Api::ListsController < ApplicationController
     render "api/lists/index"
   end
 
-  def create
-    
+  def update
+    @list = List.find(params[:id])
+    if @list.update(:title => params[:list][:title])
+      render "api/lists/show"
+    end
   end
 
 

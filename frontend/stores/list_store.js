@@ -20,6 +20,10 @@ function addList (list) {
   _lists[list.id] = list;
 }
 
+function updateList (list) {
+  _lists[list.id].title = list.title;
+}
+
 ListStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
     case ListConstants.RECEIVE_HOUSES_LISTS:
@@ -28,6 +32,10 @@ ListStore.__onDispatch = function (payload) {
       break;
     case ListConstants.CREATED_LIST:
       addList(payload.list);
+      ListStore.__emitChange();
+      break;
+    case ListConstants.UPDATED_LIST:
+      updateList(payload.list);
       ListStore.__emitChange();
       break;
   }

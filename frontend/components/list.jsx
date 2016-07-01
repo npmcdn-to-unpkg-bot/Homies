@@ -19,7 +19,6 @@ const List = React.createClass({
     this.listener.remove();
   },
   handleUpdates: function () {
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!nn!!!!!!!!!!!!!!!!!!!!');
     this.setState({ lists: ListStore.all() });
   },
   render: function () {
@@ -31,8 +30,6 @@ const List = React.createClass({
                 list={lists[key]}
                 listItems={lists[key].list_items} />;
     });
-
-    console.log('renderrrr');
     return (
       <div>
         Lists:

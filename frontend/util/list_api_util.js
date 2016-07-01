@@ -22,10 +22,26 @@ const ListApiUtil = {
       success: function (response) {
         console.log('succsessfully created a list!');
         console.log(response);
-        callback(response)
+        callback(response);
       },
       error: function (err) {
         console.log('error creating a hosue');
+        console.log(err);
+      }
+    });
+  },
+  updateList: function (list, newTitle, callback) {
+    $.ajax({
+      url: `api/lists/${list.id}`,
+      type: "PATCH",
+      dataType: "JSON",
+      data: { list: { title: newTitle } },
+      success: function (response) {
+        console.log('succes in list api util');
+        callback(response);
+      },
+      error: function (err) {
+        console.log('error in list api util');
         console.log(err);
       }
     });

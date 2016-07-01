@@ -34,7 +34,6 @@ const Messages = React.createClass({
     });
   },
   render: function () {
-    console.log('rendering');
     const messages = this.state.messages;
     const messageKeys = Object.keys(messages);
     let messageJsx = messageKeys.map(key => {

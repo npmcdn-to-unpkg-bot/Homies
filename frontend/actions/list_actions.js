@@ -11,6 +11,16 @@ const ListActions = {
       actionType: ListConstants.RECEIVE_HOUSES_LISTS,
       lists: lists
     });
+  },
+  createList: function (list) {
+    ListApiUtil.createList(list, ListActions.receiveList);
+  },
+  receiveList: function (list) {
+    console.log('received list in list_actions.js!');
+    AppDispatcher.dispatch({
+      actionType: ListConstants.CREATED_LIST,
+      list: list
+    });
   }
 };
 

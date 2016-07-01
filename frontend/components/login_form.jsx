@@ -51,7 +51,7 @@ const LoginForm = React.createClass({
       SessionActions.signup(formData);
     }
 	},
-  update(property) {
+  update: function (property) {
     return (e) => this.setState({[property]: e.target.value});
   },
   render: function () {

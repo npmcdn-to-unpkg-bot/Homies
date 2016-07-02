@@ -1,6 +1,7 @@
 const React = require('react');
 const ListActions = require('../actions/list_actions.js');
 const ListStore = require('../stores/list_store.js');
+const ListItemShow = require('./list_item_show.jsx');
 
 const ListShow = React.createClass({
   getInitialState: function () {
@@ -19,8 +20,6 @@ const ListShow = React.createClass({
     this.listener.remove();
   },
   saveTitle: function () {
-    console.log('save title');
-    console.log(this.state.currentTitle);
     ListActions.updateList(this.props.list, this.state.currentTitle);
   },
   renderTitle: function () {
@@ -28,36 +27,23 @@ const ListShow = React.createClass({
       return this.props.list.title;
     } else {
       return (
-          <form>
+          <form onSubmit={this.saveTitle}>
             <input id="edit-title"
-                   type="title"
                    className="validate"
                    type="text"
                    value={this.state.currentTitle}
                    onChange={this.update("currentTitle")} />
-            <button className="btn waves-effect waves-light"
-                    type="submit"
-                    name="action"
-                    onClick={this.saveTitle}>Save</button>
           </form>
       );
     }
   },
-  updateTitle: function () {
-    const newTitle = document.getElementById('edit-title');
-    console.log(newTitle);
-  },
-  toggleEditMode: function () {
+  toggleListEditMode: function () {
     this.setState({ titleEditMode: true });
   },
   update: function (property) {
-    return (e) => this.setState({ [property]: e.target.value }, function () {
-      console.log('new title');
-      console.log(this.state.currentTitle);
-    });
+    return (e) => this.setState({ [property]: e.target.value });
   },
   render: function () {
-    console.log('rendering list show again');
     const listItems = this.props.listItems;
     let listItemsJsx;
     if (!listItems) {
@@ -65,15 +51,13 @@ const ListShow = React.createClass({
     } else {
       listItemsJsx = listItems.map(item => {
         return (
-          <li key={item.id}>
-            {item.content}
-          </li>
+          <ListItemShow item={item} />
         );
       });
     }
     return (
       <div className="">
-        <h5 onDoubleClick={this.toggleEditMode}>{ this.renderTitle() }</h5>
+        <h5 onDoubleClick={this.toggleListEditMode}>{ this.renderTitle() }</h5>
         <ul>
           {listItemsJsx}
         </ul>

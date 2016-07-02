@@ -16,4 +16,11 @@ class Api::ListItemsController < ApplicationController
     else
     end
   end
+
+  def update
+    @list_item = ListItem.find(params[:id])
+    if @list_item.update(:content => params[:item][:content])
+      render "api/list_items/show"
+    end
+  end
 end

@@ -1,3 +1,3 @@
 $(() => {
-  console.log('DOM ready');
+  console.log('DOM is ready');
 });

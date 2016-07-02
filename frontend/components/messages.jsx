@@ -28,9 +28,7 @@ const Messages = React.createClass({
     this.pusher.unsubscribe('house');
   },
   updateMessage: function () {
-    this.setState({ messages: MessageStore.all() }, function () {
-      console.log('updated state');
-    });
+    this.setState({ messages: MessageStore.all() });
   },
   render: function () {
     const messages = this.state.messages;

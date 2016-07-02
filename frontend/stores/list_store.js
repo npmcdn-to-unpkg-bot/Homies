@@ -38,6 +38,10 @@ ListStore.__onDispatch = function (payload) {
       updateList(payload.list);
       ListStore.__emitChange();
       break;
+    case ListConstants.UPDATED_LIST_ITEM:
+      console.log('hooooo');
+      ListStore.__emitChange();
+      break;
   }
 };
 

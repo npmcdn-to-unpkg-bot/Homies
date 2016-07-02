@@ -47,6 +47,7 @@ const ListShow = React.createClass({
     return (e) => this.setState({ [property]: e.target.value });
   },
   render: function () {
+    ListStore.getRecentlyUpdated(5);
     const listItems = this.props.listItems;
     let listItemsJsx;
     if (!listItems) {

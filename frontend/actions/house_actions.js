@@ -11,6 +11,14 @@ const HouseActions = {
       actionType: HouseConstants.ADD_HOUSE,
       house: house
     });
+  },
+  findHouse: function (id) {
+    HouseApiUtil.findHouse(id, HouseActions.foundHouse);
+  },
+  foundHouse: function (house) {
+    AppDispatcher.dispatch({
+
+    });
   }
 };
 

@@ -31,7 +31,7 @@ const Dashboard = React.createClass({
         </div>
         <div className="row">
           <div className="col s6">
-            <List />
+            Events component
           </div>
           <div className="col s6">
             <Bill />

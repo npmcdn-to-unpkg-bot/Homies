@@ -9,6 +9,17 @@ ListStore.all = function () {
   return _lists;
 };
 
+ListStore.getRecentlyUpdated = function (amount) {
+  const listKeys = Object.keys(_lists);
+  console.log('starting it up');
+  for (let i = 0; i < listKeys.length; i++) {
+    console.log('hi');
+  }
+  listKeys.sort(function (a, b) {
+    return new Date(b.date) - new Date(a.date);
+  });
+};
+
 function allLists (lists) {
   const listKeys = Object.keys(lists);
   for (let i = 0; i < listKeys.length; i++) {

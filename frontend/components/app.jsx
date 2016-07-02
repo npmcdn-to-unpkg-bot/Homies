@@ -7,7 +7,7 @@ const App = React.createClass({
   _handleLogOut(){
     SessionActions.logout();
   },
-  greeting() {
+  greetingOld() {
     if (SessionStore.isUserLoggedIn()) {
     	return (
     		<hgroup className="header-group">
@@ -26,19 +26,45 @@ const App = React.createClass({
       );
     }
   },
+  greeting: function () {
+    if (SessionStore.isUserLoggedIn()) {
+      return (
+        <ul className="right hide-on-med-and-down">
+          <li><a href="sass.html"><i className="material-icons">search</i></a></li>
+          <li><a href="badges.html"><i className="material-icons">view_module</i></a></li>
+          <li><a href="collapsible.html"><i className="material-icons">refresh</i></a></li>
+          <li><a href="mobile.html"><i className="material-icons">more_vert</i></a></li>
+        </ul>
+      );
+    }
+  },
   render: function () {
     return (
-      <div className="container">
-        <header>
-          <Link to="/" className="header-link"><h1>Homies</h1></Link>
-          <div className="row center">
-            { this.greeting() }
+
+      <div>
+        <ul id="settings-dropdown" className="dropdown-content">
+          <li><a href="/">Edit profile</a></li>
+          <li><a href="/">Logout</a></li>
+          <li className="divider"></li>
+          <li><a href="/">Close</a></li>
+        </ul>
+        <nav className="blue accent-1">
+          <div className="nav-wrapper">
+              <a href="/" className="brand-logo center">Your House Name Here</a>
+              <ul className="right hide-on-med-and-down">
+                <li><a className="dropdown-button" href="/" data-activates="settings-dropdown">Hello, {SessionStore.currentUser().username}<i className="material-icons right">arrow_drop_down</i></a></li>
+              </ul>
+
+
           </div>
+        </nav>
+        <div className="container">
+          <br />
           <div className="row center">
             Homies is a web application that centralizes bill payments, messaging, lists, and calendar events between housemates.
           </div>
-        </header>
-        {this.props.children}
+          {this.props.children}
+        </div>
       </div>
     );
   }

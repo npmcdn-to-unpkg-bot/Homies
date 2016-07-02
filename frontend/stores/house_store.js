@@ -4,6 +4,7 @@ const HouseConstants = require('../constants/house_constants.js');
 const HouseStore = new Store(AppDispatcher);
 
 let _houses = {};
+let _currentHouse = {};
 
 function updateHouse (house) {
   _houses = house;

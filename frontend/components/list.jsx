@@ -32,7 +32,8 @@ const List = React.createClass({
     });
     return (
       <div>
-        Lists:
+        <span className="">{"Recent Lists"}</span>
+        <hr />
         {listJsx}
         <ListForm />
       </div>

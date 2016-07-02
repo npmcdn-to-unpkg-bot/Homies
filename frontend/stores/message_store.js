@@ -10,6 +10,23 @@ MessageStore.all = function () {
   return _messages;
 };
 
+MessageStore.getLast = function (amountOfMessages) {
+  const messageKeys = Object.keys(_messages);
+  const sortedMessageKeys = messageKeys.sort(function (a, b) {
+    return a - b;
+  });
+  const requestedMessageIds = messageKeys.reverse().slice(0, amountOfMessages);
+  const requestedMessages = [];
+  requestedMessageIds.forEach(id => {
+    requestedMessages.push(_messages[id]);
+  });
+  return requestedMessages;
+};
+
+function sortNumber (a, b) {
+  return a - b;
+}
+
 function allMessages (messages) {
   const messageKeys = Object.keys(messages);
   for (let i = 0; i < messageKeys.length; i++) {

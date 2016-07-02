@@ -39,10 +39,10 @@ function _ensureLoggedIn(nextState, replace) {
 const appRouter = (
   <Router history={hashHistory}>
     <Route path="/" component={App}>
+      <IndexRoute component={Dashboard} />
       <Route path="login" component={LoginForm} />
       <Route path="signup" component={SignupForm} />
       <Route path="movein" component={MoveIn} />
-      <Route path="dashboard" component={Dashboard} />
       <Route path="messages" component={Messages} />
     </Route>
   </Router>

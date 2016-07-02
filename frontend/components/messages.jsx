@@ -8,7 +8,8 @@ const SessionStore = require('../stores/session_store.js');
 const Messages = React.createClass({
   getInitialState: function () {
     return {
-      messages: MessageStore.all()
+      messages: MessageStore.all(),
+      dashboardView: true
     };
   },
   componentDidMount: function () {
@@ -31,27 +32,65 @@ const Messages = React.createClass({
     this.setState({ messages: MessageStore.all() });
   },
   render: function () {
-    const messages = this.state.messages;
-    const messageKeys = Object.keys(messages);
-    let messageJsx = messageKeys.map(key => {
-      const sender = messages[key].user.username;
-      return (
-        <div key={messages[key].id}>
-          <li key={messages[key].id}>
-            <strong>{sender}: </strong>
-            {messages[key].content}
-          </li>
-        </div>
-      );
-    });
+    let messageJsx;
+    if (this.state.dashboardView) {
+      const dashboardMessages = MessageStore.getLast(4);
+      const dashboardMessageKeys = Object.keys(dashboardMessages);
+      messageJsx = dashboardMessageKeys.map(key => {
+        const sender = dashboardMessages[key].sender.username;
+        if (SessionStore.currentUser().username === dashboardMessages[key].sender.username) {
+          return (
+            <div>
+              <div key={dashboardMessages[key].id} className="from-me">
+                <p>{dashboardMessages[key].content}</p>
+              </div>
+              <div className="clear"></div>
+            </div>
+          );
+        } else {
+          return (
+            <div>
+              <div key={dashboardMessages[key].id} className="from-them">
+                <p><b>{sender}:</b> {dashboardMessages[key].content}</p>
+              </div>
+              <div className="clear"></div>
+            </div>
+          );
+        }
+      });
+    } else {
+      const messages = this.state.messages;
+      const messageKeys = Object.keys(messages);
+      messageJsx = messageKeys.map(key => {
+        const sender = messages[key].sender.username;
+        if (SessionStore.currentUser().username === messages[key].sender.username) {
+          return (
+            <div>
+              <div key={messages[key].id} className="from-them">
+                <p>{sender}: {messages[key].content}</p>
+              </div>
+              <div className="clear"></div>
+            </div>
+          );
+        } else {
+          return (
+            <div>
+              <div key={messages[key].id} className="from-me">
+                <p>{messages[key].content}</p>
+              </div>
+              <div className="clear"></div>
+            </div>
+          );
+        }
+      });
+    }
     return (
-      <div className="row message-view-dashboard">
-        <ul className="">
+      <div>
+        <span className="">{"Members: Paul, Oscar, Sam, and Max"}</span>
+        <hr />
+        <section className="chat-messages">
           {messageJsx}
-        </ul>
-        <div className="message-action">
-          <MessageForm />
-        </div>
+        </section>
       </div>
     );
   }

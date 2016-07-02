@@ -20,9 +20,8 @@ const ListForm = React.createClass({
       items: this.state.items
     };
     if (formData.title !== "") {
-      console.log('starting to create list');
-      console.log(formData);
       ListActions.createList(formData);
+      ListActions.fetchHousesLists();
     }
   },
   handleItemSubmit: function (e) {

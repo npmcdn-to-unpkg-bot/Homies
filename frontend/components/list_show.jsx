@@ -20,7 +20,10 @@ const ListShow = React.createClass({
     this.listener.remove();
   },
   saveTitle: function () {
-    ListActions.updateList(this.props.list, this.state.currentTitle);
+    if (this.state.currentTitle !== "") {
+      ListActions.updateList(this.props.list, this.state.currentTitle);
+      Materialize.toast('Updated the list!', 2000);
+    }
   },
   renderTitle: function () {
     if (!this.state.titleEditMode) {

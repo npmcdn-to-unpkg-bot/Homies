@@ -14,6 +14,7 @@ const ListItemShow = React.createClass({
     if (this.state.currentContent !== "") {
       ListItemActions.updateListItem(this.props.item, this.state.currentContent);
       ListActions.fetchHousesLists();
+      Materialize.toast('Updated the item!', 2000);
       this.setState({ contentEditMode: false });
     }
   },

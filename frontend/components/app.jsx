@@ -13,6 +13,7 @@ const App = React.createClass({
     		<hgroup className="header-group">
     			<h2 className="header-name">Hi, {SessionStore.currentUser().username}!</h2>
     			<input className="header-button" type="submit" value="logout" onClick={ this._handleLogOut } />
+          <i className="small material-icons">settings</i>
     		</hgroup>
     	);
     } else if ( !["/login", "/signup"].includes(this.props.location.pathname) ) {

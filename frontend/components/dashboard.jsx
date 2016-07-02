@@ -8,19 +8,33 @@ const Dashboard = React.createClass({
     return (
       <div>
         <div className="row">
+          <div className="col s12 m7">
+            <div className="card grey lighten-4">
+              <div className="card-content">
+                <Messages />
+              </div>
+              <div className="card-action">
+                <a href="#">View more messages</a>
+              </div>
+            </div>
+          </div>
+          <div className="col s12 m5">
+            <div className="card grey lighten-4">
+              <div className="card-content">
+                <List />
+              </div>
+              <div className="card-action">
+                <a href="#">View more lists</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row">
           <div className="col s6">
             <List />
           </div>
           <div className="col s6">
             <Bill />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col s6">
-            <Messages />
-          </div>
-          <div className="col s6">
-            TBD
           </div>
         </div>
       </div>

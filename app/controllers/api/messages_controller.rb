@@ -7,7 +7,7 @@ class Api::MessagesController < ApplicationController
 
   def create
     @message = Message.new(message_params)
-    @message.user = current_user
+    @message.sender = current_user
     @message.house = current_user.house
     if @message.save
       Pusher.trigger('message', 'message_created', {})

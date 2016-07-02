@@ -1,1 +1,1 @@
-json.array! @messages, :id, :content, :user, :house_id
+json.array! @messages, :id, :content, :sender, :house_id

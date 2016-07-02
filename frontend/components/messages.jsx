@@ -31,58 +31,37 @@ const Messages = React.createClass({
   updateMessage: function () {
     this.setState({ messages: MessageStore.all() });
   },
+  messageView: function (messages) {
+    const messageKeys = Object.keys(messages);
+    return messageKeys.map(key => {
+      const sender = messages[key].sender.username;
+      if (SessionStore.currentUser().username === sender) {
+        return (
+          <div>
+            <div key={messages[key].id} className="from-them">
+              <p>{sender}: {messages[key].content}</p>
+            </div>
+            <div className="clear"></div>
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            <div key={messages[key].id} className="from-me">
+              <p>{messages[key].content}</p>
+            </div>
+            <div className="clear"></div>
+          </div>
+        );
+      }
+    }
+  );},
   render: function () {
     let messageJsx;
     if (this.state.dashboardView) {
-      const dashboardMessages = MessageStore.getLast(4);
-      const dashboardMessageKeys = Object.keys(dashboardMessages);
-      messageJsx = dashboardMessageKeys.map(key => {
-        const sender = dashboardMessages[key].sender.username;
-        if (SessionStore.currentUser().username === dashboardMessages[key].sender.username) {
-          return (
-            <div>
-              <div key={dashboardMessages[key].id} className="from-me">
-                <p>{dashboardMessages[key].content}</p>
-              </div>
-              <div className="clear"></div>
-            </div>
-          );
-        } else {
-          return (
-            <div>
-              <div key={dashboardMessages[key].id} className="from-them">
-                <p><b>{sender}:</b> {dashboardMessages[key].content}</p>
-              </div>
-              <div className="clear"></div>
-            </div>
-          );
-        }
-      });
+      messageJsx = this.messageView(MessageStore.getLast(4).reverse());
     } else {
-      const messages = this.state.messages;
-      const messageKeys = Object.keys(messages);
-      messageJsx = messageKeys.map(key => {
-        const sender = messages[key].sender.username;
-        if (SessionStore.currentUser().username === messages[key].sender.username) {
-          return (
-            <div>
-              <div key={messages[key].id} className="from-them">
-                <p>{sender}: {messages[key].content}</p>
-              </div>
-              <div className="clear"></div>
-            </div>
-          );
-        } else {
-          return (
-            <div>
-              <div key={messages[key].id} className="from-me">
-                <p>{messages[key].content}</p>
-              </div>
-              <div className="clear"></div>
-            </div>
-          );
-        }
-      });
+      messageJsx = this.messageView(this.state.messages);
     }
     return (
       <div>

@@ -8,7 +8,7 @@ const ListApiUtil = {
         callback(response);
       },
       error: function (err) {
-        console.log('error');
+        console.log('error fetching houses lists');
         console.log(err);
       }
     });

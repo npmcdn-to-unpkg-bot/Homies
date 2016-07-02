@@ -1,4 +1,5 @@
 const React = require('react');
+const ListActions = require('../actions/list_actions.js');
 const ListItemActions = require('../actions/list_item_actions.js');
 const ListStore = require('../stores/list_store.js');
 
@@ -10,7 +11,11 @@ const ListItemShow = React.createClass({
     };
   },
   saveContent: function () {
-    ListItemActions.updateListItem(this.props.item, this.state.currentContent);
+    if (this.state.currentContent !== "") {
+      ListItemActions.updateListItem(this.props.item, this.state.currentContent);
+      ListActions.fetchHousesLists();
+      this.setState({ contentEditMode: false });
+    }
   },
   componentDidMount: function () {
     this.listener = ListStore.addListener(this.receiveItemUpdate);
@@ -19,8 +24,7 @@ const ListItemShow = React.createClass({
     this.listener.remove();
   },
   receiveItemUpdate: function () {
-    console.log('updateing!!!!');
-    this.setState({ contentEditMode: false });
+
   },
   toggleItemEditMode: function () {
     this.setState({ contentEditMode: true });

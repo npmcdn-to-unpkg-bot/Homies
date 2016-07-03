@@ -55,7 +55,7 @@ const ListShow = React.createClass({
     } else {
       listItemsJsx = listItems.map(item => {
         return (
-          <ListItemShow item={item} />
+          <ListItemShow key={item.id} item={item} />
         );
       });
     }

@@ -9,6 +9,11 @@ class Api::HousesController < ApplicationController
     end
   end
 
+  def show
+    @house = House.find(params[:id])
+    render "api/houses/show"
+  end
+
   private
   def house_params
     params.require(:house).permit(:name, :street_1, :street_2, :city, :state, :zip)

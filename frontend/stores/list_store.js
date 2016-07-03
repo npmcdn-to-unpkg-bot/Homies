@@ -11,10 +11,7 @@ ListStore.all = function () {
 
 ListStore.getRecentlyUpdated = function (amount) {
   const listKeys = Object.keys(_lists);
-  console.log('starting it up');
-  for (let i = 0; i < listKeys.length; i++) {
-    console.log('hi');
-  }
+  
   listKeys.sort(function (a, b) {
     return new Date(b.date) - new Date(a.date);
   });
@@ -50,7 +47,6 @@ ListStore.__onDispatch = function (payload) {
       ListStore.__emitChange();
       break;
     case ListConstants.UPDATED_LIST_ITEM:
-      console.log('hooooo');
       ListStore.__emitChange();
       break;
   }

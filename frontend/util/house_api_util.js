@@ -10,6 +10,20 @@ const HouseApiUtil = {
       }
     });
   },
+  updateCurrentHouse: function (id, callback) {
+    $.ajax({
+      url: `api/houses/${id}`,
+      type: "GET",
+      dataType: "JSON",
+      success: function (response) {
+        callback(response);
+      },
+      error: function (err) {
+        console.log('error updating current house');
+        console.log(err);
+      }
+    });
+  }
 };
 
 module.exports = HouseApiUtil;

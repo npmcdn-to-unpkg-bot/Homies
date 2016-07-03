@@ -2,9 +2,25 @@ const React = require('react');
 const SessionActions = require('../actions/session_actions.js');
 const Link = require('react-router').Link;
 const SessionStore = require('../stores/session_store.js');
+const HouseStore = require('../stores/house_store.js');
+const HouseActions = require('../actions/house_actions.js');
 
 const App = React.createClass({
-  _handleLogOut(){
+  getInitialState: function () {
+    return {
+      house: undefined
+    };
+  },
+  componentWillMount: function () {
+    this.listener = HouseStore.addListener(this.handleUpdate);
+    HouseActions.updateCurrentHouse(SessionStore.currentUser().house_id);
+  },
+  handleUpdate: function () {
+    this.setState({
+      house: HouseStore.currentHouse()
+    });
+  },
+  _handleLogOut: function () {
     SessionActions.logout();
   },
   greetingOld() {
@@ -39,6 +55,12 @@ const App = React.createClass({
     }
   },
   render: function () {
+    let currentHouseName;
+    if (this.state.house) {
+      currentHouseName = this.state.house[SessionStore.currentUser().house_id].name;
+    } else {
+      currentHouseName = "";
+    }
     return (
 
       <div>
@@ -50,7 +72,7 @@ const App = React.createClass({
         </ul>
         <nav className="blue accent-1">
           <div className="nav-wrapper">
-              <a href="/" className="brand-logo center">Your House Name Here</a>
+              <a href="/" className="brand-logo center">{currentHouseName}</a>
               <ul className="right hide-on-med-and-down">
                 <li><a className="dropdown-button" href="/" data-activates="settings-dropdown">Hello, {SessionStore.currentUser().username}<i className="material-icons right">arrow_drop_down</i></a></li>
               </ul>

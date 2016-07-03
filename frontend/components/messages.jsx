@@ -37,8 +37,8 @@ const Messages = React.createClass({
       const sender = messages[key].sender.username;
       if (SessionStore.currentUser().username === sender) {
         return (
-          <div>
-            <div key={messages[key].id} className="from-me">
+          <div key={messages[key].id}>
+            <div className="from-me">
               <p>{messages[key].content}</p>
             </div>
             <div className="clear"></div>
@@ -46,9 +46,9 @@ const Messages = React.createClass({
         );
       } else {
         return (
-          <div>
-            <div key={messages[key].id} className="from-them">
-              <p>{sender}: {messages[key].content}</p>
+          <div key={messages[key].id}>
+            <div className="from-them">
+              <p><b>{sender}:</b> {messages[key].content}</p>
             </div>
             <div className="clear"></div>
           </div>

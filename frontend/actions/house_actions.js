@@ -12,12 +12,13 @@ const HouseActions = {
       house: house
     });
   },
-  findHouse: function (id) {
-    HouseApiUtil.findHouse(id, HouseActions.foundHouse);
+  updateCurrentHouse: function (id) {
+    HouseApiUtil.updateCurrentHouse(id, HouseActions.finishedUpdateCurrentHouse);
   },
-  foundHouse: function (house) {
+  finishedUpdateCurrentHouse: function (house) {
     AppDispatcher.dispatch({
-
+      actionType: HouseConstants.UPDATE_CURRENT_HOUSE,
+      house: house
     });
   }
 };

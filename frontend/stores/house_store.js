@@ -12,7 +12,7 @@ function updateHouse (house) {
 }
 
 function updateCurrentHouse (house) {
-  _currentHouse[house.id] = house;
+  _currentHouse = house;
 }
 
 

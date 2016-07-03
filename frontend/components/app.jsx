@@ -57,7 +57,7 @@ const App = React.createClass({
   render: function () {
     let currentHouseName;
     if (this.state.house) {
-      currentHouseName = this.state.house[SessionStore.currentUser().house_id].name;
+      currentHouseName = this.state.house.name;
     } else {
       currentHouseName = "";
     }

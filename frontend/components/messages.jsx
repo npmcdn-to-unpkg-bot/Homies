@@ -94,7 +94,9 @@ const Messages = React.createClass({
             <span className="">{"Members: Paul, Daniel, Susan"}</span>
             <hr />
             <section className="chat-container">
-              {messageJsx}
+              <div className="container2">
+                {messageJsx}
+              </div>
             </section>
           </div>
           {this.messageAction()}

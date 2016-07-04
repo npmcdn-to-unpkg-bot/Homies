@@ -21,10 +21,9 @@ const MessageForm = React.createClass({
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="login-form">
-          <hr />
-          <div className="input-field col s12">
-            <input id="content"
-                   placeholder="Type message here..."
+          <div className="col s12">
+            <input className="message-input"
+                   placeholder="Type a message..."
                    type="text"
                    value={this.state.message}
                    onChange={this.update} />

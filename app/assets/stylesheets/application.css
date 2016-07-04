@@ -25,7 +25,7 @@
 
 @import "compass/css3";
 
-section {
+section.chat-container {
 	margin: 50px auto;
   width: 100%;
 }
@@ -60,4 +60,25 @@ section div {
 
 div.message-div-right {
   margin-left: 80%;
+}
+
+div.login-form {
+  background-color: white;
+  padding: 2px;
+  border-top: 1px solid grey;
+}
+
+input[type="text"].message-input {
+  padding: 10px;
+  height: 1rem;
+}
+
+input.message-input {
+  border-bottom: 0px;
+  box-shadow: 0px;
+}
+
+input[type="text"].message-input:focus {
+  border-bottom: 0px;
+  box-shadow: 0 0px;
 }

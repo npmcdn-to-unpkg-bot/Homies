@@ -14,6 +14,11 @@
  *= require_self
  */
 
+.card-content {
+  height: 300px;
+  overflow: scroll;
+}
+
 #house-id {
   text-align: center;
 }

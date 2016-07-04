@@ -30,10 +30,10 @@ const Dashboard = React.createClass({
           </div>
         </div>
         <div className="row">
-          <div className="col s6">
+          <div className="col s7">
             Events component
           </div>
-          <div className="col s6">
+          <div className="col 5">
             <Bill />
           </div>
         </div>

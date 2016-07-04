@@ -26,20 +26,12 @@ const List = React.createClass({
     const listKeys = Object.keys(lists);
     console.log('paul');
     console.log(listKeys[0]);
-    if (listKeys[0] !== "id") {
-      return listKeys.map(key => {
-        return (<ListShow
-                  key={lists[key].id}
-                  list={lists[key]}
-                  listItems={lists[key].list_items} />);
-      });
-    } else {
-      const list = lists;
+    return listKeys.map(key => {
       return (<ListShow
-              key={list.id}
-              list={list}
-              listItems={list.list_items} />);
-    }
+                key={lists[key].id}
+                list={lists[key]}
+                listItems={lists[key].list_items} />);
+    });
   },
   render: function () {
     console.log('getting most recentt');
@@ -54,7 +46,9 @@ const List = React.createClass({
     if (this.state.dashboardView && ListStore.getRecentlyUpdated() !== undefined) {
       console.log('dashboardView');
       console.log(ListStore.getRecentlyUpdated().updated_at);
-      listJsx = this.listView(ListStore.getRecentlyUpdated());
+      const listObj = {};
+      listObj[ListStore.getRecentlyUpdated().id] = ListStore.getRecentlyUpdated();
+      listJsx = this.listView(listObj);
     } else {
       listJsx = this.listView(this.state.lists);
     }

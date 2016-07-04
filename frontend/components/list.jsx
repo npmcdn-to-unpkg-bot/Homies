@@ -15,10 +15,7 @@ const List = React.createClass({
   },
   componentWillMount: function () {
     if (this.props.location && this.props.location.pathname === "/lists") {
-      this.setState({ dashboardView: false }, function () {
-        console.log('updated state');
-        console.log(this.state);
-      });
+      this.setState({ dashboardView: false });
     }
   },
   componentDidMount: function () {
@@ -51,7 +48,7 @@ const List = React.createClass({
     if (this.state.dashboardView) {
       return (
         <div className="card-action">
-          <Link to="/lists" activeClassName="current">View More Messages</Link>
+          <Link to="/lists" activeClassName="current">View More Lists</Link>
         </div>
       );
     } else {

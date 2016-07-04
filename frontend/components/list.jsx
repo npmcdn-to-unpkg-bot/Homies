@@ -24,8 +24,6 @@ const List = React.createClass({
   },
   listView: function (lists) {
     const listKeys = Object.keys(lists);
-    console.log('paul');
-    console.log(listKeys[0]);
     return listKeys.map(key => {
       return (<ListShow
                 key={lists[key].id}
@@ -34,8 +32,6 @@ const List = React.createClass({
     });
   },
   render: function () {
-    console.log('getting most recentt');
-    console.log(ListStore.getRecentlyUpdated());
     let listJsx;
     let lastUpdatedTime;
     if (ListStore.getRecentlyUpdated()) {
@@ -44,8 +40,6 @@ const List = React.createClass({
       lastUpdatedTime = "";
     }
     if (this.state.dashboardView && ListStore.getRecentlyUpdated() !== undefined) {
-      console.log('dashboardView');
-      console.log(ListStore.getRecentlyUpdated().updated_at);
       const listObj = {};
       listObj[ListStore.getRecentlyUpdated().id] = ListStore.getRecentlyUpdated();
       listJsx = this.listView(listObj);
@@ -58,7 +52,6 @@ const List = React.createClass({
         <span className="">Recent Lists: (Last updated: {lastUpdatedTime})</span>
         <hr />
         {listJsx}
-        <ListForm />
       </div>
     );
   }

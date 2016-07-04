@@ -4,6 +4,7 @@ const MessageStore = require('../stores/message_store.js');
 const MessageActions = require('../actions/message_actions.js');
 const MessageForm = require('./message_form.jsx');
 const SessionStore = require('../stores/session_store.js');
+const Link = require('react-router').Link;
 
 const Messages = React.createClass({
   getInitialState: function () {
@@ -11,6 +12,11 @@ const Messages = React.createClass({
       messages: MessageStore.all(),
       dashboardView: true
     };
+  },
+  componentWillMount: function () {
+    if (this.props.location && this.props.location.pathname === "/messages") {
+      this.setState({ dashboardView: false });
+    }
   },
   componentDidMount: function () {
     this.listener = MessageStore.addListener(this.updateMessage);
@@ -37,7 +43,7 @@ const Messages = React.createClass({
       const sender = messages[key].sender.username;
       if (SessionStore.currentUser().username === sender) {
         return (
-          <div key={messages[key].id}>
+          <div className="message-div-right" key={messages[key].id}>
             <div className="from-me">
               <p>{messages[key].content}</p>
             </div>
@@ -46,7 +52,7 @@ const Messages = React.createClass({
         );
       } else {
         return (
-          <div key={messages[key].id}>
+          <div className="message-div-left" key={messages[key].id}>
             <div className="from-them">
               <p><b>{sender}:</b> {messages[key].content}</p>
             </div>
@@ -56,6 +62,24 @@ const Messages = React.createClass({
       }
     }
   );},
+  columnClass: function () {
+    if (this.state.dashboardView) {
+      return "col s12 m7";
+    } else {
+      return "col s12 m12";
+    }
+  },
+  messageAction: function () {
+    if (this.state.dashboardView) {
+      return (
+        <div className="card-action">
+          <Link to="/messages" activeClassName="current">View More Messages</Link>
+        </div>
+      );
+    } else {
+      return (<MessageForm />);
+    }
+  },
   render: function () {
     let messageJsx;
     if (this.state.dashboardView) {
@@ -64,12 +88,17 @@ const Messages = React.createClass({
       messageJsx = this.messageView(this.state.messages);
     }
     return (
-      <div>
-        <span className="">{"Members: Paul, Daniel, Susan"}</span>
-        <hr />
-        <section className="chat-messages">
-          {messageJsx}
-        </section>
+      <div className={this.columnClass()}>
+        <div className="card grey lighten-4">
+          <div className="card-content">
+            <span className="">{"Members: Paul, Daniel, Susan"}</span>
+            <hr />
+            <section className="chat-container">
+              {messageJsx}
+            </section>
+          </div>
+          {this.messageAction()}
+        </div>
       </div>
     );
   }

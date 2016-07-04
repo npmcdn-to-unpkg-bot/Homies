@@ -8,16 +8,7 @@ const Dashboard = React.createClass({
     return (
       <div>
         <div className="row">
-          <div className="col s12 m7">
-            <div className="card grey lighten-4">
-              <div className="card-content">
-                <Messages />
-              </div>
-              <div className="card-action">
-                <a href="#">View more messages</a>
-              </div>
-            </div>
-          </div>
+          <Messages />
           <div className="col s12 m5">
             <div className="card grey lighten-4">
               <div className="card-content">

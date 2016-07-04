@@ -64,7 +64,7 @@ const App = React.createClass({
     return (
 
       <div>
-        <ul id="settings-dropdown" className="dropdown-content">
+        <ul id="settings-button" className="dropdown-content">
           <li><a href="/">Edit profile</a></li>
           <li><a onClick={ this._handleLogOut }>Logout</a></li>
           <li className="divider"></li>
@@ -74,10 +74,8 @@ const App = React.createClass({
           <div className="nav-wrapper">
               <a href="/" className="brand-logo center">{currentHouseName}</a>
               <ul className="right hide-on-med-and-down">
-                <li><a className="dropdown-button" href="/" data-activates="settings-dropdown">Hello, {SessionStore.currentUser().username}<i className="material-icons right">arrow_drop_down</i></a></li>
+                <li><a className="dropdown-button" href="/" data-activates="settings-button">Hello, {SessionStore.currentUser().username}<i className="material-icons right">arrow_drop_down</i></a></li>
               </ul>
-
-
           </div>
         </nav>
         <div className="container">

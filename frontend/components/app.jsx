@@ -66,7 +66,7 @@ const App = React.createClass({
       <div>
         <ul id="settings-dropdown" className="dropdown-content">
           <li><a href="/">Edit profile</a></li>
-          <li><a href="/">Logout</a></li>
+          <li><a onClick={ this._handleLogOut }>Logout</a></li>
           <li className="divider"></li>
           <li><a href="/">Close</a></li>
         </ul>

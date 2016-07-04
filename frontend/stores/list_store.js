@@ -9,12 +9,23 @@ ListStore.all = function () {
   return _lists;
 };
 
-ListStore.getRecentlyUpdated = function (amount) {
+ListStore.getRecentlyUpdated = function () {
   const listKeys = Object.keys(_lists);
-  
-  listKeys.sort(function (a, b) {
-    return new Date(b.date) - new Date(a.date);
+  const sortedDateObject = {};
+  const dateArray = [];
+  for (let i = 0; i < listKeys.length; i++) {
+    dateArray.push(_lists[listKeys[i]].updated_at);
+  }
+  dateArray.sort(function (a, b) {
+    return new Date(b) - new Date(a);
   });
+  const updatedAtTarget  = dateArray.slice(0, 1)[0];
+  const requestedList = [];
+  for (let i = 0; i < listKeys.length; i++) {
+    if (_lists[listKeys[i]].updated_at === updatedAtTarget) {
+      return _lists[listKeys[i]];
+    }
+  }
 };
 
 function allLists (lists) {
@@ -29,7 +40,7 @@ function addList (list) {
 }
 
 function updateList (list) {
-  _lists[list.id].title = list.title;
+  _lists[list.id] = list;
 }
 
 ListStore.__onDispatch = function (payload) {

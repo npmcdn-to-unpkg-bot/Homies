@@ -8,7 +8,8 @@ const ListForm = require('./list_form.jsx');
 const List = React.createClass({
   getInitialState: function () {
     return {
-      lists: ListStore.all()
+      lists: ListStore.all(),
+      dashboardView: true
     };
   },
   componentDidMount: function () {
@@ -21,18 +22,46 @@ const List = React.createClass({
   handleUpdates: function () {
     this.setState({ lists: ListStore.all() });
   },
-  render: function () {
-    const lists = this.state.lists;
+  listView: function (lists) {
     const listKeys = Object.keys(lists);
-    let listJsx = listKeys.map(key => {
-      return <ListShow
-                key={lists[key].id}
-                list={lists[key]}
-                listItems={lists[key].list_items} />;
-    });
+    console.log('paul');
+    console.log(listKeys[0]);
+    if (listKeys[0] !== "id") {
+      return listKeys.map(key => {
+        return (<ListShow
+                  key={lists[key].id}
+                  list={lists[key]}
+                  listItems={lists[key].list_items} />);
+      });
+    } else {
+      const list = lists;
+      return (<ListShow
+              key={list.id}
+              list={list}
+              listItems={list.list_items} />);
+    }
+  },
+  render: function () {
+    console.log('getting most recentt');
+    console.log(ListStore.getRecentlyUpdated());
+    let listJsx;
+    let lastUpdatedTime;
+    if (ListStore.getRecentlyUpdated()) {
+      lastUpdatedTime = ListStore.getRecentlyUpdated().updated_at;
+    } else {
+      lastUpdatedTime = "";
+    }
+    if (this.state.dashboardView && ListStore.getRecentlyUpdated() !== undefined) {
+      console.log('dashboardView');
+      console.log(ListStore.getRecentlyUpdated().updated_at);
+      listJsx = this.listView(ListStore.getRecentlyUpdated());
+    } else {
+      listJsx = this.listView(this.state.lists);
+    }
+
     return (
       <div>
-        <span className="">{"Recent Lists"}</span>
+        <span className="">Recent Lists: (Last updated: {lastUpdatedTime})</span>
         <hr />
         {listJsx}
         <ListForm />

@@ -83,3 +83,10 @@ input[type="text"].message-input:focus {
   border-bottom: 0px;
   box-shadow: 0 0px;
 }
+
+#event-start-date {
+  width: 95%;
+}
+#event-name {
+  width: 95%;
+}

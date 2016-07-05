@@ -5,6 +5,7 @@ const MessageActions = require('../actions/message_actions.js');
 const MessageForm = require('./message_form.jsx');
 const SessionStore = require('../stores/session_store.js');
 const Link = require('react-router').Link;
+vex.defaultOptions.className = 'vex-theme-os';
 
 const Messages = React.createClass({
   getInitialState: function () {

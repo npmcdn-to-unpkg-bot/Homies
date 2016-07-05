@@ -1,47 +1,57 @@
 "use strict";
 const React = require('react');
 const Link = require('react-router').Link;
-
-import {DatePicker} from 'material-ui';
-import baseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
-
-
-import {deepOrange500} from 'material-ui/styles/colors';
-import FlatButton from 'material-ui/FlatButton';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-
-const styles = {
-  container: {
-    textAlign: 'center',
-    paddingTop: 200,
-  },
-};
-
-const muiTheme = getMuiTheme({
-  palette: {
-    accent1Color: deepOrange500,
-  },
-});
-
-// const ThemeManager = require('material-ui/lib/styles/theme-manager')();
-
+const EventStore = require('../stores/event_store.js');
+const EventActions = require('../actions/event_actions.js');
+const EventForm = require('./event_form.jsx');
 
 const Events = React.createClass({
-  childContextTypes: {
-    muiTheme: React.PropTypes.object
-  },
-  getChildContext: function () {
-    return { muiTheme: getMuiTheme(baseTheme) };
-  },
   getInitialState: function () {
     return {
-      dashboardView: true
+      dashboardView: true,
+      events: EventStore.all()
     };
   },
+  componentWillMount: function () {
+    this.listener = EventStore.addListener(this.updateEvents);
+    EventActions.fetchEvents();
+  },
+  updateEvents: function () {
+    this.setState({ events: EventStore.all() });
+  },
+  componentWillUnmount: function () {
+    this.listener.remove();
+  },
+  handleUpdate: function (e) {
+    console.log('handle update');
+    console.log(e.target.value);
+  },
+  createEvent: function () {
+    vex.dialog.prompt({
+      message: "<center>Please enter your event information</center>",
+      input: "<label for='event-name'>Event name:</label><br><input name='event[name]' type='text' id='event-name' /><br><label for='event-start-date'>Start Date:</label><br><input name='event[start_date]' type='text' id='event-start-date' />",
+      callback: function (response) {
+        console.log('vexschema!');
+        console.log(response);
+      }
+    });
+  },
   render: function () {
+    console.log('event store:');
+    console.log(EventStore.all());
+
+    const events = this.state.events;
+    const eventKeys = Object.keys(events);
+    let eventsJsx;
+    if (eventKeys.length > 0) {
+      eventsJsx = eventKeys.map(key => {
+        return (<li key={events[key].id}>{events[key].name}</li>);
+      });
+    } else {
+      eventsJsx = ""
+    }
+
+
     return (
       <div className="col s12 m7">
         <div className="card grey lighten-4">
@@ -49,9 +59,9 @@ const Events = React.createClass({
             <div>
               <span className="">Events Component</span>
               <hr />
-              <MuiThemeProvider muiTheme={muiTheme}>
-                <DatePicker hintText="Landscape Inline Dialog" container="inline" mode="landscape" />
-              </MuiThemeProvider>
+              hello
+              {eventsJsx}
+              <EventForm />
             </div>
           </div>
           <div className="card-action">

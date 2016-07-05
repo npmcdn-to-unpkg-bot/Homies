@@ -16,6 +16,7 @@ const MoveIn = require('./components/movein.jsx');
 const Dashboard = require('./components/dashboard.jsx');
 const Messages = require('./components/messages.jsx');
 const List = require('./components/list.jsx');
+const Events = require('./components/events.jsx');
 //Testing
 const SessionActions = require('./actions/session_actions.js');
 const SessionStore = require('./stores/session_store.js');
@@ -46,6 +47,7 @@ const appRouter = (
       <Route path="movein" component={MoveIn} />
       <Route path="messages" component={Messages} />
       <Route path="lists" component={List} />
+      <Route path="events" component={Events} />
     </Route>
   </Router>
 );

@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   belongs_to :house
   has_many :lists
   has_many :messages
+  has_many :events
   has_many :user_bills, inverse_of: :user
   has_many :bills, through: :user_bills
   # Validations

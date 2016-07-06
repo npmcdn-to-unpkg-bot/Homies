@@ -37,8 +37,7 @@ const Events = React.createClass({
     });
   },
   render: function () {
-    console.log('event store:');
-    console.log(EventStore.all());
+    EventStore.calendarEvents();
 
     const events = this.state.events;
     const eventKeys = Object.keys(events);

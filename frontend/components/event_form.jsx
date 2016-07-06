@@ -69,6 +69,18 @@ const EventForm = React.createClass({
   render: function () {
     return (
       <form onSubmit={this.handleSubmit}>
+        <BigCalendar
+          selectable
+          events={events}
+          defaultView='week'
+          scrollToTime={new Date(1970, 1, 1, 6)}
+          defaultDate={new Date(2015, 3, 12)}
+          onSelectEvent={event => alert(event.title)}
+          onSelectSlot={(slotInfo) => alert(
+            `selected slot: \n\nstart ${slotInfo.start.toLocaleString()} ` +
+            `\nend: ${slotInfo.end.toLocaleString()}`
+          )}
+        />
         <div className="login-form">
           <br />
           <div className="input-field col s4">
@@ -118,10 +130,6 @@ const EventForm = React.createClass({
           </div>
           <button className="btn waves-effect waves-light" type="submit" name="action">Submit</button>
         </div>
-        <BigCalendar
-          {...this.props}
-          events={events}
-          defaultDate={new Date(2015, 3, 1)} />
       </form>
     );
   }

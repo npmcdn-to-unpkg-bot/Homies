@@ -22,5 +22,8 @@ module Homies
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    config.less.paths << File.join(Rails.root, 'app', 'assets','stylesheets')
+    # Should be set to true in production.
+    config.less.compress = false
   end
 end

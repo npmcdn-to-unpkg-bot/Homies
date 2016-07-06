@@ -57,9 +57,8 @@ const Events = React.createClass({
         <div className="card grey lighten-4">
           <div className="card-content">
             <div>
-              <span className="">Events Component</span>
+              <span className="">Upcoming Events</span>
               <hr />
-              hello
               {eventsJsx}
               <EventForm />
             </div>

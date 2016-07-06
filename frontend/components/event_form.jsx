@@ -8,6 +8,11 @@ import {deepOrange500} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 injectTapEventPlugin();
+// Calendar
+import BigCalendar from 'react-big-calendar';
+import moment from 'moment';
+import events from './events';
+BigCalendar.momentLocalizer(moment);
 
 const styles = {
   container: {
@@ -113,6 +118,10 @@ const EventForm = React.createClass({
           </div>
           <button className="btn waves-effect waves-light" type="submit" name="action">Submit</button>
         </div>
+        <BigCalendar
+          {...this.props}
+          events={events}
+          defaultDate={new Date(2015, 3, 1)} />
       </form>
     );
   }

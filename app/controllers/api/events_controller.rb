@@ -1,6 +1,6 @@
 class Api::EventsController < ApplicationController
   def index
-    @events = current_user.house.events
+    @events = current_user.house.events.upcoming.chronological
   end
 
   def create

@@ -17,8 +17,6 @@ function addEvent (evnt) {
 }
 
 function removeEvent (evnt) {
-  console.log('remove evnt');
-  console.log(evnt);
   delete _events[evnt.id];
 }
 

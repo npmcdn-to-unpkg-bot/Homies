@@ -5,8 +5,6 @@ const EventApiUtil = {
       type: "GET",
       dataType: "JSON",
       success: function (response) {
-        console.log('successfully fetched events');
-        console.log(response);
         callback(response);
       }
     });

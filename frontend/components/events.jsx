@@ -37,7 +37,6 @@ const Events = React.createClass({
     });
   },
   render: function () {
-    EventStore.calendarEvents();
 
     const events = this.state.events;
     const eventKeys = Object.keys(events);
@@ -59,7 +58,7 @@ const Events = React.createClass({
               <span className="">Upcoming Events</span>
               <hr />
               {eventsJsx}
-              <EventForm />
+              <EventForm events={this.state.events} />
             </div>
           </div>
           <div className="card-action">

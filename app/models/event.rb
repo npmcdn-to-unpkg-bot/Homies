@@ -6,6 +6,6 @@ class Event < ActiveRecord::Base
     foreign_key: :user_id
 
   # Scope
-  scope :chronological, -> { order('start_date', 'start_time')}
+  scope :chronological, -> { order('start_date')}
   scope :upcoming, -> { where('start_date >= ?', Date.today) }
 end

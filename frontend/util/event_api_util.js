@@ -5,6 +5,8 @@ const EventApiUtil = {
       type: "GET",
       dataType: "JSON",
       success: function (response) {
+        console.log('successfully fetched events');
+        console.log(response);
         callback(response);
       }
     });
@@ -14,10 +16,9 @@ const EventApiUtil = {
       url: "api/events",
       type: "POST",
       dataType: "JSON",
-      data: { evnt: { name: evnt.name, start_date: evnt.startDate, end_date: evnt.endDate, start_time: evnt.startTime, end_time: evnt.endTime}},
+      data: { evnt: { name: evnt.name, start_date: evnt.startDate, end_date: evnt.endDate }},
       success: function (response) {
         console.log('successfully created event');
-        console.log(response);
         callback(response);
       },
       error: function (err) {

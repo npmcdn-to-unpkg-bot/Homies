@@ -66,20 +66,38 @@ const EventForm = React.createClass({
     console.log(formData);
     EventActions.createEvent(formData);
   },
+  selectSlot: function (slotInfo) {
+    console.log('slot info');
+    console.log(slotInfo.start);
+    const messagePrompt = `Event slot: <br /><br />start ${slotInfo.start.toLocaleString()}<br />end: ${slotInfo.end.toLocaleString()}<br />`;
+    vex.dialog.prompt({
+      message: messagePrompt,
+      input: "<input type='text' name='evnt[name]' id='event-name'/>",
+      callback: function (response) {
+        if (response["evnt[name]"] !== "") {
+          const formData = {
+            name: response["evnt[name]"],
+            startDate: slotInfo.start,
+            endDate: slotInfo.end
+          };
+          console.log('form data:');
+          console.log(formData);
+          EventActions.createEvent(formData)
+        }
+      }
+    });
+  },
   render: function () {
     return (
       <form onSubmit={this.handleSubmit}>
         <BigCalendar
           selectable
-          events={events}
+          events={this.props.events}
           defaultView='week'
           scrollToTime={new Date(1970, 1, 1, 6)}
           defaultDate={new Date(2015, 3, 12)}
           onSelectEvent={event => alert(event.title)}
-          onSelectSlot={(slotInfo) => alert(
-            `selected slot: \n\nstart ${slotInfo.start.toLocaleString()} ` +
-            `\nend: ${slotInfo.end.toLocaleString()}`
-          )}
+          onSelectSlot={this.selectSlot}
         />
         <div className="login-form">
           <br />

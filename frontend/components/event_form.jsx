@@ -1,6 +1,8 @@
 const React = require('react');
+const EventActions = require('../actions/event_actions.js');
 // Date picker stuff
 import {DatePicker} from 'material-ui';
+import {TimePicker} from 'material-ui';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import {deepOrange500} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -24,9 +26,11 @@ const muiTheme = getMuiTheme({
 const EventForm = React.createClass({
   getInitialState: function () {
     return {
-      eventName: "",
+      title: "",
       startDate: null,
-      endDate: null
+      endDate: null,
+      startTime: null,
+      endTime: null
     };
   },
   update: function (property) {
@@ -38,15 +42,24 @@ const EventForm = React.createClass({
   updateEndDate: function (event, date) {
     this.setState({ endDate: date });
   },
+  updateStartTime: function (event, time) {
+    this.setState({ startTime: time });
+  },
+  updateEndTime: function (event, time) {
+    this.setState({ endTime: time });
+  },
   handleSubmit: function (e) {
     e.preventDefault();
     const formData = {
-      eventName: this.state.eventName,
+      name: this.state.eventName,
       startDate: this.state.startDate,
       endDate: this.state.endDate,
+      startTime: this.state.startTime,
+      endTime: this.state.endTime
     };
-    console.log('form data:');
+    console.log('form datda:');
     console.log(formData);
+    EventActions.createEvent(formData);
   },
   render: function () {
     return (
@@ -61,17 +74,43 @@ const EventForm = React.createClass({
           </div>
           <div className="input-field col s4">
             <MuiThemeProvider muiTheme={muiTheme}>
-              <DatePicker ref="startDate" hintText="Start Date" value={this.state.startDate} container="inline" mode="landscape"
-                onChange={this.updateStartDate} />
+              <DatePicker hintText="Start Date"
+                          value={this.state.startDate}
+                          container="inline"
+                          mode="landscape"
+                          onChange={this.updateStartDate} />
             </MuiThemeProvider>
           </div>
           <div className="input-field col s4">
             <MuiThemeProvider muiTheme={muiTheme}>
-              <DatePicker hintText="End Date" value={this.state.endDate} container="inline" mode="landscape"
-                onChange={this.updateEndDate} />
+              <DatePicker hintText="End Date"
+                          value={this.state.endDate}
+                          container="inline"
+                          mode="landscape"
+                          onChange={this.updateEndDate} />
             </MuiThemeProvider>
           </div>
           <br />
+          <div className="input-field col s4">
+            <MuiThemeProvider muiTheme={muiTheme}>
+              <TimePicker
+                format="ampm"
+                hintText="Start time"
+                value={this.state.startTime}
+                onChange={this.updateStartTime}
+              />
+            </MuiThemeProvider>
+          </div>
+          <div className="input-field col s4">
+            <MuiThemeProvider muiTheme={muiTheme}>
+              <TimePicker
+                format="ampm"
+                hintText="End time"
+                value={this.state.endTime}
+                onChange={this.updateEndTime}
+              />
+            </MuiThemeProvider>
+          </div>
           <button className="btn waves-effect waves-light" type="submit" name="action">Submit</button>
         </div>
       </form>

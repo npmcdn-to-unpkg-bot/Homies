@@ -12,6 +12,10 @@ function updateAllEvents (events) {
   }
 }
 
+function addEvent (evnt) {
+  _events[evnt.id] = evnt;
+}
+
 EventStore.all = function () {
   return _events;
 };
@@ -20,6 +24,10 @@ EventStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
     case EventConstants.RECEIVED_EVENTS:
       updateAllEvents(payload.events);
+      EventStore.__emitChange();
+      break;
+    case EventConstants.EVENT_CREATED:
+      addEvent(payload.evnt);
       EventStore.__emitChange();
       break;
   }

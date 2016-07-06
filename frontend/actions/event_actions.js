@@ -20,6 +20,15 @@ const EventActions = {
       actionType: EventConstants.EVENT_CREATED,
       evnt: evnt
     });
+  },
+  deleteEvent: function (evnt) {
+    EventApiUtil.deleteEvent(evnt, EventActions.receivedDeletedEvent);
+  },
+  receivedDeletedEvent: function (evnt) {
+    AppDispatcher.dispatch({
+      actionType: EventConstants.EVENT_DELETED,
+      evnt: evnt
+    });
   }
 };
 

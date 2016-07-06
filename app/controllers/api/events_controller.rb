@@ -13,4 +13,11 @@ class Api::EventsController < ApplicationController
       render "api/events/show"
     end
   end
+
+  def destroy
+    @event = Event.find(params[:id])
+    if @event.destroy!
+      render "api/events/show"
+    end
+  end
 end

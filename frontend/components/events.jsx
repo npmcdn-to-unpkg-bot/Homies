@@ -37,27 +37,11 @@ const Events = React.createClass({
     });
   },
   render: function () {
-
-    const events = this.state.events;
-    const eventKeys = Object.keys(events);
-    let eventsJsx;
-    if (eventKeys.length > 0) {
-      eventsJsx = eventKeys.map(key => {
-        return (<li key={events[key].id}>{events[key].name}</li>);
-      });
-    } else {
-      eventsJsx = ""
-    }
-
-
     return (
       <div className="col s12 m7">
         <div className="card grey lighten-4">
           <div className="card-content">
             <div>
-              <span className="">Upcoming Events</span>
-              <hr />
-              {eventsJsx}
               <EventForm events={this.state.events} />
             </div>
           </div>

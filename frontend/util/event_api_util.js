@@ -18,13 +18,18 @@ const EventApiUtil = {
       dataType: "JSON",
       data: { evnt: { name: evnt.name, start_date: evnt.startDate, end_date: evnt.endDate }},
       success: function (response) {
-        console.log('successfully created event');
+        callback(response);
+      }
+    });
+  },
+  deleteEvent: function (evnt, callback) {
+    $.ajax({
+      url: `api/events/${evnt.id}`,
+      type: "DELETE",
+      dataType: "JSON",
+      success: function (response) {
         callback(response);
       },
-      error: function (err) {
-        console.log('error creating event');
-        console.log(err);
-      }
     });
   }
 };

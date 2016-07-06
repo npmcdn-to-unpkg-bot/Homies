@@ -38,41 +38,15 @@ const EventForm = React.createClass({
       endTime: null
     };
   },
-  update: function (property) {
-    return (e) => this.setState({[property]: e.target.value});
-  },
-  updateStartDate: function (event, date) {
-    this.setState({ startDate: date });
-  },
-  updateEndDate: function (event, date) {
-    this.setState({ endDate: date });
-  },
-  updateStartTime: function (event, time) {
-    this.setState({ startTime: time });
-  },
-  updateEndTime: function (event, time) {
-    this.setState({ endTime: time });
-  },
-  handleSubmit: function (e) {
-    e.preventDefault();
-    const formData = {
-      name: this.state.eventName,
-      startDate: this.state.startDate,
-      endDate: this.state.endDate,
-      startTime: this.state.startTime,
-      endTime: this.state.endTime
-    };
-    console.log('form datda:');
-    console.log(formData);
-    EventActions.createEvent(formData);
-  },
   selectSlot: function (slotInfo) {
     console.log('slot info');
     console.log(slotInfo.start);
     const messagePrompt = `Event slot: <br /><br />start ${slotInfo.start.toLocaleString()}<br />end: ${slotInfo.end.toLocaleString()}<br />`;
+    vex.dialog.buttons.YES.text = "Create"
     vex.dialog.prompt({
       message: messagePrompt,
       input: "<input type='text' name='evnt[name]' id='event-name'/>",
+      placeholder: 'Event name',
       callback: function (response) {
         if (response["evnt[name]"] !== "") {
           const formData = {
@@ -80,75 +54,39 @@ const EventForm = React.createClass({
             startDate: slotInfo.start,
             endDate: slotInfo.end
           };
-          console.log('form data:');
-          console.log(formData);
           EventActions.createEvent(formData)
         }
       }
     });
   },
+  selectEvent: function (event) {
+    console.log('event');
+    console.log(event);
+    vex.dialog.buttons.YES.text = "Delete"
+    const messagePrompt = `<center>${event.title}</center>`;
+    vex.dialog.alert({
+      message: messagePrompt,
+      callback: function (response) {
+        if (response) {
+          EventActions.deleteEvent(event);
+        }
+      }
+    })
+  },
   render: function () {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <div>
         <BigCalendar
           selectable
           events={this.props.events}
           defaultView='week'
+          views={['week', 'day']}
           scrollToTime={new Date(1970, 1, 1, 6)}
-          defaultDate={new Date(2015, 3, 12)}
-          onSelectEvent={event => alert(event.title)}
+          defaultDate={new Date()}
+          onSelectEvent={this.selectEvent}
           onSelectSlot={this.selectSlot}
         />
-        <div className="login-form">
-          <br />
-          <div className="input-field col s4">
-            <input id="eventName" type="eventName" className="validate" type="text"
-              value={this.state.eventName}
-              onChange={this.update("eventName")}/>
-            <label for="eventName">Event Name:</label>
-          </div>
-          <div className="input-field col s4">
-            <MuiThemeProvider muiTheme={muiTheme}>
-              <DatePicker hintText="Start Date"
-                          value={this.state.startDate}
-                          container="inline"
-                          mode="landscape"
-                          onChange={this.updateStartDate} />
-            </MuiThemeProvider>
-          </div>
-          <div className="input-field col s4">
-            <MuiThemeProvider muiTheme={muiTheme}>
-              <DatePicker hintText="End Date"
-                          value={this.state.endDate}
-                          container="inline"
-                          mode="landscape"
-                          onChange={this.updateEndDate} />
-            </MuiThemeProvider>
-          </div>
-          <br />
-          <div className="input-field col s4">
-            <MuiThemeProvider muiTheme={muiTheme}>
-              <TimePicker
-                format="ampm"
-                hintText="Start time"
-                value={this.state.startTime}
-                onChange={this.updateStartTime}
-              />
-            </MuiThemeProvider>
-          </div>
-          <div className="input-field col s4">
-            <MuiThemeProvider muiTheme={muiTheme}>
-              <TimePicker
-                format="ampm"
-                hintText="End time"
-                value={this.state.endTime}
-                onChange={this.updateEndTime}
-              />
-            </MuiThemeProvider>
-          </div>
-          <button className="btn waves-effect waves-light" type="submit" name="action">Submit</button>
-        </div>
-      </form>
+      </div>
     );
   }
 });

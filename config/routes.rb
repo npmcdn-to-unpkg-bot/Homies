@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :list_items, only: [:create, :update]
     resources :users, only: [:create, :update]
     resources :messages, only: [:create, :index]
-    resources :events, only: [:create, :index]
+    resources :events, only: [:create, :index, :destroy]
     resource :session, only: [:create, :destroy, :show]
   end
 end

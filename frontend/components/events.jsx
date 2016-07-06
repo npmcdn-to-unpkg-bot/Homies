@@ -32,13 +32,13 @@ const Events = React.createClass({
       input: "<input type='text' name='evnt[name]' id='event-name'/>",
       placeholder: 'Event name',
       callback: function (response) {
-        if (response["evnt[name]"] !== "") {
+        if (response && response["evnt[name]"] != "") {
           const formData = {
             name: response["evnt[name]"],
             startDate: slotInfo.start,
             endDate: slotInfo.end
           };
-          EventActions.createEvent(formData)
+          EventActions.createEvent(formData);
         }
       }
     });

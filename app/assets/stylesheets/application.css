@@ -91,6 +91,18 @@ input[type="text"].message-input:focus {
   width: 95%;
 }
 
+#bill-input-description {
+  width: 60%;
+}
+
+#bill-input-amount {
+  width: 25%;
+}
+
+#bill-input-calendar {
+  width: 92%;
+}
+
 .calendar-div {
   height: 1075px;
 }

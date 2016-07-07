@@ -8,11 +8,15 @@ const Bill = React.createClass({
   getInitialState: function () {
     return {
       homies: HouseStore.currentHomies(),
-      bills: BillStore.all()
-    }
+      allBills: BillStore.all(),
+      urgentBills: BillStore.urgentBills(),
+      completedThisMonth: BillStore.completedThisMonth()
+    };
   },
   componentWillMount: function () {
     BillActions.fetchBills();
+    BillActions.fetchUrgentBills();
+    BillActions.fetchCompletedThisMonthBills();
     this.houseListener = HouseStore.addListener(this.updateHomies);
     this.billListener = BillStore.addListener(this.updateBills);
   },
@@ -22,7 +26,9 @@ const Bill = React.createClass({
   },
   updateBills: function () {
     this.setState({
-      bills: BillStore.all()
+      allBills: BillStore.all(),
+      urgentBills: BillStore.urgentBills(),
+      completedThisMonth: BillStore.completedThisMonth()
     });
   },
   updateHomies: function () {
@@ -56,12 +62,29 @@ const Bill = React.createClass({
     });
   },
   render: function () {
-    console.log('bill rendering');
-    console.log(HouseStore.currentHomies());
+    console.log('urgent');
+    console.log(this.state.urgentBills);
+    const urgentBills = this.state.urgentBills;
+    const urgentBillsKeys = Object.keys(urgentBills);
+    let urgentBillsJsx;
+    if (urgentBillsKeys.length > 0) {
+      urgentBillsJsx = urgentBillsKeys.map(key => {
+        const billDescription = urgentBills[key].description;
+        return (<li>{billDescription}</li>);
+      });
+    } else {
+      urgentBillsJsx = "One second while loading!";
+    }
     return (
       <div>
         <div className="row center bill-view-container">
-          aggregate data here
+          <div className="row center urgent-bills">
+            <div className="card grey lighten-4">
+              <div className="card-content">
+                {urgentBillsJsx}
+              </div>
+            </div>
+          </div>
         </div>
         <div className="row">
           <div className="col s12 m5">

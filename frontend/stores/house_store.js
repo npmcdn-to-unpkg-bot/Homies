@@ -17,8 +17,6 @@ function updateCurrentHouse (house) {
 }
 
 function updateCurrentHomies (homies) {
-  console.log('updating current homies');
-  console.log(homies);
   _currentHomies = homies;
 }
 

@@ -4,6 +4,16 @@ class Api::BillsController < ApplicationController
     render "api/bills/show"
   end
 
+  def urgent
+    @bills = current_user.bills.due_this_month.not_paid
+    render "api/bills/show"
+  end
+
+  def completed_this_month
+    @bills = current_user.bills.due_this_month.paid
+    render "api/bills/show"
+  end
+
   def create
     @bills = []
     params[:bill][:users].each do |user_id|

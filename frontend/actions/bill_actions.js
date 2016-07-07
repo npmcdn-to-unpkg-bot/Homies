@@ -8,15 +8,35 @@ const BillActions = {
   },
   receiveCreatedBill: function (bill) {
     console.log('receive created bill - bill actions (need to invoke app dispatcher)');
+    AppDispatcher.dispatch({
+      actionType: BillConstants.CREATED_BILL,
+      bill: bill
+    });
   },
   fetchBills: function () {
     BillApiUtil.fetchBills(BillActions.receiveFetchedBills);
   },
   receiveFetchedBills: function (bills) {
-    console.log('successfully fetched - bill actions');
-    console.log(bills);
     AppDispatcher.dispatch({
       actionType: BillConstants.FETCHED_ALL_BILLS,
+      bills: bills
+    });
+  },
+  fetchUrgentBills: function () {
+    BillApiUtil.fetchUrgentBills(BillActions.receiveUrgentBills);
+  },
+  receiveUrgentBills: function (bills) {
+    AppDispatcher.dispatch({
+      actionType: BillConstants.FETCHED_URGENT_BILLS,
+      bills: bills
+    });
+  },
+  fetchCompletedThisMonthBills: function () {
+    BillApiUtil.fetchCompletedThisMonthBills(BillActions.receiveCompletedBills);
+  },
+  receiveCompletedBills: function (bills) {
+    AppDispatcher.dispatch({
+      actionType: BillConstants.FETCHED_COMPLETED_THIS_MONTH,
       bills: bills
     });
   }

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     resources :messages, only: [:create, :index]
     resources :events, only: [:create, :index, :destroy]
     resources :bills, only: [:create, :index, :destroy]
+    get 'bills/urgent' => 'bills#urgent'
+    get 'bills/completedThisMonth' => 'bills#completed_this_month'
     resource :session, only: [:create, :destroy, :show]
   end
 end

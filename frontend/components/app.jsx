@@ -13,7 +13,9 @@ const App = React.createClass({
   },
   componentWillMount: function () {
     this.listener = HouseStore.addListener(this.handleUpdate);
-    HouseActions.updateCurrentHouse(SessionStore.currentUser().house_id);
+    const currHouseId = SessionStore.currentUser().house_id;
+    HouseActions.updateCurrentHouse(currHouseId);
+    HouseActions.updateCurrentHomies();
   },
   handleUpdate: function () {
     this.setState({

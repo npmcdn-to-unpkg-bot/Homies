@@ -20,6 +20,15 @@ const HouseActions = {
       actionType: HouseConstants.UPDATE_CURRENT_HOUSE,
       house: house
     });
+  },
+  updateCurrentHomies: function (houseId) {
+    HouseApiUtil.updateCurrentHomies(HouseActions.finishedCurrentHomies);
+  },
+  finishedCurrentHomies: function (homies) {
+    AppDispatcher.dispatch({
+      actionType: HouseConstants.UPDATE_CURRENT_HOMIES,
+      homies: homies
+    });
   }
 };
 

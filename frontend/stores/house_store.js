@@ -6,6 +6,7 @@ const HouseStore = new Store(AppDispatcher);
 
 let _houses = {};
 let _currentHouse = {};
+let _currentHomies = {};
 
 function updateHouse (house) {
   _houses = house;
@@ -15,8 +16,17 @@ function updateCurrentHouse (house) {
   _currentHouse = house;
 }
 
+function updateCurrentHomies (homies) {
+  console.log('updating current homies');
+  console.log(homies);
+  _currentHomies = homies;
+}
 
-HouseStore.currentHouse = function (house_id) {
+HouseStore.currentHomies = function () {
+  return _currentHomies;
+};
+
+HouseStore.currentHouse = function () {
   return _currentHouse;
 };
 HouseStore.all = function () {
@@ -39,6 +49,10 @@ HouseStore.__onDispatch = function (payload) {
       break;
     case HouseConstants.UPDATE_CURRENT_HOUSE:
       updateCurrentHouse(payload.house);
+      HouseStore.__emitChange();
+      break;
+    case HouseConstants.UPDATE_CURRENT_HOMIES:
+      updateCurrentHomies(payload.homies);
       HouseStore.__emitChange();
       break;
   }

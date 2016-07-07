@@ -1,4 +1,9 @@
 class Api::HousesController < ApplicationController
+  def index
+    @homies = current_user.house.users
+    render "api/houses/homies" 
+  end
+
   def create
     @house = House.new(house_params)
     if @house.save

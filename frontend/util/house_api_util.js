@@ -23,6 +23,20 @@ const HouseApiUtil = {
         console.log(err);
       }
     });
+  },
+  updateCurrentHomies: function (callback) {
+    $.ajax({
+      url: `api/houses`,
+      type: "GET",
+      dataType: "JSON",
+      success: function (response) {
+        callback(response);
+      },
+      error: function (err) {
+        console.log('error udpating current homies');
+        console.log(err);
+      }
+    });
   }
 };
 

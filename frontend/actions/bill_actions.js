@@ -7,7 +7,18 @@ const BillActions = {
     BillApiUtil.createBill(bill, BillActions.receiveCreatedBill);
   },
   receiveCreatedBill: function (bill) {
-    console.log('receive created bill - bill actions');
+    console.log('receive created bill - bill actions (need to invoke app dispatcher)');
+  },
+  fetchBills: function () {
+    BillApiUtil.fetchBills(BillActions.receiveFetchedBills);
+  },
+  receiveFetchedBills: function (bills) {
+    console.log('successfully fetched - bill actions');
+    console.log(bills);
+    AppDispatcher.dispatch({
+      actionType: BillConstants.FETCHED_ALL_BILLS,
+      bills: bills
+    });
   }
 };
 

@@ -103,6 +103,10 @@ input[type="text"].message-input:focus {
   width: 92%;
 }
 
+#datepicker {
+  width: 92%;
+}
+
 .calendar-div {
   height: 1075px;
 }

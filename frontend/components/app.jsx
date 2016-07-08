@@ -44,18 +44,6 @@ const App = React.createClass({
       );
     }
   },
-  greeting: function () {
-    if (SessionStore.isUserLoggedIn()) {
-      return (
-        <ul className="right hide-on-med-and-down">
-          <li><a href="sass.html"><i className="material-icons">search</i></a></li>
-          <li><a href="badges.html"><i className="material-icons">view_module</i></a></li>
-          <li><a href="collapsible.html"><i className="material-icons">refresh</i></a></li>
-          <li><a href="mobile.html"><i className="material-icons">more_vert</i></a></li>
-        </ul>
-      );
-    }
-  },
   render: function () {
     let currentHouseName;
     if (this.state.house) {
@@ -63,8 +51,25 @@ const App = React.createClass({
     } else {
       currentHouseName = "";
     }
+    let greetingJsx;
+    if (Object.keys(SessionStore.currentUser()).length > 0) {
+      greetingJsx =  (
+        <ul className="right hide-on-med-and-down">
+          <li><Link to="/messages" activeClassName="current">Messages</Link></li>
+          <li><Link to="/events" activeClassName="current">Events</Link></li>
+          <li><Link to="/lists" activeClassName="current">Lists</Link></li>
+          <li><Link to="/bills" activeClassName="current">Bills</Link></li>
+        </ul>
+      );
+    } else {
+      greetingJsx = (
+        <div>
+          <Link to="/login" activeClassName="current">Login</Link>
+          <Link to="/signup" activeClassName="current">Sign Up</Link>
+        </div>
+      );
+    }
     return (
-
       <div>
         <ul id="settings-button" className="dropdown-content">
           <li><a href="/">Edit profile</a></li>
@@ -74,9 +79,9 @@ const App = React.createClass({
         </ul>
         <nav className="blue accent-1">
           <div className="nav-wrapper">
-              <a href="/" className="brand-logo center">{currentHouseName}</a>
+            <Link to="/" className="brand-logo center" activeClassName="current">{currentHouseName}</Link>
               <ul className="right hide-on-med-and-down">
-                <li><a className="dropdown-button" href="/" data-activates="settings-button">Hello, {SessionStore.currentUser().username}<i className="material-icons right">arrow_drop_down</i></a></li>
+                <li>{greetingJsx}</li>
               </ul>
           </div>
         </nav>

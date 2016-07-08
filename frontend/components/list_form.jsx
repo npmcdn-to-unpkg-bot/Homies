@@ -8,7 +8,8 @@ const ListForm = React.createClass({
     return {
       title: "",
       description: "",
-      items: []
+      items: [],
+      currentListItemContent: ""
     };
   },
   handleListSubmit: function (e) {
@@ -23,15 +24,20 @@ const ListForm = React.createClass({
       ListActions.createList(formData);
       ListActions.fetchHousesLists();
     }
+    this.setState({
+      title: "",
+      description: "",
+      items: []
+    });
   },
   handleItemSubmit: function (e) {
     e.preventDefault();
     let newItem = document.getElementById("list-item").value;
     if (newItem !== "") {
       this.setState({
-        items: this.state.items.concat([newItem])
+        items: this.state.items.concat([newItem]),
+        currentListItemContent: ""
       });
-      newItem = "";
     }
   },
   update: function (property) {
@@ -78,7 +84,9 @@ const ListForm = React.createClass({
           <form onSubmit={this.handleItemSubmit}>
             <div className="input-field col s5">
               <input id="list-item"
-                     type="text" />
+                     type="text"
+                     value={this.state.currentListItemContent}
+                     onChange={this.update("currentListItemContent")} />
               <label for="list-item">Add item...</label>
             </div>
           </form>

@@ -1,10 +1,9 @@
 source 'https://rubygems.org'
 
 
-ruby '2.3.1'
+ruby '2.1.2'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
-gem 'faker'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
 # Use SCSS for stylesheets
@@ -39,6 +38,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-rails'
   gem 'byebug'
+  gem 'faker'
 end
 
 group :development do
@@ -47,6 +47,7 @@ group :development do
   gem 'table_print'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'faker'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

@@ -6,13 +6,8 @@ const BillApiUtil = {
       dataType: "JSON",
       data: { bill: { description: bill.description, amount: bill.amount, due_date: bill.dueDate, users: bill.users}},
       success: function (response) {
-        console.log('successfully created the bill!');
         callback(response);
       },
-      error: function (err) {
-        console.log('error creating the bill');
-        console.log(err);
-      }
     });
   },
   fetchBills: function (callback) {
@@ -21,13 +16,8 @@ const BillApiUtil = {
       type: "GET",
       dataType: "JSON",
       success: function (response) {
-        console.log('succes!');
         callback(response);
       },
-      error: function (err) {
-        console.log('error fetching bills');
-        console.log(err);
-      }
     });
   },
   fetchUrgentBills: function (callback) {
@@ -36,13 +26,8 @@ const BillApiUtil = {
       type: "GET",
       dataType: "JSON",
       success: function (response) {
-        console.log('successfully fetched urgent bills');
         callback(response);
       },
-      error: function (err) {
-        console.log('error fetching urgent bills');
-        console.log(err);
-      }
     });
   },
   fetchThisMonthBills: function (callback) {
@@ -52,10 +37,6 @@ const BillApiUtil = {
       dataType: "JSON",
       success: function (response) {
         callback(response);
-      },
-      error: function (err) {
-        console.log('error fetching completed this month');
-        console.log(err);
       }
     });
   },
@@ -65,15 +46,10 @@ const BillApiUtil = {
       type: "PATCH",
       dataType: "JSON",
       data: { bill: { completed: newStatus }},
-      success: function (bill) {
-        console.log('successfully patched bill');
-        callback(bill);
+      success: function (response) {
+        callback(response);
       },
-      error: function (err) {
-        console.log('error patching bill');
-        console.log(err);
-      }
-    })
+    });
   }
 };
 

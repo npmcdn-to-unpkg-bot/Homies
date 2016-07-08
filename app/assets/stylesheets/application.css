@@ -79,6 +79,10 @@ input.message-input {
   box-shadow: 0px;
 }
 
+input.validate {
+  text-align: center;
+}
+
 input[type="text"].message-input:focus {
   border-bottom: 0px;
   box-shadow: 0 0px;
@@ -111,7 +115,7 @@ input[type="text"].message-input:focus {
   height: 1075px;
 }
 
-div.urgent-bills {
+/*div.urgent-bills {
   display: inline-block;
   border-radius: 50%;
   height: 200px;
@@ -119,11 +123,14 @@ div.urgent-bills {
   background-color: #f5f5f5;
   padding-top: 65px;
   margin-left: 100px;
+}*/
+
+.message-container {
+  max-height: 450px;
+  overflow: auto;
 }
 
-
-div.list-item {
-  width: 33.4%;
-  -webkit-transition: .5s opacity;
-          transition: .5s opacity;
+.flex-container {
+  flex-direction: column;
+  align-content: flex-start;
 }

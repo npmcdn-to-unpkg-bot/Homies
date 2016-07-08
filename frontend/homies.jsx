@@ -24,35 +24,40 @@ const SessionStore = require('./stores/session_store.js');
 window.actions = SessionActions;
 window.store = SessionStore;
 
-function _ensureLoggedIn(nextState, replace) {
+const appRouter = (
+  <Router history={hashHistory}>
+    <Route path="/" component={App}>
+      <IndexRoute component={Dashboard} onEnter={ ensureLoggedIn } />
+      <Route path="login" component={LoginForm} />
+      <Route path="signup" component={SignupForm} />
+      <Route path="movein" component={MoveIn} onEnter={ checkIfHasHouse } />
+      <Route path="messages" component={Messages} onEnter={ ensureLoggedIn }/>
+      <Route path="lists" component={List} onEnter={ ensureLoggedIn } />
+      <Route path="events" component={Events} onEnter={ ensureLoggedIn } />
+      <Route path="bills" component={Bills} onEnter={ ensureLoggedIn } />
+    </Route>
+  </Router>
+);
+
+function checkIfHasHouse (nextState, replace) {
+    if (SessionStore.currentUser().house_id) {
+      replace('/');
+    }
+}
+
+function ensureLoggedIn(nextState, replace) {
   // We don't want users to be able to visit our 'new' or 'review' routes
   // if they haven't already signed in/up. Let's redirect them!
   // `replace` is like a redirect. It replaces the current entry
   // into the history (and the hashFragment), so the Router is forced
   // to re-route.
-    if (!SessionStore.isUserLoggedIn()) {
-      console.log('here!');
+    if (Object.keys(SessionStore.currentUser()).length === 0) {
       replace('/login');
     } else {
-      console.log('wow');
+      console.log('you good');
     }
 }
 
-
-const appRouter = (
-  <Router history={hashHistory}>
-    <Route path="/" component={App}>
-      <IndexRoute component={Dashboard} />
-      <Route path="login" component={LoginForm} />
-      <Route path="signup" component={SignupForm} />
-      <Route path="movein" component={MoveIn} />
-      <Route path="messages" component={Messages} />
-      <Route path="lists" component={List} />
-      <Route path="events" component={Events} />
-      <Route path="bills" component={Bills} />
-    </Route>
-  </Router>
-);
 
 document.addEventListener('DOMContentLoaded', function () {
   if (window.currentUser) {

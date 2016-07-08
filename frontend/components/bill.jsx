@@ -93,8 +93,8 @@ const Bill = React.createClass({
         billSum += urgentBills[key].amount;
       });
       return (
-        <div>
-          <h5>Total Amount ${billSum.toFixed(2)}</h5>
+        <div className="col s12 m12">
+          <h5><center>You owe: ${billSum.toFixed(2)}</center></h5>
         </div>
       );
     } else {
@@ -108,6 +108,25 @@ const Bill = React.createClass({
     const dayDue = dateObj.getDate();
     const yearDue = dateObj.getFullYear();
     return `${monthNames[monthDue]} ${dayDue}, ${yearDue}`;
+  },
+  formatBillsJsx: function (bills) {
+    const billsKeys = Object.keys(bills);
+    let billsJsx;
+    if (billsKeys.length > 0) {
+      return billsKeys.map(key => {
+        const bill = bills[key];
+        return (
+          <tr key={bill.id}>
+            <td>{bill.description}</td>
+            <td>{bill.amount}</td>
+            <td>{this.formatDateObject(bill.due_date)}</td>
+            <td><BillStatus bill={bill} completed={bill.completed}/></td>
+          </tr>
+        );
+      });
+    } else {
+      return "One second while loading!";
+    }
   },
   dueThisMonthJsx: function () {
     const thisMonthBills = this.state.thisMonthBills;
@@ -132,71 +151,76 @@ const Bill = React.createClass({
   billView: function () {
     if (this.state.dashboardView) {
       return (
-        <div className="row">
-          <div className="col s12 m5">
-            <div className="card grey lighten-4">
-              <div className="card-content">
-                <b><center>Bills</center></b><hr />
-                <center>{this.urgentBillsAmount()}</center>
-              </div>
-              <div className="card-action">
-                <Link to="/bills" activeClassName="current">View More Bills</Link>
-              </div>
+        <div className="col s12 m6">
+          <div className="card grey lighten-4">
+            <div className="card-content">
+              <b><center>Bills</center></b><hr />
+              <center>{this.urgentBillsAmount()}</center>
+            </div>
+            <div className="card-action">
+              <Link to="/bills" activeClassName="current">View More Bills</Link>
             </div>
           </div>
         </div>
       );
     } else {
       return (
-        <div>
+        <div className="col s12 m8">
           <div className="bill-view-container">
             <div className="row center urgent-bills">
               {this.urgentBillsJsx()}
             </div>
           </div>
-          <div className="row">
-            <div className="col s12 m5">
-              <div className="card grey lighten-4">
-                <div className="card-content">
-                  This Month
-                  <hr />
-                  <table className="centered">
-                    <thead>
-                      <tr>
-                        <th data-field="description">Description</th>
-                        <th data-field="amount">Amount</th>
-                        <th data-field="due">Due</th>
-                        <th data-field="status">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {this.dueThisMonthJsx()}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+          <div className="card grey lighten-4">
+            <div className="card-content">
+              <center><b>This Month:</b></center>
+              <table className="centered">
+                <thead>
+                  <tr>
+                    <th data-field="description">Description</th>
+                    <th data-field="amount">Amount</th>
+                    <th data-field="due">Due</th>
+                    <th data-field="status">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.formatBillsJsx(this.state.thisMonthBills)}
+                </tbody>
+              </table>
             </div>
-            <div className="col s12 m7">
-              <div className="card grey lighten-4">
-                <div className="card-content">
-                  Lifetime
-                  <hr />
-                </div>
+          </div>
+          <div className="col s12 m7">
+            <div className="card grey lighten-4">
+              <div className="card-content">
+                <center><b>Lifetime</b></center>
+                <table className="centered">
+                  <thead>
+                    <tr>
+                      <th data-field="description">Description</th>
+                      <th data-field="amount">Amount</th>
+                      <th data-field="due">Due</th>
+                      <th data-field="status">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.formatBillsJsx(this.state.allBills)}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col s12 m5">
-              <a className="btn-floating btn-small waves-effect waves-light red">
-                <i className="material-icons" onClick={this.addBill}>add</i>
-              </a>
-            </div>
+        <div className="row">
+          <div className="col s12 m5">
+              <i className="small material-icons" onClick={this.addBill}>note_add</i>
           </div>
         </div>
-      )
+      </div>
+      );
     }
   },
   render: function () {
+    console.log('bill render');
+    console.log(this.state.allBills);
     return (
       <div>
         {this.billView()}

@@ -66,31 +66,36 @@ const LoginForm = React.createClass({
         <div className="center">
           Please { this.formType() } or { navLink }
         </div>
-        <form onSubmit={this.handleSubmit}>
-          { this.fieldErrors("base") }
-					<div className="login-form">
-		        <br />
-
-            <div className="input-field col s4">
-              <input id="username" type="username" className="validate" type="text"
-		            value={this.state.username}
-		            onChange={this.update("username")}/>
-              <label for="username">Username</label>
-            </div>
-
-            <div className="input-field col s4">
-              <input id="password" type="password"
-		            value={this.state.password}
-		            onChange={this.update("password")}
-								className="login-input"/>
-              <label for="password">Password</label>
-            </div>
-
-		        <br />
-            <button className="btn waves-effect waves-light" type="submit" name="action">Submit</button>
-					</div>
-				</form>
-			</div>
+        <div className="col s12 m4">
+          &nbsp;&nbsp;
+        </div>
+        <div className="col s12 m4 center">
+          <form onSubmit={this.handleSubmit}>
+            { this.fieldErrors("base") }
+  					<div className="login-form">
+              <div className="row center">
+                <div className="input-field col s12">
+                  <input id="username" type="username" className="validate" type="text"
+    		            value={this.state.username}
+    		            onChange={this.update("username")}/>
+                  <label for="username">Username</label>
+                </div>
+              </div>
+              <div className="row center">
+                <div className="input-field col s12">
+                  <input id="password" type="password"
+    		            value={this.state.password}
+    		            onChange={this.update("password")}
+    								className="login-input validate"/>
+                  <label for="password">Password</label>
+                </div>
+              </div>
+  		        <br />
+              <button className="btn waves-effect waves-light" type="submit" name="action">Submit</button>
+  					</div>
+  				</form>
+        </div>
+      </div>
 		);
 	}
 });

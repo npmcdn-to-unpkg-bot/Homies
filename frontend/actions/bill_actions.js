@@ -18,7 +18,7 @@ const BillActions = {
   },
   receiveFetchedBills: function (bills) {
     AppDispatcher.dispatch({
-      actionType: BillConstants.FETCHED_ALL_BILLS,
+      actionType: BillConstants.UPDATE_ALL_BILLS,
       bills: bills
     });
   },

@@ -91,7 +91,7 @@ const Events = React.createClass({
     if (upcomingEventsKeys.length > 0) {
       return upcomingEventsKeys.map(key => {
         return (
-          <tr>
+          <tr key={upcomingEvents[key].id}>
             <td>{upcomingEvents[key].name}</td>
             <td>{this.formatDateObject(upcomingEvents[key].start_date)}</td>
           </tr>
@@ -139,7 +139,7 @@ const Events = React.createClass({
   },
   render: function () {
     return (
-      <div className="col s12 m7">
+      <div className="col s12 m6">
         <div className="card grey lighten-4">
           <div className="card-content">
             {this.eventView()}

@@ -5,12 +5,7 @@ const MessageApiUtil = {
       type: "GET",
       dataType: "JSON",
       success: function (response) {
-        console.log('successfully fetched messages!');
         callback(response);
-      },
-      error: function (err) {
-        console.log('error');
-        console.log(err);
       }
     });
   },
@@ -21,11 +16,6 @@ const MessageApiUtil = {
       data: { message },
       success: function (response) {
         callback(response);
-        console.log('successfully created message!');
-      },
-      error: function (err) {
-        console.log('error :(');
-        console.log(err);
       }
     });
   }

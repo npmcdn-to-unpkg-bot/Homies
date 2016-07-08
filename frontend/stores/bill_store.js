@@ -21,23 +21,15 @@ function updateUrgentBills (bills) {
 
 function addBill (bill) {
   _bills[bill.id] = bill;
-  console.log('BILL');
-  console.log(bill);
   const billDateObj = new Date(bill.due_date);
   const billMonth = billDateObj.getMonth();
   const currentMonth = new Date().getMonth();
-  console.log('bill month');
-  console.log(billMonth);
-  console.log('current month');
-  console.log(currentMonth);
   if (billMonth === currentMonth) {
-    console.log('bill month and curr month are equal');
     _thisMonthBills[bill.id] = bill;
   }
 }
 
 function updateSingleBill (bill) {
-  _bills[bill.id] = bill;
   const urgentBillsKeys = Object.keys(_urgentBills);
   if (bill.completed) {
     delete _urgentBills[bill.id];

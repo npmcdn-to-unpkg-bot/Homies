@@ -1,6 +1,6 @@
 class Api::BillsController < ApplicationController
   def index
-    @bills = current_user.bills
+    @bills = current_user.bills.chronological.before_this_month
     render "api/bills/show"
   end
 
@@ -10,7 +10,7 @@ class Api::BillsController < ApplicationController
   end
 
   def this_month
-    @bills = current_user.bills.due_this_month
+    @bills = current_user.bills.due_this_month.chronological
     render "api/bills/show"
   end
 

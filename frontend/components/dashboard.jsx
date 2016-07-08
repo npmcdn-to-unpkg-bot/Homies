@@ -10,10 +10,10 @@ const Dashboard = React.createClass({
       <div>
         <div className="row">
           <Messages />
-          <Lists />
+          <Events />
         </div>
         <div className="row">
-          <Events />
+          <Lists />
           <Bills />
         </div>
       </div>

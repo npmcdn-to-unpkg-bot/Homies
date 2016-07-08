@@ -22,11 +22,11 @@ SessionStore.currentUser = function() {
 };
 
 SessionStore.currentUserHasBeenFetched = function () {
-  return !!_currentUserHasBeenFetched;
+  return Boolean(_currentUserHasBeenFetched);
 };
 
 SessionStore.isUserLoggedIn = function () {
-  return !!_currentUser.id;
+  return Boolean(_currentUser.id);
 };
 
 SessionStore.__onDispatch = function (payload) {

@@ -28,18 +28,42 @@ const List = React.createClass({
   handleUpdates: function () {
     this.setState({ lists: ListStore.all() });
   },
-  listView: function (lists) {
+  listView: function (lists, lastUpdatedTime) {
     const listKeys = Object.keys(lists);
-    return listKeys.map(key => {
-      return (<ListShow
-                key={lists[key].id}
-                list={lists[key]}
-                listItems={lists[key].list_items} />);
-    });
+    if (this.state.dashboardView) {
+      return listKeys.map(key => {
+        return (
+          <div className="card grey lighten-4" key={lists[key].id}>
+            <div className="card-content">
+              <span className="">Recent Lists: (Last updated: {this.formatDateObject(lastUpdatedTime)})</span>
+              <hr />
+              <ListShow
+                  list={lists[key]}
+                  listItems={lists[key].list_items} />
+            </div>
+            {this.listAction()}
+          </div>);
+      });
+    } else {
+      return listKeys.map(key => {
+        return (
+          <div className="col s12 m4">
+            <div className="card grey lighten-4">
+              <div className="card-content">
+                <ListShow
+                    key={lists[key].id}
+                    list={lists[key]}
+                    listItems={lists[key].list_items} />
+              </div>
+            </div>
+          </div>
+        );
+      });
+    }
   },
   columnClass: function () {
     if (this.state.dashboardView) {
-      return ("col s12 m5");
+      return ("col s12 m6");
     } else {
       return ("col s12 m12");
     }
@@ -74,23 +98,14 @@ const List = React.createClass({
     if (this.state.dashboardView && ListStore.getRecentlyUpdated() !== undefined) {
       const listObj = {};
       listObj[ListStore.getRecentlyUpdated().id] = ListStore.getRecentlyUpdated();
-      listJsx = this.listView(listObj);
+      listJsx = this.listView(listObj, lastUpdatedTime);
     } else {
       listJsx = this.listView(this.state.lists);
     }
 
     return (
       <div className={this.columnClass()}>
-        <div className="card grey lighten-4">
-          <div className="card-content">
-            <div>
-              <span className="">Recent Lists: (Last updated: {this.formatDateObject(lastUpdatedTime)})</span>
-              <hr />
-              {listJsx}
-            </div>
-          </div>
-          {this.listAction()}
-        </div>
+        {listJsx}
       </div>
     );
   }

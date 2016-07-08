@@ -31,13 +31,29 @@ const Messages = React.createClass({
     channel.bind('message_created', function(data) {
       MessageActions.fetchMessages();
     });
+    this.updateScroll(0);
+  },
+  updateScroll: function (speed = 250) {
+    const $parentEl = $(".message-container");
+    const $messageDiv = $(".message-div");
+    console.log('parent el');
+    console.log($parentEl);
+    console.log('message div');
+    console.log($messageDiv);
+    if ($parentEl.length > 0 && $messageDiv.length > 0) {
+      const $lastEl = $messageDiv.eq(-1);
+      const parentOffset = $parentEl.offset().top;
+      const lastElOffset = $parentEl.children().eq(-1).offset().top;
+      const newHeight = document.querySelector(".message-container").scrollHeight;
+      $parentEl.animate({ scrollTop: newHeight }, 0);
+    }
   },
   componentWillUnmount: function () {
     this.listener.remove();
     this.pusher.unsubscribe('house');
   },
   updateMessage: function () {
-    this.setState({ messages: MessageStore.all() });
+    this.setState({ messages: MessageStore.all() }, this.updateScroll);
   },
   messageView: function (messages) {
     const messageKeys = Object.keys(messages);
@@ -45,7 +61,7 @@ const Messages = React.createClass({
       const sender = messages[key].sender.username;
       if (SessionStore.currentUser().username === sender) {
         return (
-          <div className="message-div-right" key={messages[key].id}>
+          <div className="message-div message-div-right" key={messages[key].id}>
             <div className="from-me">
               <p>{messages[key].content}</p>
             </div>
@@ -54,7 +70,7 @@ const Messages = React.createClass({
         );
       } else {
         return (
-          <div className="message-div-left" key={messages[key].id}>
+          <div className="message-div message-div-left" key={messages[key].id}>
             <div className="from-them">
               <p><b>{sender}:</b> {messages[key].content}</p>
             </div>
@@ -66,7 +82,7 @@ const Messages = React.createClass({
   );},
   columnClass: function () {
     if (this.state.dashboardView) {
-      return "col s12 m7";
+      return "col s12 m6";
     } else {
       return "col s12 m12";
     }
@@ -110,7 +126,7 @@ const Messages = React.createClass({
             <span className="">{chatMemberString}</span>
             <hr />
             <section className="chat-container">
-              <div className="container2">
+              <div className="message-container">
                 {messageJsx}
               </div>
             </section>

@@ -5,27 +5,37 @@ const MessageForm = React.createClass({
   getInitialState: function () {
     return { content: "" };
   },
+  componentWillMount: function () {
+    this.updateScroll();
+  },
   update: function (e) {
     this.setState({ content: e.target.value });
+  },
+  updateScroll: function () {
+    const messageDiv = document.getElementById("message-input");
+    if (messageDiv) {
+      $('#message-input').scrollTop($('#message-input')[0].scrollHeight);
+    }
   },
   handleSubmit: function (e) {
     e.preventDefault();
     if (this.state.content.length > 0) {
       MessageActions.createMessage(this.state);
     }
-    this.setState({ content: "" }, function () {
-      document.getElementById('content').value = "";
-    });
+    this.setState({ content: "" });
+    console.log('sent message');
+    this.updateScroll();
   },
   render: function () {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="login-form">
           <div className="col s12">
-            <input className="message-input"
+            <input id="message-input"
+                   className="message-input"
                    placeholder="Type a message..."
                    type="text"
-                   value={this.state.message}
+                   value={this.state.content}
                    onChange={this.update} />
           </div>
         </div>

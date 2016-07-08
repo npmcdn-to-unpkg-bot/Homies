@@ -94,7 +94,8 @@ const Bill = React.createClass({
       });
       return (
         <div className="col s12 m12">
-          <h5><center>You owe: ${billSum.toFixed(2)}</center></h5>
+          <h5><center>You owe: ${billSum.toFixed(2)}</center></h5><br />
+            <a className="waves-effect waves-light btn" onClick={this.addBill}><i className="material-icons right">add</i>Add Bill</a>
         </div>
       );
     } else {
@@ -209,18 +210,11 @@ const Bill = React.createClass({
               </div>
             </div>
           </div>
-        <div className="row">
-          <div className="col s12 m5">
-              <i className="small material-icons" onClick={this.addBill}>note_add</i>
-          </div>
-        </div>
       </div>
       );
     }
   },
   render: function () {
-    console.log('bill render');
-    console.log(this.state.allBills);
     return (
       <div>
         {this.billView()}

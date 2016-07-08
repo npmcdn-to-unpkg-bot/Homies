@@ -134,3 +134,7 @@ input[type="text"].message-input:focus {
   flex-direction: column;
   align-content: flex-start;
 }
+
+.list-item {
+  width: 33%;
+}

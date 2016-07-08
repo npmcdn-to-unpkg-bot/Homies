@@ -36,14 +36,7 @@ const Messages = React.createClass({
   updateScroll: function (speed = 250) {
     const $parentEl = $(".message-container");
     const $messageDiv = $(".message-div");
-    console.log('parent el');
-    console.log($parentEl);
-    console.log('message div');
-    console.log($messageDiv);
     if ($parentEl.length > 0 && $messageDiv.length > 0) {
-      const $lastEl = $messageDiv.eq(-1);
-      const parentOffset = $parentEl.offset().top;
-      const lastElOffset = $parentEl.children().eq(-1).offset().top;
       const newHeight = document.querySelector(".message-container").scrollHeight;
       $parentEl.animate({ scrollTop: newHeight }, 0);
     }

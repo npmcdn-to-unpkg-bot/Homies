@@ -24,19 +24,16 @@ UserBill.create(user_id: 1, bill_id: 3)
 UserBill.create(user_id: 1, bill_id: 4)
 UserBill.create(user_id: 1, bill_id: 5)
 
-10.times do
-  Message.create!(content: Faker::Superhero.name, user_id: 1, house_id: 1)
-end
-10.times do
-  Message.create!(content: Faker::Superhero.name, user_id: 2, house_id: 1)
-end
-10.times do
-  Message.create!(content: Faker::Superhero.name, user_id: 3, house_id: 1)
-end
-10.times do
-  Message.create!(content: Faker::Superhero.name, user_id: 4, house_id: 1)
-end
 
-6.times do
-  Event.create!(name: Faker::Hipster.word, user_id: 1, house_id: 1, start_date: 2.days.from_now, end_date: 3.days.from_now)
-end
+Message.create!(content: Faker::Superhero.name, user_id: 1, house_id: 1)
+
+
+Message.create!(content: Faker::Superhero.name, user_id: 2, house_id: 1)
+
+Message.create!(content: Faker::Superhero.name, user_id: 3, house_id: 1)
+
+Message.create!(content: Faker::Superhero.name, user_id: 4, house_id: 1)
+
+
+
+Event.create!(name: Faker::Hipster.word, user_id: 1, house_id: 1, start_date: 2.days.from_now, end_date: 3.days.from_now)

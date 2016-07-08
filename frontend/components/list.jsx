@@ -5,6 +5,7 @@ const SessionStore = require('../stores/session_store.js');
 const ListShow = require('./list_show.jsx');
 const ListForm = require('./list_form.jsx');
 const Link = require('react-router').Link;
+var Masonry = require('react-masonry-component');
 
 const List = React.createClass({
   getInitialState: function () {
@@ -45,20 +46,32 @@ const List = React.createClass({
           </div>);
       });
     } else {
-      return listKeys.map(key => {
-        return (
-          <div className="col s12 m4">
-            <div className="card grey lighten-4">
-              <div className="card-content">
-                <ListShow
-                    key={lists[key].id}
-                    list={lists[key]}
-                    listItems={lists[key].list_items} />
-              </div>
+      const listArray = [];
+      listKeys.forEach(key => {
+        listArray.push(
+          <div className="list-item card grey lighten-4" key={lists[key].id}>
+            <div className="card-content">
+              <ListShow
+                  list={lists[key]}
+                  listItems={lists[key].list_items} />
             </div>
           </div>
         );
       });
+      const masonryOptions = {
+        transitionDuration: 0,
+        gutter: 5
+      };
+      return (
+        <Masonry
+          className={'my-gallery-class'}
+          elementType={'ul'}
+          options={masonryOptions}
+          disableImagesLoaded={false}
+          updateOnEachImageLoad={false} >
+                {listArray}
+            </Masonry>
+      );
     }
   },
   columnClass: function () {

@@ -7,9 +7,9 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :update]
     resources :messages, only: [:create, :index]
     resources :events, only: [:create, :index, :destroy]
-    resources :bills, only: [:create, :index, :destroy]
+    resources :bills, only: [:create, :index, :destroy, :update]
     get 'bills/urgent' => 'bills#urgent'
-    get 'bills/completedThisMonth' => 'bills#completed_this_month'
+    get 'bills/thisMonth' => 'bills#this_month'
     resource :session, only: [:create, :destroy, :show]
   end
 end

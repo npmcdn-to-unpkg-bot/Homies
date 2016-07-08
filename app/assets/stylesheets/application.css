@@ -110,3 +110,13 @@ input[type="text"].message-input:focus {
 .calendar-div {
   height: 1075px;
 }
+
+div.urgent-bills {
+  display: inline-block;
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  background-color: #f5f5f5;
+  padding-top: 65px;
+  margin-left: 100px;
+}

@@ -45,9 +45,9 @@ const BillApiUtil = {
       }
     });
   },
-  fetchCompletedThisMonthBills: function (callback) {
+  fetchThisMonthBills: function (callback) {
     $.ajax({
-      url: "api/bills/completedThisMonth",
+      url: "api/bills/thisMonth",
       type: "GET",
       dataType: "JSON",
       success: function (response) {
@@ -58,6 +58,22 @@ const BillApiUtil = {
         console.log(err);
       }
     });
+  },
+  toggleCompleted: function (bill, newStatus, callback) {
+    $.ajax({
+      url: `api/bills/${bill.id}`,
+      type: "PATCH",
+      dataType: "JSON",
+      data: { bill: { completed: newStatus }},
+      success: function (bill) {
+        console.log('successfully patched bill');
+        callback(bill);
+      },
+      error: function (err) {
+        console.log('error patching bill');
+        console.log(err);
+      }
+    })
   }
 };
 

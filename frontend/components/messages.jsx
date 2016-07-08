@@ -1,9 +1,10 @@
 /* globals Pusher */
 const React = require('react');
 const MessageStore = require('../stores/message_store.js');
+const SessionStore = require('../stores/session_store.js');
+const HouseStore = require('../stores/house_store.js');
 const MessageActions = require('../actions/message_actions.js');
 const MessageForm = require('./message_form.jsx');
-const SessionStore = require('../stores/session_store.js');
 const Link = require('react-router').Link;
 vex.defaultOptions.className = 'vex-theme-os';
 
@@ -88,11 +89,25 @@ const Messages = React.createClass({
     } else {
       messageJsx = this.messageView(this.state.messages);
     }
+    const chatMembersObj = HouseStore.currentHomies();
+    const chatMembersKeys = Object.keys(chatMembersObj);
+    let chatMemberString = "Members: ";
+    if (chatMembersKeys.length > 0) {
+      for (let i = 0; i < chatMembersKeys.length; i++) {
+        if (i === chatMembersKeys.length - 1) {
+          chatMemberString += chatMembersObj[chatMembersKeys[i]].username;
+        } else {
+          chatMemberString += chatMembersObj[chatMembersKeys[i]].username + ", ";
+        }
+      }
+    } else {
+      chatMemberString = "Loading...";
+    }
     return (
       <div className={this.columnClass()}>
         <div className="card grey lighten-4">
           <div className="card-content">
-            <span className="">{"Members: Paul, Daniel, Susan"}</span>
+            <span className="">{chatMemberString}</span>
             <hr />
             <section className="chat-container">
               <div className="container2">

@@ -55,6 +55,14 @@ const List = React.createClass({
       return (<ListForm />);
     }
   },
+  formatDateObject: function (dateStr) {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const dateObj = new Date(dateStr);
+    const monthDue = dateObj.getUTCMonth();
+    const dayDue = dateObj.getDate();
+    const yearDue = dateObj.getFullYear();
+    return `${monthNames[monthDue]} ${dayDue}, ${yearDue}`;
+  },
   render: function () {
     let listJsx;
     let lastUpdatedTime;
@@ -76,7 +84,7 @@ const List = React.createClass({
         <div className="card grey lighten-4">
           <div className="card-content">
             <div>
-              <span className="">Recent Lists: (Last updated: {lastUpdatedTime})</span>
+              <span className="">Recent Lists: (Last updated: {this.formatDateObject(lastUpdatedTime)})</span>
               <hr />
               {listJsx}
             </div>

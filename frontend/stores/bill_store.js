@@ -5,14 +5,14 @@ const BillStore = new Store(AppDispatcher);
 
 let _bills = {};
 let _urgentBills = {};
-let _completedThisMonthBills = {};
+let _thisMonthBills = {};
 
 function updateAllBills (bills) {
   _bills = bills;
 }
 
-function updateCompletedThisMonth (bills) {
-  _completedThisMonthBills = bills;
+function updateThisMonth (bills) {
+  _thisMonthBills = bills;
 }
 
 function updateUrgentBills (bills) {
@@ -21,14 +21,37 @@ function updateUrgentBills (bills) {
 
 function addBill (bill) {
   _bills[bill.id] = bill;
+  console.log('BILL');
+  console.log(bill);
+  const billDateObj = new Date(bill.due_date);
+  const billMonth = billDateObj.getMonth();
+  const currentMonth = new Date().getMonth();
+  console.log('bill month');
+  console.log(billMonth);
+  console.log('current month');
+  console.log(currentMonth);
+  if (billMonth === currentMonth) {
+    console.log('bill month and curr month are equal');
+    _thisMonthBills[bill.id] = bill;
+  }
+}
+
+function updateSingleBill (bill) {
+  _bills[bill.id] = bill;
+  const urgentBillsKeys = Object.keys(_urgentBills);
+  if (bill.completed) {
+    delete _urgentBills[bill.id];
+  } else {
+    _urgentBills[bill.id] = bill;
+  }
 }
 
 BillStore.all = function () {
   return _bills;
 };
 
-BillStore.completedThisMonth = function () {
-  return _completedThisMonthBills;
+BillStore.thisMonthBills = function () {
+  return _thisMonthBills;
 };
 
 BillStore.urgentBills = function () {
@@ -41,8 +64,8 @@ BillStore.__onDispatch = function (payload) {
       updateAllBills(payload.bills);
       BillStore.__emitChange();
       break;
-    case BillConstants.FETCHED_COMPLETED_THIS_MONTH:
-      updateCompletedThisMonth(payload.bills);
+    case BillConstants.FETCHED_THIS_MONTH:
+      updateThisMonth(payload.bills);
       BillStore.__emitChange();
       break;
     case BillConstants.FETCHED_URGENT_BILLS:
@@ -51,6 +74,10 @@ BillStore.__onDispatch = function (payload) {
       break;
     case BillConstants.CREATED_BILL:
       addBill(payload.bill);
+      BillStore.__emitChange();
+      break;
+    case BillConstants.TOGGLE_COMPLETED:
+      updateSingleBill(payload.bill);
       BillStore.__emitChange();
       break;
   }

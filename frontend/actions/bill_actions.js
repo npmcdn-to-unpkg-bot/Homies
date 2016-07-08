@@ -31,13 +31,22 @@ const BillActions = {
       bills: bills
     });
   },
-  fetchCompletedThisMonthBills: function () {
-    BillApiUtil.fetchCompletedThisMonthBills(BillActions.receiveCompletedBills);
+  fetchThisMonthBills: function () {
+    BillApiUtil.fetchThisMonthBills(BillActions.receiveCompletedBills);
   },
   receiveCompletedBills: function (bills) {
     AppDispatcher.dispatch({
-      actionType: BillConstants.FETCHED_COMPLETED_THIS_MONTH,
+      actionType: BillConstants.FETCHED_THIS_MONTH,
       bills: bills
+    });
+  },
+  toggleCompleted: function (bill, newStatus) {
+    BillApiUtil.toggleCompleted(bill, newStatus, BillActions.receiveToggledBill);
+  },
+  receiveToggledBill: function (bill) {
+    AppDispatcher.dispatch({
+      actionType: BillConstants.TOGGLE_COMPLETED,
+      bill: bill
     });
   }
 };

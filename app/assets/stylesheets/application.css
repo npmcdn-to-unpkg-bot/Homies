@@ -120,3 +120,10 @@ div.urgent-bills {
   padding-top: 65px;
   margin-left: 100px;
 }
+
+
+div.list-item {
+  width: 33.4%;
+  -webkit-transition: .5s opacity;
+          transition: .5s opacity;
+}

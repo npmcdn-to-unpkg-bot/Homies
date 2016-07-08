@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :bills, only: [:create, :index, :destroy, :update]
     get 'bills/urgent' => 'bills#urgent'
     get 'bills/thisMonth' => 'bills#this_month'
+    get 'events/upcomingThisMonth' => 'events#upcoming_this_month'
     resource :session, only: [:create, :destroy, :show]
   end
 end

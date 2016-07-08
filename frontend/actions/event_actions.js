@@ -29,6 +29,15 @@ const EventActions = {
       actionType: EventConstants.EVENT_DELETED,
       evnt: evnt
     });
+  },
+  fetchUpcomingEvents: function () {
+    EventApiUtil.fetchUpcomingEvents(EventActions.receiveUpcomingEvents);
+  },
+  receiveUpcomingEvents: function (events) {
+    AppDispatcher.dispatch({
+      actionType: EventConstants.RECEIVE_UPCOMING_EVENTS,
+      events: events
+    });
   }
 };
 

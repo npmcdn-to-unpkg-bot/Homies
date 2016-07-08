@@ -3,6 +3,11 @@ class Api::EventsController < ApplicationController
     @events = Event.all
   end
 
+  def upcoming_this_month
+    @events = Event.all.upcoming.this_month.order('start_date')
+    render "api/events/index"
+  end
+
   def create
     @event = Event.new(:name => params[:evnt][:name],
                        :start_date => params[:evnt][:start_date],

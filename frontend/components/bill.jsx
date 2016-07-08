@@ -4,10 +4,12 @@ const HouseActions = require('../actions/house_actions.js');
 const HouseStore = require('../stores/house_store.js');
 const BillStore = require('../stores/bill_store.js');
 const BillStatus = require('./bill_status.jsx');
+const Link = require('react-router').Link;
 
 const Bill = React.createClass({
   getInitialState: function () {
     return {
+      dashboardView: true,
       homies: HouseStore.currentHomies(),
       allBills: BillStore.all(),
       urgentBills: BillStore.urgentBills(),
@@ -15,6 +17,9 @@ const Bill = React.createClass({
     };
   },
   componentWillMount: function () {
+    if (this.props.location && this.props.location.pathname === "/bills") {
+      this.setState({ dashboardView: false });
+    }
     BillActions.fetchBills();
     BillActions.fetchUrgentBills();
     BillActions.fetchThisMonthBills();
@@ -62,13 +67,27 @@ const Bill = React.createClass({
       }
     });
   },
+  urgentBillsAmount: function () {
+    const urgentBills = this.state.urgentBills;
+    const urgentBillsKeys = Object.keys(urgentBills);
+    let urgentBillsJsx;
+    let billSum = 0;
+    if (urgentBillsKeys.length > 0) {
+      urgentBillsKeys.forEach(key => {
+        billSum += urgentBills[key].amount;
+      });
+      return (
+        <h5>Amount you owe:<br /> ${billSum.toFixed(2)}</h5>
+      );
+    } else {
+      return ("You've paid all your bills!");
+    }
+  },
   urgentBillsJsx: function () {
     const urgentBills = this.state.urgentBills;
     const urgentBillsKeys = Object.keys(urgentBills);
     let urgentBillsJsx;
     let billSum = 0;
-    let earliestDueDateDay = 31;
-    let earliestDueDate;
     if (urgentBillsKeys.length > 0) {
       urgentBillsKeys.forEach(key => {
         billSum += urgentBills[key].amount;
@@ -110,52 +129,77 @@ const Bill = React.createClass({
       return "One second while loading!";
     }
   },
+  billView: function () {
+    if (this.state.dashboardView) {
+      return (
+        <div className="row">
+          <div className="col s12 m5">
+            <div className="card grey lighten-4">
+              <div className="card-content">
+                <b><center>Bills</center></b><hr />
+                <center>{this.urgentBillsAmount()}</center>
+              </div>
+              <div className="card-action">
+                <Link to="/bills" activeClassName="current">View More Bills</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <div className="bill-view-container">
+            <div className="row center urgent-bills">
+              {this.urgentBillsJsx()}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col s12 m5">
+              <div className="card grey lighten-4">
+                <div className="card-content">
+                  This Month
+                  <hr />
+                  <table className="centered">
+                    <thead>
+                      <tr>
+                        <th data-field="description">Description</th>
+                        <th data-field="amount">Amount</th>
+                        <th data-field="due">Due</th>
+                        <th data-field="status">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {this.dueThisMonthJsx()}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div className="col s12 m7">
+              <div className="card grey lighten-4">
+                <div className="card-content">
+                  Lifetime
+                  <hr />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col s12 m5">
+              <a className="btn-floating btn-small waves-effect waves-light red">
+                <i className="material-icons" onClick={this.addBill}>add</i>
+              </a>
+            </div>
+          </div>
+        </div>
+      )
+    }
+  },
   render: function () {
     return (
       <div>
-        <div className="bill-view-container">
-          <div className="row center urgent-bills">
-            {this.urgentBillsJsx()}
-          </div>
-        </div>
-        <div className="row">
-          <div className="col s12 m5">
-            <div className="card grey lighten-4">
-              <div className="card-content">
-                This Month
-                <hr />
-                <table className="centered">
-                  <thead>
-                    <tr>
-                      <th data-field="description">Description</th>
-                      <th data-field="amount">Amount</th>
-                      <th data-field="due">Due</th>
-                      <th data-field="status">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.dueThisMonthJsx()}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div className="col s12 m7">
-            <div className="card grey lighten-4">
-              <div className="card-content">
-                Lifetime
-                <hr />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col s12 m5">
-            <a className="btn-floating btn-small waves-effect waves-light red">
-              <i className="material-icons" onClick={this.addBill}>add</i>
-            </a>
-          </div>
-        </div>
+        {this.billView()}
       </div>
     );
   }

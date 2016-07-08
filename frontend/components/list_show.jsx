@@ -59,7 +59,7 @@ const ListShow = React.createClass({
       });
     }
     return (
-      <div className="">
+      <div className="list-item">
         <h5 onDoubleClick={this.toggleListEditMode}>{ this.renderTitle() }</h5>
         <ul>
           {listItemsJsx}

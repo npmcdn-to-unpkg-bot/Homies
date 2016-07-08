@@ -11,18 +11,29 @@ const Events = React.createClass({
   getInitialState: function () {
     return {
       dashboardView: true,
-      events: EventStore.all()
+      events: EventStore.all(),
+      upcomingEvents: EventStore.upcomingEvents()
     };
   },
   componentWillMount: function () {
+    if (this.props.location && this.props.location.pathname === "/events") {
+      this.setState({ dashboardView: false });
+    }
     this.listener = EventStore.addListener(this.updateEvents);
     EventActions.fetchEvents();
+    EventActions.fetchUpcomingEvents();
   },
   updateEvents: function () {
-    this.setState({ events: EventStore.all() });
+    this.setState({
+      events: EventStore.all(),
+      upcomingEvents: EventStore.upcomingEvents()
+    });
   },
   componentWillUnmount: function () {
     this.listener.remove();
+  },
+  toggleView: function () {
+    this.setState({ dashboardView: !this.state.dashboardView })
   },
   selectSlot: function (slotInfo) {
     const messagePrompt = `Event slot: <br />Start: ${slotInfo.start.toLocaleString()}<br />End: ${slotInfo.end.toLocaleString()}<br />`;
@@ -55,27 +66,85 @@ const Events = React.createClass({
       }
     })
   },
+  formatDateObject: function (dateStr) {
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const dateObj = new Date(dateStr);
+    const monthDue = dateObj.getUTCMonth();
+    const dayDue = dateObj.getDate();
+    const yearDue = dateObj.getFullYear();
+    return `${monthNames[monthDue]} ${dayDue}, ${yearDue}`;
+  },
+  eventAction: function () {
+    if (this.state.dashboardView) {
+      return (
+        <div className="card-action">
+          <Link to="/events" activeClassName="current">View More Events</Link>
+        </div>
+      );
+    } else {
+      return "";
+    }
+  },
+  renderDashboardEvents: function () {
+    const upcomingEvents = this.state.upcomingEvents;
+    const upcomingEventsKeys = Object.keys(upcomingEvents);
+    if (upcomingEventsKeys.length > 0) {
+      return upcomingEventsKeys.map(key => {
+        return (
+          <tr>
+            <td>{upcomingEvents[key].name}</td>
+            <td>{this.formatDateObject(upcomingEvents[key].start_date)}</td>
+          </tr>
+        );
+      });
+    } else {
+      return "";
+    }
+  },
+  eventView: function () {
+    if (this.state.dashboardView) {
+      return (
+        <div>
+          <b><center>Upcoming Events</center></b>
+          <table className="centered">
+            <thead>
+              <tr>
+                <th data-field="name">Name</th>
+                <th data-field="start">Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.renderDashboardEvents()}
+            </tbody>
+          </table>
+
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <BigCalendar
+            selectable
+            events={this.state.events}
+            defaultView='week'
+            views={['week', 'day']}
+            scrollToTime={new Date(1970, 1, 1, 6)}
+            defaultDate={new Date()}
+            onSelectEvent={this.selectEvent}
+            onSelectSlot={this.selectSlot}
+          />
+        </div>
+      )
+    }
+  },
   render: function () {
     return (
       <div className="col s12 m7">
         <div className="card grey lighten-4">
           <div className="card-content">
-            <div>
-              <BigCalendar
-                selectable
-                events={this.state.events}
-                defaultView='week'
-                views={['week', 'day']}
-                scrollToTime={new Date(1970, 1, 1, 6)}
-                defaultDate={new Date()}
-                onSelectEvent={this.selectEvent}
-                onSelectSlot={this.selectSlot}
-              />
-            </div>
+            {this.eventView()}
           </div>
-          <div className="card-action">
-            <a href="#">View more events</a>
-          </div>
+          {this.eventAction()}
         </div>
       </div>
     );

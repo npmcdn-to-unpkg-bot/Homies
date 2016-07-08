@@ -4,6 +4,7 @@ const EventConstants = require('../constants/event_constants.js');
 const EventStore = new Store(AppDispatcher);
 
 let _events = {};
+let _upcomingEvents = {};
 
 function updateAllEvents (events) {
   const eventKeys = Object.keys(events);
@@ -19,6 +20,16 @@ function addEvent (evnt) {
 function removeEvent (evnt) {
   delete _events[evnt.id];
 }
+
+function updateUpcomingEvents (events) {
+  for (let i = 0; i < events.length; i++) {
+    _upcomingEvents[events[i].id] = events[i];
+  }
+}
+
+EventStore.upcomingEvents = function () {
+  return _upcomingEvents;
+};
 
 EventStore.all = function () {
   const eventsArray = [];
@@ -38,7 +49,6 @@ EventStore.all = function () {
   return eventsArray;
 };
 
-
 EventStore.__onDispatch = function (payload) {
   switch (payload.actionType) {
     case EventConstants.RECEIVED_EVENTS:
@@ -51,6 +61,10 @@ EventStore.__onDispatch = function (payload) {
       break;
     case EventConstants.EVENT_DELETED:
       removeEvent(payload.evnt);
+      EventStore.__emitChange();
+      break;
+    case EventConstants.RECEIVE_UPCOMING_EVENTS:
+      updateUpcomingEvents(payload.events);
       EventStore.__emitChange();
       break;
   }

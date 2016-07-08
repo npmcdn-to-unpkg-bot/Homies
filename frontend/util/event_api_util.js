@@ -29,6 +29,20 @@ const EventApiUtil = {
         callback(response);
       },
     });
+  },
+  fetchUpcomingEvents: function (callback) {
+    $.ajax({
+      url: "api/events/upcomingThisMonth",
+      type: "GET",
+      dataType: "JSON",
+      success: function (response) {
+        callback(response)
+      },
+      error: function (err) {
+        console.log('error fetchUpcomingEvents');
+        console.log(err);
+      }
+    })
   }
 };
 

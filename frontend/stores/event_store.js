@@ -40,10 +40,8 @@ EventStore.all = function () {
     eventsArray.push({
       id: _events[eventKeys[i]].id,
       title: _events[eventKeys[i]].name,
-      start: new Date(startDateObj.getFullYear(), startDateObj.getMonth(), startDateObj.getDate(),
-                      startDateObj.getHours(), startDateObj.getMinutes(), startDateObj.getSeconds()),
-      end: new Date(endDateObj.getFullYear(), endDateObj.getMonth(), endDateObj.getDate(),
-                      endDateObj.getHours(), endDateObj.getMinutes(), endDateObj.getSeconds())
+      start: new Date(startDateObj.getFullYear(), startDateObj.getMonth(), startDateObj.getDate(), startDateObj.getHours(), startDateObj.getMinutes(), startDateObj.getSeconds()),
+      end: new Date(endDateObj.getFullYear(), endDateObj.getMonth(), endDateObj.getDate(), endDateObj.getHours(), endDateObj.getMinutes(), endDateObj.getSeconds())
     });
   }
   return eventsArray;

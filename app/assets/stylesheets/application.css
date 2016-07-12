@@ -45,7 +45,7 @@ section div {
 	position:relative;
 	padding:10px 20px;
 	color:white;
-	background:#0B93F6;
+	background:#2979ff;
 	border-radius:25px;
 	float: right;
 }
@@ -77,10 +77,6 @@ input[type="text"].message-input {
 input.message-input {
   border-bottom: 0px;
   box-shadow: 0px;
-}
-
-input.validate {
-  text-align: center;
 }
 
 input[type="text"].message-input:focus {
@@ -125,9 +121,17 @@ input[type="text"].message-input:focus {
   margin-left: 100px;
 }*/
 
+div.urgent-bills {
+  height: 100px;
+}
+
 .message-container {
   max-height: 450px;
   overflow: auto;
+}
+
+li.list-item {
+  width: 100%;
 }
 
 .flex-container {
@@ -136,5 +140,23 @@ input[type="text"].message-input:focus {
 }
 
 .list-item {
-  width: 33%;
+  width: 32%;
+}
+
+div.top-row-dash {
+  height: 300px;
+  overflow: hidden;
+}
+
+div.bottom-row-dash {
+  height: 200px;
+  overflow: hidden;
+}
+
+div.list-form {
+  width: 95%;
+}
+
+#vex-input {
+  width: 95%;
 }

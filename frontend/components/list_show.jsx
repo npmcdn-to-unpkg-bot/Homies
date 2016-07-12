@@ -2,6 +2,7 @@ const React = require('react');
 const ListActions = require('../actions/list_actions.js');
 const ListStore = require('../stores/list_store.js');
 const ListItemShow = require('./list_item_show.jsx');
+const ListItemForm = require('./list_item_form.jsx');
 
 const ListShow = React.createClass({
   getInitialState: function () {

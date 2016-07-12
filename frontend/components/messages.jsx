@@ -38,7 +38,7 @@ const Messages = React.createClass({
     const $messageDiv = $(".message-div");
     if ($parentEl.length > 0 && $messageDiv.length > 0) {
       const newHeight = document.querySelector(".message-container").scrollHeight;
-      $parentEl.animate({ scrollTop: newHeight }, 0);
+      $parentEl.animate({ scrollTop: newHeight }, speed);
     }
   },
   componentWillUnmount: function () {
@@ -80,6 +80,13 @@ const Messages = React.createClass({
       return "col s12 m12";
     }
   },
+  cardContentClass: function () {
+    if (this.state.dashboardView) {
+      return "card-content top-row-dash";
+    } else {
+      return "card-content";
+    }
+  },
   messageAction: function () {
     if (this.state.dashboardView) {
       return (
@@ -115,7 +122,7 @@ const Messages = React.createClass({
     return (
       <div className={this.columnClass()}>
         <div className="card grey lighten-4">
-          <div className="card-content">
+          <div className={this.cardContentClass()}>
             <span className="">{chatMemberString}</span>
             <hr />
             <section className="chat-container">

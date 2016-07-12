@@ -101,6 +101,13 @@ const Events = React.createClass({
       return "";
     }
   },
+  cardContentClass: function () {
+    if (this.state.dashboardView) {
+      return "card-content top-row-dash";
+    } else {
+      return "card-content";
+    }
+  },
   eventView: function () {
     if (this.state.dashboardView) {
       return (
@@ -141,7 +148,7 @@ const Events = React.createClass({
     return (
       <div className="col s12 m6">
         <div className="card grey lighten-4">
-          <div className="card-content">
+          <div className={this.cardContentClass()}>
             {this.eventView()}
           </div>
           {this.eventAction()}

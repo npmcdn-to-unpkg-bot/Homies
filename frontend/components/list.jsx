@@ -35,7 +35,7 @@ const List = React.createClass({
       return listKeys.map(key => {
         return (
           <div className="card grey lighten-4" key={lists[key].id}>
-            <div className="card-content">
+            <div className="card-content bottom-row-dash">
               <span className="">Recent Lists: (Last updated: {this.formatDateObject(lastUpdatedTime)})</span>
               <hr />
               <ListShow
@@ -58,19 +58,28 @@ const List = React.createClass({
           </div>
         );
       });
+      listArray.push(
+        <div className="list-item card grey lighten-4">
+          <div className="card-content">
+            <ListForm />
+          </div>
+        </div>
+      );
       const masonryOptions = {
         transitionDuration: 0,
         gutter: 5
       };
       return (
-        <Masonry
-          className={'my-gallery-class'}
-          elementType={'ul'}
-          options={masonryOptions}
-          disableImagesLoaded={false}
-          updateOnEachImageLoad={false} >
-                {listArray}
-            </Masonry>
+        <div>
+          <Masonry
+            className={'my-gallery-class'}
+            elementType={'ul'}
+            options={masonryOptions}
+            disableImagesLoaded={false}
+            updateOnEachImageLoad={false} >
+                  {listArray}
+              </Masonry>
+        </div>
       );
     }
   },
@@ -91,6 +100,9 @@ const List = React.createClass({
     } else {
       return (<ListForm />);
     }
+  },
+  addList: function () {
+
   },
   formatDateObject: function (dateStr) {
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];

@@ -70,14 +70,14 @@ const App = React.createClass({
       );
     }
     return (
-      <div>
+      <div className="main-container">
         <ul id="settings-button" className="dropdown-content">
           <li><a href="/">Edit profile</a></li>
           <li><a onClick={ this._handleLogOut }>Logout</a></li>
           <li className="divider"></li>
           <li><a href="/">Close</a></li>
         </ul>
-        <nav className="blue accent-1">
+        <nav className="blue accent-3">
           <div className="nav-wrapper">
             <Link to="/" className="brand-logo center" activeClassName="current">{currentHouseName}</Link>
               <ul className="right hide-on-med-and-down">
@@ -92,6 +92,13 @@ const App = React.createClass({
           </div>
           {this.props.children}
         </div>
+        <footer className="page-footer blue accent-3">
+          <div className="footer-copyright">
+            <div className="container">
+            © 2016 Paul Okuda
+            </div>
+          </div>
+        </footer>
       </div>
     );
   }

@@ -14,14 +14,14 @@ const BillStatus = React.createClass({
     if (this.state.completed) {
       return "waves-effect waves-light teal lighten-2 btn";
     } else {
-      return "waves-effect waves-light red btn";
+      return "waves-effect waves-light blue accent-3 btn";
     }
   },
   render: function () {
     return (
       <a className={this.buttonClass()}
          onClick={this.toggleButton}>
-         {this.state.completed == true ? "Undo" : "Complete"}
+         {this.state.completed == true ? "Done" : "Pay"}
        </a>
     );
   }

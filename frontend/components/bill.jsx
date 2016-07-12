@@ -99,7 +99,12 @@ const Bill = React.createClass({
         </div>
       );
     } else {
-      return (<h5>You've paid all your bills!</h5>);
+      return (
+        <div className="col s12 m12">
+          <h5>You've paid all your bills!</h5><br />
+            <a className="waves-effect waves-light btn" onClick={this.addBill}><i className="material-icons right">add</i>Add Bill</a>
+        </div>
+      );
     }
   },
   formatDateObject: function (dateStr) {
@@ -111,6 +116,8 @@ const Bill = React.createClass({
     return `${monthNames[monthDue]} ${dayDue}, ${yearDue}`;
   },
   formatBillsJsx: function (bills) {
+    console.log('all bills');
+    console.log(this.state.allBills);
     const billsKeys = Object.keys(bills);
     let billsJsx;
     if (billsKeys.length > 0) {
@@ -154,7 +161,7 @@ const Bill = React.createClass({
       return (
         <div className="col s12 m6">
           <div className="card grey lighten-4">
-            <div className="card-content">
+            <div className="card-content bottom-row-dash">
               <b><center>Bills</center></b><hr />
               <center>{this.urgentBillsAmount()}</center>
             </div>

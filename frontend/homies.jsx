@@ -53,8 +53,6 @@ function ensureLoggedIn(nextState, replace) {
   // to re-route.
     if (Object.keys(SessionStore.currentUser()).length === 0) {
       replace('/login');
-    } else {
-      console.log('you good');
     }
 }
 

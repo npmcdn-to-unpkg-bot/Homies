@@ -32,7 +32,7 @@ const ListForm = React.createClass({
   },
   handleItemSubmit: function (e) {
     e.preventDefault();
-    let newItem = document.getElementById("list-item").value;
+    const newItem = this.state.currentListItemContent;
     if (newItem !== "") {
       this.setState({
         items: this.state.items.concat([newItem]),
@@ -45,10 +45,11 @@ const ListForm = React.createClass({
   },
   render: function () {
     return (
-      <div className="row">
-        <form onSubmit={this.handleListSubmit}>
+      <div className="row list-form">
+        <form>
           <div className="row">
-            <div className="input-field col s4">
+            <h5><center>Create New List</center></h5><br />
+            <div className="input-field col s12">
               <input id="title"
                      type="title"
                      className="validate"
@@ -57,24 +58,12 @@ const ListForm = React.createClass({
                      onChange={this.update("title")} />
               <label for="title">Title</label>
             </div>
-            <div className="input-field col s4">
-              <input id="description"
-                     type="description"
-                     className="validate"
-                     type="text"
-                     value={this.state.description}
-                     onChange={this.update("description")} />
-              <label for="description">Description</label>
-            </div>
-            <div className="col s4">
-              <button className="btn waves-effect waves-light" type="submit" name="action">Save</button>
-            </div>
           </div>
           <div className="row">
             <ul>
               {
                 this.state.items.map(item => {
-                  return (<li key={item}>{item}</li>);
+                  return (<center><li key={item}>{item}</li></center>);
                 })
               }
             </ul>
@@ -82,7 +71,7 @@ const ListForm = React.createClass({
         </form>
         <div className="row">
           <form onSubmit={this.handleItemSubmit}>
-            <div className="input-field col s5">
+            <div className="input-field col s12">
               <input id="list-item"
                      type="text"
                      value={this.state.currentListItemContent}
@@ -90,6 +79,9 @@ const ListForm = React.createClass({
               <label for="list-item">Add item...</label>
             </div>
           </form>
+          <div className="col s4">
+            <button className="btn waves-effect waves-light"     type="submit" name="action" onClick={this.handleListSubmit}>Save</button>
+          </div>
         </div>
       </div>
     );

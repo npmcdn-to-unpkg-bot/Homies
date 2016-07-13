@@ -129,11 +129,6 @@
 	}
 	
 	function ensureLoggedIn(nextState, replace) {
-	  // We don't want users to be able to visit our 'new' or 'review' routes
-	  // if they haven't already signed in/up. Let's redirect them!
-	  // `replace` is like a redirect. It replaces the current entry
-	  // into the history (and the hashFragment), so the Router is forced
-	  // to re-route.
 	  if (Object.keys(SessionStore.currentUser()).length === 0) {
 	    replace('/login');
 	  }
@@ -26171,18 +26166,20 @@
 	
 	  getInitialState: function getInitialState() {
 	    return {
-	      house: undefined
+	      house: HouseStore.currentHouse(),
+	      user: SessionStore.currentUser()
 	    };
 	  },
 	  componentWillMount: function componentWillMount() {
-	    this.listener = HouseStore.addListener(this.handleUpdate);
-	    var currHouseId = SessionStore.currentUser().house_id;
-	    HouseActions.updateCurrentHouse(currHouseId);
+	    this.houseListener = HouseStore.addListener(this.handleUpdate);
+	    this.sessionListener = SessionStore.addListener(this.handleUpdate);
+	    // HouseActions.updateCurrentHouse(this.state.house.id);
 	    HouseActions.updateCurrentHomies();
 	  },
 	  handleUpdate: function handleUpdate() {
 	    this.setState({
-	      house: HouseStore.currentHouse()
+	      house: HouseStore.currentHouse(),
+	      user: SessionStore.currentUser()
 	    });
 	  },
 	  _handleLogOut: function _handleLogOut() {
@@ -26226,6 +26223,25 @@
 	    }
 	  },
 	
+	  footer: function footer() {
+	    if (SessionStore.isUserLoggedIn()) {
+	      return React.createElement(
+	        'footer',
+	        { className: 'page-footer blue accent-3' },
+	        React.createElement(
+	          'div',
+	          { className: 'footer-copyright' },
+	          React.createElement(
+	            'div',
+	            { className: 'container' },
+	            '© 2016 Paul Okuda'
+	          )
+	        )
+	      );
+	    } else {
+	      return "";
+	    }
+	  },
 	  render: function render() {
 	    var currentHouseName = void 0;
 	    if (this.state.house) {
@@ -26335,7 +26351,7 @@
 	          React.createElement(
 	            Link,
 	            { to: '/', className: 'brand-logo center', activeClassName: 'current' },
-	            currentHouseName
+	            'HOMIES'
 	          ),
 	          React.createElement(
 	            'ul',
@@ -26355,23 +26371,12 @@
 	        React.createElement(
 	          'div',
 	          { className: 'row center' },
-	          'Homies is a web application that centralizes bill payments, messaging, lists, and calendar events between housemates.'
+	          'Homies is a single-page application that centralizes bill payments, messaging, lists, and calendar events between housemates.',
+	          React.createElement('input', { className: 'header-button', type: 'submit', value: 'logout', onClick: this._handleLogOut })
 	        ),
 	        this.props.children
 	      ),
-	      React.createElement(
-	        'footer',
-	        { className: 'page-footer blue accent-3' },
-	        React.createElement(
-	          'div',
-	          { className: 'footer-copyright' },
-	          React.createElement(
-	            'div',
-	            { className: 'container' },
-	            '© 2016 Paul Okuda'
-	          )
-	        )
-	      )
+	      this.footer()
 	    );
 	  }
 	});
@@ -26802,27 +26807,17 @@
 	      data: { user: user },
 	      success: function success(response) {
 	        callback(response);
-	        console.log('successful login!');
-	      },
-	      error: function error(xhr) {
-	        var errors = xhr.responseJSON;
-	        errorCallback("login", errors);
 	      }
 	    });
 	  },
-	  signup: function signup(user, callback, _error) {
+	  signup: function signup(user, callback, error) {
 	    $.ajax({
 	      url: "api/users",
 	      type: "POST",
 	      dataType: "JSON",
 	      data: { user: user },
 	      success: function success(response) {
-	        console.log('successful signup!');
 	        callback(response);
-	      },
-	      error: function error(xhr) {
-	        var errors = xhr.responseJSON;
-	        _error("signup", errors);
 	      }
 	    });
 	  },
@@ -26831,13 +26826,7 @@
 	      url: 'api/session',
 	      method: 'DELETE',
 	      success: function success(response) {
-	        console.log('successful logout!');
 	        callback(response);
-	      },
-	      error: function error(err) {
-	
-	        console.log(err);
-	        console.log("Logout error in SessionApiUtil#logout");
 	      }
 	    });
 	  },
@@ -33491,7 +33480,6 @@
 	      data: { house: house },
 	      success: function success(response) {
 	        callback(response);
-	        console.log('successfully created a house!');
 	      }
 	    });
 	  },
@@ -33502,10 +33490,6 @@
 	      dataType: "JSON",
 	      success: function success(response) {
 	        callback(response);
-	      },
-	      error: function error(err) {
-	        console.log('error updating current house');
-	        console.log(err);
 	      }
 	    });
 	  },
@@ -33516,10 +33500,6 @@
 	      dataType: "JSON",
 	      success: function success(response) {
 	        callback(response);
-	      },
-	      error: function error(err) {
-	        console.log('error udpating current homies');
-	        console.log(err);
 	      }
 	    });
 	  }
@@ -33551,7 +33531,9 @@
 	  getInitialState: function getInitialState() {
 	    return {
 	      username: "",
-	      password: ""
+	      password: "",
+	      demoUsername: "pyo",
+	      demoPassword: "secret"
 	    };
 	  },
 	  componentDidMount: function componentDidMount() {
@@ -33601,6 +33583,14 @@
 	      SessionActions.signup(formData);
 	    }
 	  },
+	  handleDemoLogin: function handleDemoLogin(e) {
+	    e.preventDefault();
+	    var formData = {
+	      username: this.state.demoUsername,
+	      password: this.state.demoPassword
+	    };
+	    SessionActions.login(formData);
+	  },
 	  update: function update(property) {
 	    var _this = this;
 	
@@ -33629,65 +33619,47 @@
 	      'div',
 	      { className: 'row' },
 	      React.createElement(
-	        'div',
+	        'h5',
 	        { className: 'center' },
-	        'Please ',
-	        this.formType(),
-	        ' or ',
-	        navLink
+	        'LOGIN'
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'col s12 m4' },
-	        '  '
-	      ),
-	      React.createElement(
-	        'div',
-	        { className: 'col s12 m4 center' },
+	        { className: 'col s4 login-input' },
 	        React.createElement(
 	          'form',
-	          { onSubmit: this.handleSubmit },
+	          { onSubmit: this.handleSubmit, className: 'center' },
 	          this.fieldErrors("base"),
+	          React.createElement('input', (_React$createElement = { id: 'username', type: 'username', className: 'validate' }, _defineProperty(_React$createElement, 'type', 'text'), _defineProperty(_React$createElement, 'value', this.state.username), _defineProperty(_React$createElement, 'onChange', this.update("username")), _React$createElement)),
 	          React.createElement(
-	            'div',
-	            { className: 'login-form' },
-	            React.createElement(
-	              'div',
-	              { className: 'row center' },
-	              React.createElement(
-	                'div',
-	                { className: 'input-field col s12' },
-	                React.createElement('input', (_React$createElement = { id: 'username', type: 'username', className: 'validate' }, _defineProperty(_React$createElement, 'type', 'text'), _defineProperty(_React$createElement, 'value', this.state.username), _defineProperty(_React$createElement, 'onChange', this.update("username")), _React$createElement)),
-	                React.createElement(
-	                  'label',
-	                  { 'for': 'username' },
-	                  'Username'
-	                )
-	              )
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'row center' },
-	              React.createElement(
-	                'div',
-	                { className: 'input-field col s12' },
-	                React.createElement('input', { id: 'password', type: 'password',
-	                  value: this.state.password,
-	                  onChange: this.update("password"),
-	                  className: 'login-input validate' }),
-	                React.createElement(
-	                  'label',
-	                  { 'for': 'password' },
-	                  'Password'
-	                )
-	              )
-	            ),
-	            React.createElement('br', null),
-	            React.createElement(
-	              'button',
-	              { className: 'btn waves-effect waves-light', type: 'submit', name: 'action' },
-	              'Submit'
-	            )
+	            'label',
+	            { 'for': 'username' },
+	            'Username'
+	          ),
+	          React.createElement('input', { id: 'password', type: 'password',
+	            value: this.state.password,
+	            onChange: this.update("password"),
+	            className: 'login-input validate' }),
+	          React.createElement(
+	            'label',
+	            { 'for': 'password' },
+	            'Password'
+	          )
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'div',
+	          { className: 'center' },
+	          React.createElement(
+	            'button',
+	            { className: 'btn waves-effect waves-light', onClick: this.handleSubmit, type: 'submit', name: 'action' },
+	            'Login'
+	          ),
+	          '  ',
+	          React.createElement(
+	            'button',
+	            { className: 'btn waves-effect waves-light', onClick: this.handleDemoLogin, type: 'submit', name: 'action' },
+	            'Demo Login'
 	          )
 	        )
 	      )
@@ -33943,7 +33915,6 @@
 	    this.houseListener = HouseStore.addListener(this.redirectIfHouseCreated);
 	  },
 	  redirectIfHouseCreated: function redirectIfHouseCreated() {
-	    console.log('router push!');
 	    hashHistory.push("/dashboard");
 	  },
 	  handleSubmit: function handleSubmit(e) {
@@ -34038,10 +34009,6 @@
 	var MoveIn = React.createClass({
 	  displayName: 'MoveIn',
 	
-	  componentDidMount: function componentDidMount() {
-	    console.log('componentDidMount');
-	    console.log(SessionStore.currentUser().house_id);
-	  },
 	  getInitialState: function getInitialState() {
 	    return {
 	      join_house: undefined
@@ -34182,21 +34149,16 @@
 /* 266 */
 /***/ function(module, exports) {
 
-	'use strict';
+	"use strict";
 	
 	var JoinHouseApiUtil = {
 	  joinHouse: function joinHouse(userID, houseID, callback) {
 	    $.ajax({
-	      url: 'api/users/' + userID,
+	      url: "api/users/" + userID,
 	      type: "PATCH",
 	      data: { house_id: houseID },
 	      success: function success(response) {
 	        callback(response);
-	        console.log('success');
-	      },
-	      error: function error(err) {
-	        console.log('error');
-	        console.log(err);
 	      }
 	    });
 	  }
@@ -34560,10 +34522,6 @@
 	      dataType: "JSON",
 	      success: function success(response) {
 	        callback(response);
-	      },
-	      error: function error(err) {
-	        console.log('error fetching houses lists');
-	        console.log(err);
 	      }
 	    });
 	  },
@@ -34574,13 +34532,7 @@
 	      dataType: "JSON",
 	      data: { list: { title: list.title, description: list.description, list_items: list.items } },
 	      success: function success(response) {
-	        console.log('succsessfully created a list!');
-	        console.log(response);
 	        callback(response);
-	      },
-	      error: function error(err) {
-	        console.log('error creating a hosue');
-	        console.log(err);
 	      }
 	    });
 	  },
@@ -34591,12 +34543,7 @@
 	      dataType: "JSON",
 	      data: { list: { title: newTitle } },
 	      success: function success(response) {
-	        console.log('succes in list api util');
 	        callback(response);
-	      },
-	      error: function error(err) {
-	        console.log('error in list api util');
-	        console.log(err);
 	      }
 	    });
 	  }
@@ -34740,10 +34687,7 @@
 	    var _this = this;
 	
 	    return function (e) {
-	      return _this.setState(_defineProperty({}, property, e.target.value), function () {
-	        console.log('updated state');
-	        console.log(this.state.currentContent);
-	      });
+	      return _this.setState(_defineProperty({}, property, e.target.value));
 	    };
 	  },
 	  renderContent: function renderContent() {
@@ -34902,7 +34846,6 @@
 	    };
 	  },
 	  handleListSubmit: function handleListSubmit(e) {
-	    console.log('handle list submit');
 	    e.preventDefault();
 	    var formData = {
 	      title: this.state.title,
@@ -39856,7 +39799,6 @@
 	    MessageApiUtil.createMessage(message, MessageActions.messageCreated);
 	  },
 	  messageCreated: function messageCreated(message) {
-	    console.log('message created');
 	    AppDispatcher.dispatch({
 	      actionType: MessageConstants.MESSAGE_CREATED,
 	      message: message
@@ -39930,7 +39872,6 @@
 	      MessageActions.createMessage(this.state);
 	    }
 	    this.setState({ content: "" });
-	    console.log('sent message');
 	    this.updateScroll();
 	  },
 	  render: function render() {
@@ -64410,10 +64351,6 @@
 	      dataType: "JSON",
 	      success: function success(response) {
 	        callback(response);
-	      },
-	      error: function error(err) {
-	        console.log('error fetchUpcomingEvents');
-	        console.log(err);
 	      }
 	    });
 	  }
@@ -64484,8 +64421,6 @@
 	      message: messagePrompt,
 	      input: inputFields,
 	      callback: function callback(response) {
-	        console.log('response');
-	        console.log(response);
 	        if (response) {
 	          var formData = {
 	            description: response["bill[description]"],
@@ -64587,8 +64522,6 @@
 	  formatBillsJsx: function formatBillsJsx(bills) {
 	    var _this = this;
 	
-	    console.log('all bills');
-	    console.log(this.state.allBills);
 	    var billsKeys = Object.keys(bills);
 	    var billsJsx = void 0;
 	    if (billsKeys.length > 0) {
@@ -64853,7 +64786,6 @@
 	    BillApiUtil.createBill(bill, BillActions.receiveCreatedBill);
 	  },
 	  receiveCreatedBill: function receiveCreatedBill(bill) {
-	    console.log('receive created bill - bill actions (need to invoke app dispatcher)');
 	    AppDispatcher.dispatch({
 	      actionType: BillConstants.CREATED_BILL,
 	      bill: bill
@@ -64923,13 +64855,7 @@
 	      type: "GET",
 	      dataType: "JSON",
 	      success: function success(response) {
-	        console.log('SUCCESS');
-	        console.log(response);
 	        callback(response);
-	      },
-	      error: function error(err) {
-	        console.log('error');
-	        console.log(err);
 	      }
 	    });
 	  },

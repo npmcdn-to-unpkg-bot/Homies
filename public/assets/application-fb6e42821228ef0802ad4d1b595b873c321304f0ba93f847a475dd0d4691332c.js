@@ -26289,6 +26289,15 @@
 	            { to: '/bills', activeClassName: 'current' },
 	            'Bills'
 	          )
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          React.createElement(
+	            'a',
+	            { onClick: this._handleLogOut },
+	            'Logout'
+	          )
 	        )
 	      );
 	    } else {
@@ -26371,8 +26380,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'row center' },
-	          'Homies is a single-page application that centralizes bill payments, messaging, lists, and calendar events between housemates.',
-	          React.createElement('input', { className: 'header-button', type: 'submit', value: 'logout', onClick: this._handleLogOut })
+	          'Homies is a single-page application that centralizes bill payments, messaging, lists, and calendar events between housemates.'
 	        ),
 	        this.props.children
 	      ),

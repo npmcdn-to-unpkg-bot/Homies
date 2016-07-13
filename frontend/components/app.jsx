@@ -76,6 +76,7 @@ const App = React.createClass({
           <li><Link to="/events" activeClassName="current">Events</Link></li>
           <li><Link to="/lists" activeClassName="current">Lists</Link></li>
           <li><Link to="/bills" activeClassName="current">Bills</Link></li>
+          <li><a onClick={ this._handleLogOut }>Logout</a></li>
         </ul>
       );
     } else {
@@ -106,7 +107,6 @@ const App = React.createClass({
           <br />
           <div className="row center">
             Homies is a single-page application that centralizes bill payments, messaging, lists, and calendar events between housemates.
-            <input className="header-button" type="submit" value="logout" onClick={ this._handleLogOut } />
           </div>
           {this.props.children}
         </div>

@@ -38,10 +38,6 @@ const EventApiUtil = {
       success: function (response) {
         callback(response)
       },
-      error: function (err) {
-        console.log('error fetchUpcomingEvents');
-        console.log(err);
-      }
     })
   }
 };

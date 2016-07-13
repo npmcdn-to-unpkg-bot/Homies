@@ -23,7 +23,6 @@ const MessageForm = React.createClass({
       MessageActions.createMessage(this.state);
     }
     this.setState({ content: "" });
-    console.log('sent message');
     this.updateScroll();
   },
   render: function () {

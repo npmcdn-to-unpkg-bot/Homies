@@ -8,18 +8,20 @@ const HouseActions = require('../actions/house_actions.js');
 const App = React.createClass({
   getInitialState: function () {
     return {
-      house: undefined
+      house: HouseStore.currentHouse(),
+      user: SessionStore.currentUser()
     };
   },
   componentWillMount: function () {
-    this.listener = HouseStore.addListener(this.handleUpdate);
-    const currHouseId = SessionStore.currentUser().house_id;
-    HouseActions.updateCurrentHouse(currHouseId);
+    this.houseListener = HouseStore.addListener(this.handleUpdate);
+    this.sessionListener = SessionStore.addListener(this.handleUpdate);
+    // HouseActions.updateCurrentHouse(this.state.house.id);
     HouseActions.updateCurrentHomies();
   },
   handleUpdate: function () {
     this.setState({
-      house: HouseStore.currentHouse()
+      house: HouseStore.currentHouse(),
+      user: SessionStore.currentUser(),
     });
   },
   _handleLogOut: function () {
@@ -42,6 +44,21 @@ const App = React.createClass({
           <Link to="/signup" activeClassName="current" className="waves-effect waves-light btn">Sign Up!!</Link>
         </div>
       );
+    }
+  },
+  footer: function () {
+    if (SessionStore.isUserLoggedIn()) {
+      return (
+        <footer className="page-footer blue accent-3">
+          <div className="footer-copyright">
+            <div className="container">
+            © 2016 Paul Okuda
+            </div>
+          </div>
+        </footer>
+      );
+    } else {
+      return "";
     }
   },
   render: function () {
@@ -79,7 +96,7 @@ const App = React.createClass({
         </ul>
         <nav className="blue accent-3">
           <div className="nav-wrapper">
-            <Link to="/" className="brand-logo center" activeClassName="current">{currentHouseName}</Link>
+            <Link to="/" className="brand-logo center" activeClassName="current">HOMIES</Link>
               <ul className="right hide-on-med-and-down">
                 <li>{greetingJsx}</li>
               </ul>
@@ -88,17 +105,12 @@ const App = React.createClass({
         <div className="container">
           <br />
           <div className="row center">
-            Homies is a web application that centralizes bill payments, messaging, lists, and calendar events between housemates.
+            Homies is a single-page application that centralizes bill payments, messaging, lists, and calendar events between housemates.
+            <input className="header-button" type="submit" value="logout" onClick={ this._handleLogOut } />
           </div>
           {this.props.children}
         </div>
-        <footer className="page-footer blue accent-3">
-          <div className="footer-copyright">
-            <div className="container">
-            © 2016 Paul Okuda
-            </div>
-          </div>
-        </footer>
+        {this.footer()}
       </div>
     );
   }

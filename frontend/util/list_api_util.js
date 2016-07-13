@@ -7,10 +7,6 @@ const ListApiUtil = {
       success: function (response) {
         callback(response);
       },
-      error: function (err) {
-        console.log('error fetching houses lists');
-        console.log(err);
-      }
     });
   },
   createList: function (list, callback) {
@@ -20,14 +16,8 @@ const ListApiUtil = {
       dataType: "JSON",
       data: { list: { title: list.title, description: list.description, list_items: list.items }},
       success: function (response) {
-        console.log('succsessfully created a list!');
-        console.log(response);
         callback(response);
       },
-      error: function (err) {
-        console.log('error creating a hosue');
-        console.log(err);
-      }
     });
   },
   updateList: function (list, newTitle, callback) {
@@ -37,13 +27,8 @@ const ListApiUtil = {
       dataType: "JSON",
       data: { list: { title: newTitle } },
       success: function (response) {
-        console.log('succes in list api util');
         callback(response);
       },
-      error: function (err) {
-        console.log('error in list api util');
-        console.log(err);
-      }
     });
   }
 };

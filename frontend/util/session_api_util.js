@@ -6,12 +6,7 @@ const SessionApiUtil = {
       data: {user},
       success: function (response) {
         callback(response);
-        console.log('successful login!');
       },
-      error: function (xhr) {
-				const errors = xhr.responseJSON;
-				errorCallback("login", errors);
-			}
     });
   },
   signup: function (user, callback, error) {
@@ -21,13 +16,8 @@ const SessionApiUtil = {
       dataType: "JSON",
       data: { user },
       success: function (response) {
-        console.log('successful signup!');
         callback(response)
       },
-      error: function (xhr) {
-				const errors = xhr.responseJSON;
-				error("signup", errors);
-			}
     });
   },
   logout: function (callback, error) {
@@ -35,14 +25,8 @@ const SessionApiUtil = {
 			url: 'api/session',
 			method: 'DELETE',
 			success: function (response) {
-        console.log('successful logout!');
         callback(response);
       },
-			error: function (err) {
-
-        console.log(err);
-			  console.log("Logout error in SessionApiUtil#logout");
-			}
 		});
   },
   fetchCurrentUser: function () {

@@ -5,13 +5,8 @@ const JoinHouseApiUtil = {
       type: "PATCH",
       data: { house_id: houseID },
       success: function (response) {
-        callback(response)
-        console.log('success');
+        callback(response);
       },
-      error: function (err) {
-        console.log('error');
-        console.log(err);
-      }
     });
   }
 };

@@ -16,7 +16,6 @@ const MessageActions = {
     MessageApiUtil.createMessage(message, MessageActions.messageCreated);
   },
   messageCreated: function (message) {
-    console.log('message created');
     AppDispatcher.dispatch({
       actionType: MessageConstants.MESSAGE_CREATED,
       message: message

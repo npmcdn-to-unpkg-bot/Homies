@@ -53,8 +53,6 @@ const Bill = React.createClass({
       message: messagePrompt,
       input: inputFields,
       callback: function (response) {
-        console.log('response');
-        console.log(response);
         if (response) {
           const formData = {
             description: response["bill[description]"],
@@ -116,8 +114,6 @@ const Bill = React.createClass({
     return `${monthNames[monthDue]} ${dayDue}, ${yearDue}`;
   },
   formatBillsJsx: function (bills) {
-    console.log('all bills');
-    console.log(this.state.allBills);
     const billsKeys = Object.keys(bills);
     let billsJsx;
     if (billsKeys.length > 0) {

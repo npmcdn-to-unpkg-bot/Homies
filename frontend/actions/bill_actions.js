@@ -7,7 +7,6 @@ const BillActions = {
     BillApiUtil.createBill(bill, BillActions.receiveCreatedBill);
   },
   receiveCreatedBill: function (bill) {
-    console.log('receive created bill - bill actions (need to invoke app dispatcher)');
     AppDispatcher.dispatch({
       actionType: BillConstants.CREATED_BILL,
       bill: bill

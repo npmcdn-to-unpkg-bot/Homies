@@ -6,7 +6,6 @@ const HouseApiUtil = {
       data: { house: house },
       success: function (response) {
         callback(response);
-        console.log('successfully created a house!');
       }
     });
   },
@@ -17,10 +16,6 @@ const HouseApiUtil = {
       dataType: "JSON",
       success: function (response) {
         callback(response);
-      },
-      error: function (err) {
-        console.log('error updating current house');
-        console.log(err);
       }
     });
   },
@@ -31,10 +26,6 @@ const HouseApiUtil = {
       dataType: "JSON",
       success: function (response) {
         callback(response);
-      },
-      error: function (err) {
-        console.log('error udpating current homies');
-        console.log(err);
       }
     });
   }

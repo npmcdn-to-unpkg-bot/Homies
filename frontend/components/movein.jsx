@@ -5,10 +5,6 @@ const HouseForm = require('./house_form.jsx');
 const JoinHouse = require('./join_house.jsx');
 
 const MoveIn = React.createClass({
-  componentDidMount: function () {
-    console.log('componentDidMount');
-    console.log(SessionStore.currentUser().house_id);
-  },
   getInitialState: function () {
     return {
       join_house: undefined

@@ -31,10 +31,7 @@ const ListItemShow = React.createClass({
     this.setState({ contentEditMode: true });
   },
   update: function (property) {
-    return (e) => this.setState({ [property]: e.target.value }, function () {
-      console.log('updated state');
-      console.log(this.state.currentContent);
-    });
+    return (e) => this.setState({ [property]: e.target.value });
   },
   renderContent: function () {
     if (!this.state.contentEditMode) {

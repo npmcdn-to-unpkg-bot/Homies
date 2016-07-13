@@ -16,14 +16,8 @@ const BillApiUtil = {
       type: "GET",
       dataType: "JSON",
       success: function (response) {
-        console.log('SUCCESS');
-        console.log(response);
         callback(response);
       },
-      error: function (err) {
-        console.log('error');
-        console.log(err);
-      }
     });
   },
   fetchUrgentBills: function (callback) {

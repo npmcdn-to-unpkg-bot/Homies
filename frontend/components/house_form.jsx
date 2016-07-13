@@ -22,7 +22,6 @@ const HouseForm = React.createClass({
     this.houseListener = HouseStore.addListener(this.redirectIfHouseCreated);
   },
   redirectIfHouseCreated: function () {
-    console.log('router push!');
     hashHistory.push("/dashboard");
   },
   handleSubmit: function (e) {

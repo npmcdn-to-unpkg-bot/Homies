@@ -13,7 +13,6 @@ const ListForm = React.createClass({
     };
   },
   handleListSubmit: function (e) {
-    console.log('handle list submit');
     e.preventDefault();
     const formData = {
       title: this.state.title,

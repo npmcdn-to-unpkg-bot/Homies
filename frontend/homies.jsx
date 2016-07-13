@@ -45,15 +45,10 @@ function checkIfHasHouse (nextState, replace) {
     }
 }
 
-function ensureLoggedIn(nextState, replace) {
-  // We don't want users to be able to visit our 'new' or 'review' routes
-  // if they haven't already signed in/up. Let's redirect them!
-  // `replace` is like a redirect. It replaces the current entry
-  // into the history (and the hashFragment), so the Router is forced
-  // to re-route.
-    if (Object.keys(SessionStore.currentUser()).length === 0) {
-      replace('/login');
-    }
+function ensureLoggedIn (nextState, replace) {
+  if (Object.keys(SessionStore.currentUser()).length === 0) {
+    replace('/login');
+  }
 }
 
 

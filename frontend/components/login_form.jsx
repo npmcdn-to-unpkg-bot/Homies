@@ -12,7 +12,9 @@ const LoginForm = React.createClass({
   getInitialState: function () {
     return {
       username: "",
-      password: ""
+      password: "",
+      demoUsername: "pyo",
+      demoPassword: "secret"
     };
   },
   componentDidMount: function () {
@@ -51,6 +53,14 @@ const LoginForm = React.createClass({
       SessionActions.signup(formData);
     }
 	},
+  handleDemoLogin: function (e) {
+    e.preventDefault();
+    const formData = {
+      username: this.state.demoUsername,
+      password: this.state.demoPassword
+    };
+    SessionActions.login(formData);
+  },
   update: function (property) {
     return (e) => this.setState({[property]: e.target.value});
   },
@@ -62,38 +72,26 @@ const LoginForm = React.createClass({
       navLink = <Link to="/login">log in instead</Link>;
     }
 		return (
-			<div className="row">
-        <div className="center">
-          Please { this.formType() } or { navLink }
-        </div>
-        <div className="col s12 m4">
-          &nbsp;&nbsp;
-        </div>
-        <div className="col s12 m4 center">
-          <form onSubmit={this.handleSubmit}>
+      <div className="row">
+        <h5 className="center">LOGIN</h5>
+        <div className="col s4 login-input">
+          <form onSubmit={this.handleSubmit} className="center">
             { this.fieldErrors("base") }
-  					<div className="login-form">
-              <div className="row center">
-                <div className="input-field col s12">
-                  <input id="username" type="username" className="validate" type="text"
-    		            value={this.state.username}
-    		            onChange={this.update("username")}/>
-                  <label for="username">Username</label>
-                </div>
-              </div>
-              <div className="row center">
-                <div className="input-field col s12">
-                  <input id="password" type="password"
-    		            value={this.state.password}
-    		            onChange={this.update("password")}
-    								className="login-input validate"/>
-                  <label for="password">Password</label>
-                </div>
-              </div>
-  		        <br />
-              <button className="btn waves-effect waves-light" type="submit" name="action">Submit</button>
-  					</div>
-  				</form>
+            <input id="username" type="username" className="validate" type="text"
+              value={this.state.username}
+              onChange={this.update("username")}/>
+            <label for="username">Username</label>
+            <input id="password" type="password"
+              value={this.state.password}
+              onChange={this.update("password")}
+              className="login-input validate"/>
+            <label for="password">Password</label>
+          </form>
+          <br />
+          <div className="center">
+            <button className="btn waves-effect waves-light" onClick={this.handleSubmit} type="submit" name="action">Login</button>&nbsp;&nbsp;
+            <button className="btn waves-effect waves-light" onClick={this.handleDemoLogin} type="submit" name="action">Demo Login</button>
+          </div>
         </div>
       </div>
 		);

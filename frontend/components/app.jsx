@@ -18,6 +18,10 @@ const App = React.createClass({
     // HouseActions.updateCurrentHouse(this.state.house.id);
     HouseActions.updateCurrentHomies();
   },
+  componentDidMount: function () {
+    const footerHeight = Math.max($(document).height(), $(window).height()) + "px";
+    $('.page-footer').css({ 'margin-top': '800px'});
+  },
   handleUpdate: function () {
     this.setState({
       house: HouseStore.currentHouse(),
@@ -66,51 +70,58 @@ const App = React.createClass({
     if (this.state.house) {
       currentHouseName = this.state.house.name;
     } else {
-      currentHouseName = "";
+      currentHouseName = "HOMIES";
     }
     let greetingJsx;
     if (Object.keys(SessionStore.currentUser()).length > 0) {
       greetingJsx =  (
-        <ul className="right hide-on-med-and-down">
-          <li><Link to="/messages" activeClassName="current">Messages</Link></li>
-          <li><Link to="/events" activeClassName="current">Events</Link></li>
-          <li><Link to="/lists" activeClassName="current">Lists</Link></li>
-          <li><Link to="/bills" activeClassName="current">Bills</Link></li>
-          <li><a onClick={ this._handleLogOut }>Logout</a></li>
+        <ul className="nav-item-container">
+          <div>
+            <li className="">
+              <Link to="/"><span className="ion-ios-home">&nbsp;HOMIES</span></Link>
+            </li>
+          </div>
+          <div>
+            <li className="nav-item">
+              <Link to="/messages"><span className="ion-chatboxes nav-icon">&nbsp;MESSAGES</span></Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/events"><span className="ion-calendar nav-icon" >&nbsp;EVENTS</span></Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/lists" activeClassName="current"><span className="ion-ios-list nav-icon">&nbsp;LISTS</span></Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/bills" activeClassName="current"><span className="ion-cash nav-icon">&nbsp;BILLS</span></Link>
+            </li>
+            <li className="nav-item">
+              <a onClick={ this._handleLogOut }>LOGOUT</a>
+            </li>
+          </div>
         </ul>
       );
     } else {
       greetingJsx = (
-        <div>
-          <Link to="/login" activeClassName="current">Login</Link>
-          <Link to="/signup" activeClassName="current">Sign Up</Link>
-        </div>
+        <ul>
+          <li><Link to="/login" activeClassName="current">Login</Link></li>
+          <li><Link to="/signup" activeClassName="current">Sign Up</Link></li>
+        </ul>
       );
     }
     return (
       <div className="main-container">
-        <ul id="settings-button" className="dropdown-content">
-          <li><a href="/">Edit profile</a></li>
-          <li><a onClick={ this._handleLogOut }>Logout</a></li>
-          <li className="divider"></li>
-          <li><a href="/">Close</a></li>
-        </ul>
-        <nav className="blue accent-3">
-          <div className="nav-wrapper">
-            <Link to="/" className="brand-logo center" activeClassName="current">HOMIES</Link>
-              <ul className="right hide-on-med-and-down">
-                <li>{greetingJsx}</li>
-              </ul>
-          </div>
+        <nav className="nav-container blue accent-3">
+          <Link to="/" className="brand-logo" activeClassName="current"></Link>
+          {greetingJsx}
         </nav>
-        <div className="container">
+        <div className="body-container">
           <br />
-          <div className="row center">
+          <div className="row center tag">
             Homies is a single-page application that centralizes bill payments, messaging, lists, and calendar events between housemates.
           </div>
           {this.props.children}
         </div>
-        {this.footer()}
+        {/* this.footer() */}
       </div>
     );
   }

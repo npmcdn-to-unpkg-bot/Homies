@@ -101,18 +101,13 @@ const Events = React.createClass({
       return "";
     }
   },
-  cardContentClass: function () {
-    if (this.state.dashboardView) {
-      return "card-content top-row-dash";
-    } else {
-      return "card-content";
-    }
-  },
   eventView: function () {
     if (this.state.dashboardView) {
       return (
         <div>
-          <b><center>Upcoming Events</center></b>
+          <span className="event-header">
+            <strong>Events</strong>
+          </span>
           <table className="centered">
             <thead>
               <tr>
@@ -146,9 +141,9 @@ const Events = React.createClass({
   },
   render: function () {
     return (
-      <div className="col s12 m6">
-        <div className="card grey lighten-4">
-          <div className={this.cardContentClass()}>
+      <div className="events-container">
+        <div className="event-wrap">
+          <div className="event-view">
             {this.eventView()}
           </div>
           {this.eventAction()}

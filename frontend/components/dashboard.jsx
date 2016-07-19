@@ -7,14 +7,13 @@ const Bills = require('./bill.jsx');
 const Dashboard = React.createClass({
   render: function () {
     return (
-      <div>
-        <div className="row">
+      <div className="dashboard-container">
+        <div className="dash-top">
           <Messages />
-          <Events />
-        </div>
-        <div className="row">
-          <Lists />
           <Bills />
+        </div>
+        <div className="dash-bottom">
+          <Events />
         </div>
       </div>
     );

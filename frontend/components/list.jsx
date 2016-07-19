@@ -70,7 +70,7 @@ const List = React.createClass({
         gutter: 5
       };
       return (
-        <div>
+        <div className="list-wrap">
           <Masonry
             className={'my-gallery-class'}
             elementType={'ul'}
@@ -87,7 +87,7 @@ const List = React.createClass({
     if (this.state.dashboardView) {
       return ("col s12 m6");
     } else {
-      return ("col s12 m12");
+      return ("col s12 m12 list-container");
     }
   },
   listAction: function () {

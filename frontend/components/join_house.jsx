@@ -28,14 +28,14 @@ const JoinHouse = React.createClass({
   render: function () {
     return (
       <div className="row">
-        <div className="input-field col s4 center">
+        <div className="input-field">
           <form onSubmit={this.handleSubmit}>
             <input id="house-id"
                    onChange={this.update}
                    type="text"
                    className="validate" />
             <label for="house-id">Enter House ID</label>
-            <button className="btn waves-effect waves-light"   type="submit" name="action">Join</button>
+            <center><button className="btn waves-effect waves-light"   type="submit" name="action">Join</button></center>
           </form>
         </div>
       </div>

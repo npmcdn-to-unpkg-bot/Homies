@@ -19,7 +19,7 @@ const MoveIn = React.createClass({
   currentComponent: function () {
     if (this.state.join_house === undefined) {
       return (
-        <div className="center">
+        <div className="movein-items">
           <a onClick={this.joinHouse} className="waves-effect waves-light btn-large">Join House</a>&nbsp;
           <a onClick={this.createHouse} className="waves-effect waves-light btn-large">Create House</a>
         </div>
@@ -36,7 +36,7 @@ const MoveIn = React.createClass({
   },
   render: function () {
     return (
-      <div className="row">
+      <div className="movein-container">
         {this.currentComponent()}
       </div>
     );

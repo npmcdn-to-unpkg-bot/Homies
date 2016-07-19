@@ -30,6 +30,13 @@ const Bill = React.createClass({
     this.houseListener.remove();
     this.billListener.remove();
   },
+  componentDidMount: function () {
+    if (this.props.location && this.props.location.pathname === "/bills") {
+      $('div.bills').css('width', '100%');
+      $('div.bills').css('display', 'flex');
+      $('div.bills').css('justify-content', 'center');
+    }
+  },
   updateBills: function () {
     this.setState({
       allBills: BillStore.all(),
@@ -75,7 +82,10 @@ const Bill = React.createClass({
         billSum += urgentBills[key].amount;
       });
       return (
-        <h5>Amount you owe:<br /> ${billSum.toFixed(2)}</h5>
+        <div>
+          <p>You have bills that have not yet been paid!</p>
+          <h5>Amount you owe:<br /> ${billSum.toFixed(2)}</h5>
+        </div>
       );
     } else {
       return ("You've paid all your bills!");
@@ -129,7 +139,7 @@ const Bill = React.createClass({
         );
       });
     } else {
-      return "One second while loading!";
+      return "";
     }
   },
   dueThisMonthJsx: function () {
@@ -149,34 +159,34 @@ const Bill = React.createClass({
         );
       });
     } else {
-      return "One second while loading!";
+      return "";
     }
   },
   billView: function () {
     if (this.state.dashboardView) {
       return (
-        <div className="col s12 m6">
-          <div className="card grey lighten-4">
-            <div className="card-content bottom-row-dash">
-              <b><center>Bills</center></b><hr />
-              <center>{this.urgentBillsAmount()}</center>
+        <div className="dashboard-bills">
+          <div className="bill-wrap">
+            <div className="top-row-dash bills-dash">
+              <strong className="dashboard-header">Bills</strong>
+              <center className="dashboard-amount-due">{this.urgentBillsAmount()}</center>
             </div>
             <div className="card-action">
-              <Link to="/bills" activeClassName="current">View More Bills</Link>
+              <Link to="/bills" activeClassName="current">View All</Link>
             </div>
           </div>
         </div>
       );
     } else {
       return (
-        <div className="col s12 m8">
+        <div className="">
           <div className="bill-view-container">
             <div className="row center urgent-bills">
               {this.urgentBillsJsx()}
             </div>
           </div>
           <div className="card grey lighten-4">
-            <div className="card-content">
+            <div className="card-content bill-content">
               <center><b>This Month:</b></center>
               <table className="centered">
                 <thead>
@@ -219,7 +229,7 @@ const Bill = React.createClass({
   },
   render: function () {
     return (
-      <div>
+      <div className="bills">
         {this.billView()}
       </div>
     );

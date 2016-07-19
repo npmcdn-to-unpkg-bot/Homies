@@ -28,15 +28,13 @@ const MessageForm = React.createClass({
   render: function () {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div className="login-form">
-          <div className="col s12">
-            <input id="message-input"
-                   className="message-input"
-                   placeholder="Type a message..."
-                   type="text"
-                   value={this.state.content}
-                   onChange={this.update} />
-          </div>
+        <div className="compose-message-wrap">
+          <input id="message-input"
+                 className="message-input"
+                 placeholder="Type a message..."
+                 type="text"
+                 value={this.state.content}
+                 onChange={this.update} />
         </div>
       </form>
     );

@@ -57,49 +57,46 @@ const SignupForm = React.createClass({
   render: function () {
 
 		return (
-			<div className="login-form-container">
-        <h1>signup</h1>
+			<div className="signup-form-container">
+        <h5 className="center">Sign Up!</h5>
         { this.fieldErrors("base") }
-				<form onSubmit={this.handleSubmit} className="login-form-box">
-					<div className="login-form">
-		        <br />
-						<label>Username:
-            { this.fieldErrors("username") }
-							<input type="text"
-		            value={this.state.username}
-		            onChange={this.update("username")}
-								className="login-input" />
-						</label>
+				<form onSubmit={this.handleSubmit} className="signup-form-box">
+					<div className="signup-form">
 
-		        <br />
-						<label>Password:
-              { this.fieldErrors("password") }
-		          <input type="password"
-		            value={this.state.password}
-		            onChange={this.update("password")}
-								className="login-input" />
-						</label>
-
-		        <br />
-            <label>First name:
-              { this.fieldErrors("f_name") }
-							<input type="text"
+            <div className="input-field">
+              <input id="f-name" type="text"
 		            value={this.state.f_name}
 		            onChange={this.update("f_name")}
 								className="login-input" />
-						</label>
+              <label for="f-name">First name</label>
+            </div>
 
-            <br />
-            <label> Last name:
-              { this.fieldErrors("l_name") }
-							<input type="text"
+            <div className="input-field">
+              <input id="l-name" type="text"
 		            value={this.state.l_name}
 		            onChange={this.update("l_name")}
 								className="login-input" />
-						</label>
+              <label for="l-name">Last name</label>
+            </div>
 
-            <br />
-						<input type="submit" value="Submit" />
+            <div className="input-field">
+              <input id="username" type="text"
+		            value={this.state.username}
+		            onChange={this.update("username")}
+								className="login-input" />
+              <label for="username">Username</label>
+            </div>
+
+            <div className="input-field">
+              <input id="password" type="password"
+		            value={this.state.password}
+		            onChange={this.update("password")}
+								className="login-input" />
+              <label for="password">Password</label>
+            </div>
+
+
+            <button className="btn waves-effect waves-light" type="submit" name="action">Join</button>
 					</div>
 				</form>
 			</div>

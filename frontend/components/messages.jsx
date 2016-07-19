@@ -75,23 +75,25 @@ const Messages = React.createClass({
   );},
   columnClass: function () {
     if (this.state.dashboardView) {
-      return "col s12 m6";
+      return "dashboard-messages";
     } else {
-      return "col s12 m12";
+      $('.message-container').css('border-left', '3px solid #e0e0e0');
+      $('.message-container').css('border-right', '3px solid #e0e0e0');
+      return "full-messages";
     }
   },
   cardContentClass: function () {
     if (this.state.dashboardView) {
-      return "card-content top-row-dash";
+      return "top-row-dash";
     } else {
-      return "card-content";
+      return "";
     }
   },
   messageAction: function () {
     if (this.state.dashboardView) {
       return (
         <div className="card-action">
-          <Link to="/messages" activeClassName="current">View More Messages</Link>
+          <Link to="/messages" className="view-more">View All</Link>
         </div>
       );
     } else {
@@ -101,7 +103,7 @@ const Messages = React.createClass({
   render: function () {
     let messageJsx;
     if (this.state.dashboardView) {
-      messageJsx = this.messageView(MessageStore.getLast(4).reverse());
+      messageJsx = this.messageView(MessageStore.getLast(5).reverse());
     } else {
       messageJsx = this.messageView(this.state.messages);
     }
@@ -117,14 +119,14 @@ const Messages = React.createClass({
         }
       }
     } else {
-      chatMemberString = "Loading...";
+      chatMemberString = "Group Chat";
     }
+    chatMemberString = "Chat";
     return (
       <div className={this.columnClass()}>
-        <div className="card grey lighten-4">
+        <div className="message-wrap">
           <div className={this.cardContentClass()}>
-            <span className="">{chatMemberString}</span>
-            <hr />
+            <span className="chat-header"><strong>{chatMemberString}</strong></span>
             <section className="chat-container">
               <div className="message-container">
                 {messageJsx}

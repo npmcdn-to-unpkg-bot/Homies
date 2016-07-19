@@ -65,27 +65,22 @@ const LoginForm = React.createClass({
     return (e) => this.setState({[property]: e.target.value});
   },
   render: function () {
-    let navLink;
-    if (this.formType() === "login") {
-      navLink = <Link to="/signup">sign up instead</Link>;
-    } else {
-      navLink = <Link to="/login">log in instead</Link>;
-    }
 		return (
-      <div className="row">
-        <h5 className="center">LOGIN</h5>
-        <div className="col s4 login-input">
-          <form onSubmit={this.handleSubmit} className="center">
+      <div className="row login-form-container">
+        <h5 className="center">Welcome!</h5>
+        <div className="login-input">
+          <form onSubmit={this.handleSubmit}>
             { this.fieldErrors("base") }
-            <input id="username" type="username" className="validate" type="text"
-              value={this.state.username}
-              onChange={this.update("username")}/>
-            <label for="username">Username</label>
-            <input id="password" type="password"
-              value={this.state.password}
-              onChange={this.update("password")}
-              className="login-input validate"/>
-            <label for="password">Password</label>
+            <div className="input-field">
+              <input id="username" type="text" className="validate" value={this.state.username} onChange={this.update("username")}/>
+              <label for="username">Username</label>
+            </div>
+
+            <div className="input-field">
+              <input id="password" type="password" value={this.state.password}
+                onChange={this.update("password")} className="login-input validate"/>
+              <label for="password">Password</label>
+            </div>
           </form>
           <br />
           <div className="center">

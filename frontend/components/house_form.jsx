@@ -22,7 +22,7 @@ const HouseForm = React.createClass({
     this.houseListener = HouseStore.addListener(this.redirectIfHouseCreated);
   },
   redirectIfHouseCreated: function () {
-    hashHistory.push("/dashboard");
+    hashHistory.push("/");
   },
   handleSubmit: function (e) {
     e.preventDefault();

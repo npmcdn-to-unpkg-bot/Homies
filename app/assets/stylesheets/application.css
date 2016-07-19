@@ -27,7 +27,6 @@
 @import "compass/css3";
 
 section.chat-container {
-	margin: 50px auto;
   width: 100%;
 }
 
@@ -45,19 +44,23 @@ section div {
 .from-me {
 	position:relative;
 	padding:10px 20px;
-	color:white;
-	background:#2979ff;
+	color: black;
+	background:#b3e5fc;
+  border: 1px solid #29b6f6;
 	border-radius:25px;
 	float: right;
+  margin-right: 5px;
 }
 
 .from-them {
 	position:relative;
 	padding:10px 20px;
 	background:#E5E5EA;
+  border: 1px solid #bdbdbd;
 	border-radius:25px;
 	color: black;
   float: left;
+  margin-left: 5px;
 }
 
 div.message-div-right {
@@ -126,11 +129,6 @@ div.urgent-bills {
   height: 100px;
 }
 
-.message-container {
-  max-height: 450px;
-  overflow: auto;
-}
-
 li.list-item {
   width: 100%;
 }
@@ -162,9 +160,6 @@ div.list-form {
   width: 95%;
 }
 
-div.col.s4.login-input {
-  margin-left: 34%;
-}
 
 footer {
   position: absolute;
@@ -183,7 +178,187 @@ body {
 
 div.message-container {
   margin: 0 auto;
-  padding-top: 64px;
   max-width: 640px;
-  width: 94%;
+  width: 100%;
+  max-height: 450px;
+  overflow: auto;
+  margin-top: 3%;
+}
+
+div.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+div.tag {
+  width: 35%;
+}
+
+div.login-form {
+  display: flex;
+}
+
+div.login-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+div.dashboard-container {
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  width: 80%;
+  margin: 0 auto;
+}
+
+span.nav-icon {
+  font-size: 14px;
+}
+
+
+li.nav-item {
+  display: flex;
+  align-items: center;
+}
+
+ul.nav-item-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+nav.nav-container {
+  height: 1%;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 8px;
+}
+
+div.dashboard-messages {
+  padding: 10px;
+  width: 55%;
+  height: 55%;
+  background-color: #f9f9f9;
+  border: 1px solid #bdbdbd;
+}
+
+div.dash-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+div.dash-bottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 3%;
+}
+
+div.card-action {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  border-top: 3px solid #e0e0e0;
+  height: 45px;
+  align-items: center;
+}
+
+.from-them p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.from-me p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+span.chat-header {
+  height: 5%;
+  padding-left: 1%;
+}
+
+div.full-messages {
+  display: flex;
+  justify-content: center;
+}
+
+div.compose-message-wrap {
+  border: 3px solid #e0e0e0;
+}
+
+div.events-container {
+  margin-top: 2%;
+  margin-bottom: 2%;
+  width: 97.5%;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #bdbdbd;
+  margin: 0 auto;
+}
+
+div.dashboard-bills {
+  width: 100%;
+  background-color: #f9f9f9;
+  height: 55%;
+  padding: 10px;
+  border: 1px solid #bdbdbd;
+}
+
+div.bills {
+  width: 40%;
+  height: 100%;
+}
+
+strong.dashboard-header {
+  margin-left: 1%;
+}
+
+.dashboard-amount-due {
+  text-align: center;
+  padding-top: 12%;
+}
+
+div.bill-content {
+  width: 800px;
+}
+
+span.event-header {
+  height: 5%;
+  padding: 10px;
+}
+
+div.signup-form {
+  display: flex;
+  flex-direction: column;
+}
+
+div.signup-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  align-items: center;
+}
+
+form.signup-form-box {
+  width: 25%;
+}
+
+div.movein-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  height: 100%;
+}
+
+div.list-wrap {
+  margin: 0 auto;
 }

@@ -26176,6 +26176,10 @@
 	    // HouseActions.updateCurrentHouse(this.state.house.id);
 	    HouseActions.updateCurrentHomies();
 	  },
+	  componentDidMount: function componentDidMount() {
+	    var footerHeight = Math.max($(document).height(), $(window).height()) + "px";
+	    $('.page-footer').css({ 'margin-top': '800px' });
+	  },
 	  handleUpdate: function handleUpdate() {
 	    this.setState({
 	      house: HouseStore.currentHouse(),
@@ -26247,72 +26251,117 @@
 	    if (this.state.house) {
 	      currentHouseName = this.state.house.name;
 	    } else {
-	      currentHouseName = "";
+	      currentHouseName = "HOMIES";
 	    }
 	    var greetingJsx = void 0;
 	    if (Object.keys(SessionStore.currentUser()).length > 0) {
 	      greetingJsx = React.createElement(
 	        'ul',
-	        { className: 'right hide-on-med-and-down' },
+	        { className: 'nav-item-container' },
 	        React.createElement(
-	          'li',
+	          'div',
 	          null,
 	          React.createElement(
-	            Link,
-	            { to: '/messages', activeClassName: 'current' },
-	            'Messages'
+	            'li',
+	            { className: '' },
+	            React.createElement(
+	              Link,
+	              { to: '/' },
+	              React.createElement(
+	                'span',
+	                { className: 'ion-ios-home' },
+	                ' HOMIES'
+	              )
+	            )
 	          )
 	        ),
 	        React.createElement(
-	          'li',
+	          'div',
 	          null,
 	          React.createElement(
-	            Link,
-	            { to: '/events', activeClassName: 'current' },
-	            'Events'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
+	            'li',
+	            { className: 'nav-item' },
+	            React.createElement(
+	              Link,
+	              { to: '/messages' },
+	              React.createElement(
+	                'span',
+	                { className: 'ion-chatboxes nav-icon' },
+	                ' MESSAGES'
+	              )
+	            )
+	          ),
 	          React.createElement(
-	            Link,
-	            { to: '/lists', activeClassName: 'current' },
-	            'Lists'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
+	            'li',
+	            { className: 'nav-item' },
+	            React.createElement(
+	              Link,
+	              { to: '/events' },
+	              React.createElement(
+	                'span',
+	                { className: 'ion-calendar nav-icon' },
+	                ' EVENTS'
+	              )
+	            )
+	          ),
 	          React.createElement(
-	            Link,
-	            { to: '/bills', activeClassName: 'current' },
-	            'Bills'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
+	            'li',
+	            { className: 'nav-item' },
+	            React.createElement(
+	              Link,
+	              { to: '/lists', activeClassName: 'current' },
+	              React.createElement(
+	                'span',
+	                { className: 'ion-ios-list nav-icon' },
+	                ' LISTS'
+	              )
+	            )
+	          ),
 	          React.createElement(
-	            'a',
-	            { onClick: this._handleLogOut },
-	            'Logout'
+	            'li',
+	            { className: 'nav-item' },
+	            React.createElement(
+	              Link,
+	              { to: '/bills', activeClassName: 'current' },
+	              React.createElement(
+	                'span',
+	                { className: 'ion-cash nav-icon' },
+	                ' BILLS'
+	              )
+	            )
+	          ),
+	          React.createElement(
+	            'li',
+	            { className: 'nav-item' },
+	            React.createElement(
+	              'a',
+	              { onClick: this._handleLogOut },
+	              'LOGOUT'
+	            )
 	          )
 	        )
 	      );
 	    } else {
 	      greetingJsx = React.createElement(
-	        'div',
+	        'ul',
 	        null,
 	        React.createElement(
-	          Link,
-	          { to: '/login', activeClassName: 'current' },
-	          'Login'
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/login', activeClassName: 'current' },
+	            'Login'
+	          )
 	        ),
 	        React.createElement(
-	          Link,
-	          { to: '/signup', activeClassName: 'current' },
-	          'Sign Up'
+	          'li',
+	          null,
+	          React.createElement(
+	            Link,
+	            { to: '/signup', activeClassName: 'current' },
+	            'Sign Up'
+	          )
 	        )
 	      );
 	    }
@@ -26320,71 +26369,22 @@
 	      'div',
 	      { className: 'main-container' },
 	      React.createElement(
-	        'ul',
-	        { id: 'settings-button', className: 'dropdown-content' },
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            'a',
-	            { href: '/' },
-	            'Edit profile'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            'a',
-	            { onClick: this._handleLogOut },
-	            'Logout'
-	          )
-	        ),
-	        React.createElement('li', { className: 'divider' }),
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            'a',
-	            { href: '/' },
-	            'Close'
-	          )
-	        )
-	      ),
-	      React.createElement(
 	        'nav',
-	        { className: 'blue accent-3' },
-	        React.createElement(
-	          'div',
-	          { className: 'nav-wrapper' },
-	          React.createElement(
-	            Link,
-	            { to: '/', className: 'brand-logo center', activeClassName: 'current' },
-	            'HOMIES'
-	          ),
-	          React.createElement(
-	            'ul',
-	            { className: 'right hide-on-med-and-down' },
-	            React.createElement(
-	              'li',
-	              null,
-	              greetingJsx
-	            )
-	          )
-	        )
+	        { className: 'nav-container blue accent-3' },
+	        React.createElement(Link, { to: '/', className: 'brand-logo', activeClassName: 'current' }),
+	        greetingJsx
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'container' },
+	        { className: 'body-container' },
 	        React.createElement('br', null),
 	        React.createElement(
 	          'div',
-	          { className: 'row center' },
+	          { className: 'row center tag' },
 	          'Homies is a single-page application that centralizes bill payments, messaging, lists, and calendar events between housemates.'
 	        ),
 	        this.props.children
-	      ),
-	      this.footer()
+	      )
 	    );
 	  }
 	});
@@ -33607,51 +33607,41 @@
 	    };
 	  },
 	  render: function render() {
-	    var _React$createElement;
-	
-	    var navLink = void 0;
-	    if (this.formType() === "login") {
-	      navLink = React.createElement(
-	        Link,
-	        { to: '/signup' },
-	        'sign up instead'
-	      );
-	    } else {
-	      navLink = React.createElement(
-	        Link,
-	        { to: '/login' },
-	        'log in instead'
-	      );
-	    }
 	    return React.createElement(
 	      'div',
-	      { className: 'row' },
+	      { className: 'row login-form-container' },
 	      React.createElement(
 	        'h5',
 	        { className: 'center' },
-	        'LOGIN'
+	        'Welcome!'
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'col s4 login-input' },
+	        { className: 'login-input' },
 	        React.createElement(
 	          'form',
-	          { onSubmit: this.handleSubmit, className: 'center' },
+	          { onSubmit: this.handleSubmit },
 	          this.fieldErrors("base"),
-	          React.createElement('input', (_React$createElement = { id: 'username', type: 'username', className: 'validate' }, _defineProperty(_React$createElement, 'type', 'text'), _defineProperty(_React$createElement, 'value', this.state.username), _defineProperty(_React$createElement, 'onChange', this.update("username")), _React$createElement)),
 	          React.createElement(
-	            'label',
-	            { 'for': 'username' },
-	            'Username'
+	            'div',
+	            { className: 'input-field' },
+	            React.createElement('input', { id: 'username', type: 'text', className: 'validate', value: this.state.username, onChange: this.update("username") }),
+	            React.createElement(
+	              'label',
+	              { 'for': 'username' },
+	              'Username'
+	            )
 	          ),
-	          React.createElement('input', { id: 'password', type: 'password',
-	            value: this.state.password,
-	            onChange: this.update("password"),
-	            className: 'login-input validate' }),
 	          React.createElement(
-	            'label',
-	            { 'for': 'password' },
-	            'Password'
+	            'div',
+	            { className: 'input-field' },
+	            React.createElement('input', { id: 'password', type: 'password', value: this.state.password,
+	              onChange: this.update("password"), className: 'login-input validate' }),
+	            React.createElement(
+	              'label',
+	              { 'for': 'password' },
+	              'Password'
+	            )
 	          )
 	        ),
 	        React.createElement('br', null),
@@ -33818,65 +33808,76 @@
 	
 	    return React.createElement(
 	      'div',
-	      { className: 'login-form-container' },
+	      { className: 'signup-form-container' },
 	      React.createElement(
-	        'h1',
-	        null,
-	        'signup'
+	        'h5',
+	        { className: 'center' },
+	        'Sign Up!'
 	      ),
 	      this.fieldErrors("base"),
 	      React.createElement(
 	        'form',
-	        { onSubmit: this.handleSubmit, className: 'login-form-box' },
+	        { onSubmit: this.handleSubmit, className: 'signup-form-box' },
 	        React.createElement(
 	          'div',
-	          { className: 'login-form' },
-	          React.createElement('br', null),
+	          { className: 'signup-form' },
 	          React.createElement(
-	            'label',
-	            null,
-	            'Username:',
-	            this.fieldErrors("username"),
-	            React.createElement('input', { type: 'text',
-	              value: this.state.username,
-	              onChange: this.update("username"),
-	              className: 'login-input' })
-	          ),
-	          React.createElement('br', null),
-	          React.createElement(
-	            'label',
-	            null,
-	            'Password:',
-	            this.fieldErrors("password"),
-	            React.createElement('input', { type: 'password',
-	              value: this.state.password,
-	              onChange: this.update("password"),
-	              className: 'login-input' })
-	          ),
-	          React.createElement('br', null),
-	          React.createElement(
-	            'label',
-	            null,
-	            'First name:',
-	            this.fieldErrors("f_name"),
-	            React.createElement('input', { type: 'text',
+	            'div',
+	            { className: 'input-field' },
+	            React.createElement('input', { id: 'f-name', type: 'text',
 	              value: this.state.f_name,
 	              onChange: this.update("f_name"),
-	              className: 'login-input' })
+	              className: 'login-input' }),
+	            React.createElement(
+	              'label',
+	              { 'for': 'f-name' },
+	              'First name'
+	            )
 	          ),
-	          React.createElement('br', null),
 	          React.createElement(
-	            'label',
-	            null,
-	            ' Last name:',
-	            this.fieldErrors("l_name"),
-	            React.createElement('input', { type: 'text',
+	            'div',
+	            { className: 'input-field' },
+	            React.createElement('input', { id: 'l-name', type: 'text',
 	              value: this.state.l_name,
 	              onChange: this.update("l_name"),
-	              className: 'login-input' })
+	              className: 'login-input' }),
+	            React.createElement(
+	              'label',
+	              { 'for': 'l-name' },
+	              'Last name'
+	            )
 	          ),
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'submit', value: 'Submit' })
+	          React.createElement(
+	            'div',
+	            { className: 'input-field' },
+	            React.createElement('input', { id: 'username', type: 'text',
+	              value: this.state.username,
+	              onChange: this.update("username"),
+	              className: 'login-input' }),
+	            React.createElement(
+	              'label',
+	              { 'for': 'username' },
+	              'Username'
+	            )
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'input-field' },
+	            React.createElement('input', { id: 'password', type: 'password',
+	              value: this.state.password,
+	              onChange: this.update("password"),
+	              className: 'login-input' }),
+	            React.createElement(
+	              'label',
+	              { 'for': 'password' },
+	              'Password'
+	            )
+	          ),
+	          React.createElement(
+	            'button',
+	            { className: 'btn waves-effect waves-light', type: 'submit', name: 'action' },
+	            'Join'
+	          )
 	        )
 	      )
 	    );
@@ -33923,7 +33924,7 @@
 	    this.houseListener = HouseStore.addListener(this.redirectIfHouseCreated);
 	  },
 	  redirectIfHouseCreated: function redirectIfHouseCreated() {
-	    hashHistory.push("/dashboard");
+	    hashHistory.push("/");
 	  },
 	  handleSubmit: function handleSubmit(e) {
 	    e.preventDefault();
@@ -34032,7 +34033,7 @@
 	    if (this.state.join_house === undefined) {
 	      return React.createElement(
 	        'div',
-	        { className: 'center' },
+	        { className: 'movein-items' },
 	        React.createElement(
 	          'a',
 	          { onClick: this.joinHouse, className: 'waves-effect waves-light btn-large' },
@@ -34054,7 +34055,7 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      { className: 'row' },
+	      { className: 'movein-container' },
 	      this.currentComponent()
 	    );
 	  }
@@ -34103,7 +34104,7 @@
 	      { className: 'row' },
 	      React.createElement(
 	        'div',
-	        { className: 'input-field col s4 center' },
+	        { className: 'input-field' },
 	        React.createElement(
 	          'form',
 	          { onSubmit: this.handleSubmit },
@@ -34117,9 +34118,13 @@
 	            'Enter House ID'
 	          ),
 	          React.createElement(
-	            'button',
-	            { className: 'btn waves-effect waves-light', type: 'submit', name: 'action' },
-	            'Join'
+	            'center',
+	            null,
+	            React.createElement(
+	              'button',
+	              { className: 'btn waves-effect waves-light', type: 'submit', name: 'action' },
+	              'Join'
+	            )
 	          )
 	        )
 	      )
@@ -34192,18 +34197,17 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'dashboard-container' },
 	      React.createElement(
 	        'div',
-	        { className: 'row' },
+	        { className: 'dash-top' },
 	        React.createElement(Messages, null),
-	        React.createElement(Events, null)
+	        React.createElement(Bills, null)
 	      ),
 	      React.createElement(
 	        'div',
-	        { className: 'row' },
-	        React.createElement(Lists, null),
-	        React.createElement(Bills, null)
+	        { className: 'dash-bottom' },
+	        React.createElement(Events, null)
 	      )
 	    );
 	  }
@@ -34311,7 +34315,7 @@
 	        return {
 	          v: React.createElement(
 	            'div',
-	            null,
+	            { className: 'list-wrap' },
 	            React.createElement(
 	              Masonry,
 	              {
@@ -34333,7 +34337,7 @@
 	    if (this.state.dashboardView) {
 	      return "col s12 m6";
 	    } else {
-	      return "col s12 m12";
+	      return "col s12 m12 list-container";
 	    }
 	  },
 	  listAction: function listAction() {
@@ -39629,16 +39633,18 @@
 	  },
 	  columnClass: function columnClass() {
 	    if (this.state.dashboardView) {
-	      return "col s12 m6";
+	      return "dashboard-messages";
 	    } else {
-	      return "col s12 m12";
+	      $('.message-container').css('border-left', '3px solid #e0e0e0');
+	      $('.message-container').css('border-right', '3px solid #e0e0e0');
+	      return "full-messages";
 	    }
 	  },
 	  cardContentClass: function cardContentClass() {
 	    if (this.state.dashboardView) {
-	      return "card-content top-row-dash";
+	      return "top-row-dash";
 	    } else {
-	      return "card-content";
+	      return "";
 	    }
 	  },
 	  messageAction: function messageAction() {
@@ -39648,8 +39654,8 @@
 	        { className: 'card-action' },
 	        React.createElement(
 	          Link,
-	          { to: '/messages', activeClassName: 'current' },
-	          'View More Messages'
+	          { to: '/messages', className: 'view-more' },
+	          'View All'
 	        )
 	      );
 	    } else {
@@ -39659,7 +39665,7 @@
 	  render: function render() {
 	    var messageJsx = void 0;
 	    if (this.state.dashboardView) {
-	      messageJsx = this.messageView(MessageStore.getLast(4).reverse());
+	      messageJsx = this.messageView(MessageStore.getLast(5).reverse());
 	    } else {
 	      messageJsx = this.messageView(this.state.messages);
 	    }
@@ -39675,23 +39681,27 @@
 	        }
 	      }
 	    } else {
-	      chatMemberString = "Loading...";
+	      chatMemberString = "Group Chat";
 	    }
+	    chatMemberString = "Chat";
 	    return React.createElement(
 	      'div',
 	      { className: this.columnClass() },
 	      React.createElement(
 	        'div',
-	        { className: 'card grey lighten-4' },
+	        { className: 'message-wrap' },
 	        React.createElement(
 	          'div',
 	          { className: this.cardContentClass() },
 	          React.createElement(
 	            'span',
-	            { className: '' },
-	            chatMemberString
+	            { className: 'chat-header' },
+	            React.createElement(
+	              'strong',
+	              null,
+	              chatMemberString
+	            )
 	          ),
-	          React.createElement('hr', null),
 	          React.createElement(
 	            'section',
 	            { className: 'chat-container' },
@@ -39888,17 +39898,13 @@
 	      { onSubmit: this.handleSubmit },
 	      React.createElement(
 	        'div',
-	        { className: 'login-form' },
-	        React.createElement(
-	          'div',
-	          { className: 'col s12' },
-	          React.createElement('input', { id: 'message-input',
-	            className: 'message-input',
-	            placeholder: 'Type a message...',
-	            type: 'text',
-	            value: this.state.content,
-	            onChange: this.update })
-	        )
+	        { className: 'compose-message-wrap' },
+	        React.createElement('input', { id: 'message-input',
+	          className: 'message-input',
+	          placeholder: 'Type a message...',
+	          type: 'text',
+	          value: this.state.content,
+	          onChange: this.update })
 	      )
 	    );
 	  }
@@ -40040,25 +40046,18 @@
 	      return "";
 	    }
 	  },
-	  cardContentClass: function cardContentClass() {
-	    if (this.state.dashboardView) {
-	      return "card-content top-row-dash";
-	    } else {
-	      return "card-content";
-	    }
-	  },
 	  eventView: function eventView() {
 	    if (this.state.dashboardView) {
 	      return React.createElement(
 	        'div',
 	        null,
 	        React.createElement(
-	          'b',
-	          null,
+	          'span',
+	          { className: 'event-header' },
 	          React.createElement(
-	            'center',
+	            'strong',
 	            null,
-	            'Upcoming Events'
+	            'Events'
 	          )
 	        ),
 	        React.createElement(
@@ -40109,13 +40108,13 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      { className: 'col s12 m6' },
+	      { className: 'events-container' },
 	      React.createElement(
 	        'div',
-	        { className: 'card grey lighten-4' },
+	        { className: 'event-wrap' },
 	        React.createElement(
 	          'div',
-	          { className: this.cardContentClass() },
+	          { className: 'event-view' },
 	          this.eventView()
 	        ),
 	        this.eventAction()
@@ -64406,6 +64405,13 @@
 	    this.houseListener.remove();
 	    this.billListener.remove();
 	  },
+	  componentDidMount: function componentDidMount() {
+	    if (this.props.location && this.props.location.pathname === "/bills") {
+	      $('div.bills').css('width', '100%');
+	      $('div.bills').css('display', 'flex');
+	      $('div.bills').css('justify-content', 'center');
+	    }
+	  },
 	  updateBills: function updateBills() {
 	    this.setState({
 	      allBills: BillStore.all(),
@@ -64451,12 +64457,21 @@
 	        billSum += urgentBills[key].amount;
 	      });
 	      return React.createElement(
-	        'h5',
+	        'div',
 	        null,
-	        'Amount you owe:',
-	        React.createElement('br', null),
-	        ' $',
-	        billSum.toFixed(2)
+	        React.createElement(
+	          'p',
+	          null,
+	          'You have bills that have not yet been paid!'
+	        ),
+	        React.createElement(
+	          'h5',
+	          null,
+	          'Amount you owe:',
+	          React.createElement('br', null),
+	          ' $',
+	          billSum.toFixed(2)
+	        )
 	      );
 	    } else {
 	      return "You've paid all your bills!";
@@ -64561,7 +64576,7 @@
 	        );
 	      });
 	    } else {
-	      return "One second while loading!";
+	      return "";
 	    }
 	  },
 	  dueThisMonthJsx: function dueThisMonthJsx() {
@@ -64599,33 +64614,28 @@
 	        );
 	      });
 	    } else {
-	      return "One second while loading!";
+	      return "";
 	    }
 	  },
 	  billView: function billView() {
 	    if (this.state.dashboardView) {
 	      return React.createElement(
 	        'div',
-	        { className: 'col s12 m6' },
+	        { className: 'dashboard-bills' },
 	        React.createElement(
 	          'div',
-	          { className: 'card grey lighten-4' },
+	          { className: 'bill-wrap' },
 	          React.createElement(
 	            'div',
-	            { className: 'card-content bottom-row-dash' },
+	            { className: 'top-row-dash bills-dash' },
 	            React.createElement(
-	              'b',
-	              null,
-	              React.createElement(
-	                'center',
-	                null,
-	                'Bills'
-	              )
+	              'strong',
+	              { className: 'dashboard-header' },
+	              'Bills'
 	            ),
-	            React.createElement('hr', null),
 	            React.createElement(
 	              'center',
-	              null,
+	              { className: 'dashboard-amount-due' },
 	              this.urgentBillsAmount()
 	            )
 	          ),
@@ -64635,7 +64645,7 @@
 	            React.createElement(
 	              Link,
 	              { to: '/bills', activeClassName: 'current' },
-	              'View More Bills'
+	              'View All'
 	            )
 	          )
 	        )
@@ -64643,7 +64653,7 @@
 	    } else {
 	      return React.createElement(
 	        'div',
-	        { className: 'col s12 m8' },
+	        { className: '' },
 	        React.createElement(
 	          'div',
 	          { className: 'bill-view-container' },
@@ -64658,7 +64668,7 @@
 	          { className: 'card grey lighten-4' },
 	          React.createElement(
 	            'div',
-	            { className: 'card-content' },
+	            { className: 'card-content bill-content' },
 	            React.createElement(
 	              'center',
 	              null,
@@ -64771,7 +64781,7 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'bills' },
 	      this.billView()
 	    );
 	  }
